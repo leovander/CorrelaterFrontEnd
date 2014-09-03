@@ -12,7 +12,7 @@ Professor Mike Boctor
   - Developer
 - Joaquin Gonzalez [Email](mailto:joaquingonz.7@gmail.com)
   - Anroid Developer
-- Nicholas Kwong [Email](mailto:)
+- Nicholas Kwong [Email](mailto:nmkwong@gmail.com)
   - iOS Developer
 - Israel Torres [Email](mailto:itorres1490@gmail.com)
   - SCRUM Master

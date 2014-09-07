@@ -16,6 +16,8 @@ Professor Mike Boctor
     - [Cordova Notification Plugin](http://plugins.cordova.io/#/package/org.apache.cordova.dialogs)
     - [Cordova Splashscreen Plugin](http://plugins.cordova.io/#/package/org.apache.cordova.splashscreen)
     - [Cordova Vibration Plugin](http://plugins.cordova.io/#/package/org.apache.cordova.vibration)
+- [JQuery](http://jquery.com/) for easier DOM manipulation
+  - As well as [JQuery Mobile](http://jquerymobile.com/) for targeting mobile devices
 
 ##Team Members
 - Alex Bu [Email](mailto:atb91590@yahoo.com)

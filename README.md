@@ -32,6 +32,6 @@ Professor Mike Boctor
 - Israel Torres [Email](mailto:itorres1490@gmail.com)
   - SCRUM Master
 - Gyngai Ung [Email](mailto:gyngaiu@gmail.com)
-  - Developer
+  - Developer (Android)
 - Brandon Whitney [Email](mailto:brandontwhitney@gmail.com)
   - Unity Developer

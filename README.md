@@ -1,9 +1,14 @@
-#Correlate
+#Correlater
 CECS 491A: Senior Project
 
 California State University, Long Beach
 
 Professor Mike Boctor
+
+##Tools
+- [Cordova](http://cordova.apache.org/)
+  - Platform for building native mobile applications using HTML,
+  CSS and Javascript
 
 ##Team Members
 - Alex Bu [Email](mailto:atb91590@yahoo.com)

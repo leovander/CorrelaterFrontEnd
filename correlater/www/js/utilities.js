@@ -2,6 +2,7 @@ $(function() {
   document.addEventListener("deviceready", function onDeviceReady() {
     checkConnection();
     checkDevice();
+    window.addEventListener("batterystatus", onBatteryStatus, false);
   });
 });
 
@@ -27,4 +28,8 @@ function checkDevice() {
   var version = device.version;
 
   $("#device").html(platform + " " + version);
+}
+
+function onBatteryStatus(info) {
+  $("#battery").html("Level: " + info.level + " isPlugged: " + info.isPlugged);
 }

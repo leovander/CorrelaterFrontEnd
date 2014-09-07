@@ -12,6 +12,10 @@ Professor Mike Boctor
   - Plugins Used:
     - [Cordova Device Plugin](http://plugins.cordova.io/#/package/org.apache.cordova.device)
     - [Cordova Network Information Plugin](http://plugins.cordova.io/#/package/org.apache.cordova.network-information)
+    - [Cordova Contacts Plugin](http://plugins.cordova.io/#/package/org.apache.cordova.contacts)
+    - [Cordova Notification Plugin](http://plugins.cordova.io/#/package/org.apache.cordova.dialogs)
+    - [Cordova Splashscreen Plugin](http://plugins.cordova.io/#/package/org.apache.cordova.splashscreen)
+    - [Cordova Vibration Plugin](http://plugins.cordova.io/#/package/org.apache.cordova.vibration)
 
 ##Team Members
 - Alex Bu [Email](mailto:atb91590@yahoo.com)

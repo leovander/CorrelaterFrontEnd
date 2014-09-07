@@ -9,6 +9,9 @@ Professor Mike Boctor
 - [Cordova](http://cordova.apache.org/)
   - Platform for building native mobile applications using HTML,
   CSS and Javascript
+  - Plugins Used:
+    - [Cordova Device Plugin](http://plugins.cordova.io/#/package/org.apache.cordova.device)
+    - [Cordova Network Information Plugin](http://plugins.cordova.io/#/package/org.apache.cordova.network-information)
 
 ##Team Members
 - Alex Bu [Email](mailto:atb91590@yahoo.com)

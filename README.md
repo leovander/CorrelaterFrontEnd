@@ -6,9 +6,7 @@ California State University, Long Beach
 Professor Mike Boctor
 
 ##Tools
-- [Cordova](http://cordova.apache.org/)
-  - Platform for building native mobile applications using HTML,
-  CSS and Javascript
+- [Cordova](http://cordova.apache.org/)builds native mobile applications using HTML, CSS and Javascript
   - Plugins Used:
     - [Cordova Device Plugin](http://plugins.cordova.io/#/package/org.apache.cordova.device)
     - [Cordova Network Information Plugin](http://plugins.cordova.io/#/package/org.apache.cordova.network-information)
@@ -17,6 +15,7 @@ Professor Mike Boctor
     - [Cordova Splashscreen Plugin](http://plugins.cordova.io/#/package/org.apache.cordova.splashscreen)
     - [Cordova Vibration Plugin](http://plugins.cordova.io/#/package/org.apache.cordova.vibration)
     - [Cordova Battery Plugin](http://plugins.cordova.io/#/package/org.apache.cordova.battery-status)
+- [Laravel](http://laravel.com/) for the backend API layer
 - [JQuery](http://jquery.com/) for easier DOM manipulation
   - As well as [JQuery Mobile](http://jquerymobile.com/) for targeting mobile devices
 

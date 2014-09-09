@@ -15,6 +15,7 @@ Professor Mike Boctor
     - [Cordova Splashscreen Plugin](http://plugins.cordova.io/#/package/org.apache.cordova.splashscreen)
     - [Cordova Vibration Plugin](http://plugins.cordova.io/#/package/org.apache.cordova.vibration)
     - [Cordova Battery Plugin](http://plugins.cordova.io/#/package/org.apache.cordova.battery-status)
+    - [Calendar Plugin](https://github.com/EddyVerbruggen/Calendar-PhoneGap-Plugin.git)
 - [Laravel](http://laravel.com/) for the backend API layer
 - [JQuery](http://jquery.com/) for easier DOM manipulation
   - As well as [JQuery Mobile](http://jquerymobile.com/) for targeting mobile devices

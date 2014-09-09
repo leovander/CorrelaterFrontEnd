@@ -33,4 +33,4 @@ Professor Mike Boctor
 - Gyngai Ung [Email](mailto:gyngaiu@gmail.com)
   - Developer
 - Brandon Whitney [Email](mailto:brandontwhitney@gmail.com)
-  - Unity Developer
+  - Unity Developer 

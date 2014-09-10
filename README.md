@@ -15,6 +15,7 @@ Professor Mike Boctor
     - [Cordova Splashscreen Plugin](http://plugins.cordova.io/#/package/org.apache.cordova.splashscreen)
     - [Cordova Vibration Plugin](http://plugins.cordova.io/#/package/org.apache.cordova.vibration)
     - [Cordova Battery Plugin](http://plugins.cordova.io/#/package/org.apache.cordova.battery-status)
+    - [](https://github.com/phonegap-build/PushPlugin)
 - [Laravel](http://laravel.com/) for the backend API layer
 - [JQuery](http://jquery.com/) for easier DOM manipulation
   - As well as [JQuery Mobile](http://jquerymobile.com/) for targeting mobile devices
@@ -33,4 +34,4 @@ Professor Mike Boctor
 - Gyngai Ung [Email](mailto:gyngaiu@gmail.com)
   - Developer
 - Brandon Whitney [Email](mailto:brandontwhitney@gmail.com)
-  - Unity Developer 
+  - Unity Developer

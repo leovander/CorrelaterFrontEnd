@@ -1,0 +1,3 @@
+Google Login requires the inappbrowser plugin:
+
+cordova plugin add org.apache.cordova.inappbrowser

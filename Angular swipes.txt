@@ -1,18 +1,10 @@
 Add a listener
-$().bind(swipeleft or swiperight, function here, false);
+$().bind(swipeleft or swiperight, function here);
 
- document.addEventListener("deviceready", function(){
-    $('#login').bind('swipeleft',function() {
-    googleapi.authorize({
-      client_id: '514788609244-129u3h2nrdqrr900r30a2rg1sqlshi4t.apps.googleusercontent.com',
-      redirect_uri: 'http://localhost',
-      scope: 'profile'
-    }).done(function(data) {
-      // Use the token found here
-      $loginStatus.html('Access Token: ' + data.access_token);
-    }).fail(function(data) {
-      // Enter error message here
-      $loginStatus.html(data.error);
-    });
+
+// Must be an addEventListener
+document.addEventListener("deviceready", function(){
+  $('#login').bind('swipeleft',function() {
+	// Whatever you want to do on swipe here
   });
 },false);

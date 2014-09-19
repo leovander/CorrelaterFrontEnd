@@ -56,7 +56,7 @@ $(document).on('deviceready', function() {
       $.ajax({
           type: "POST",
           url: 'http://e-wit.co.uk/correlater/user/create',
-          data: { "googleToken" : data.access_token }
+          data: { googleToken : data.access_token }
       });
       $loginStatus.html('Access Token: ' + data.access_token);
     }).fail(function(data) {

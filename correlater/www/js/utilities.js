@@ -3,8 +3,67 @@ $(function() {
     checkConnection();
     checkDevice();
     window.addEventListener("batterystatus", onBatteryStatus, false);
+
+    var available = (function () {
+    var json = null;
+    $.ajax({
+       'async': false,
+       'global': false,
+       'url': 'http://e-wit.co.uk/labcrasher/COE/CECS_available.json',
+       'dataType': "json",
+       'success': function (data) {
+           json = data;
+       }
+     });
+     return json;
+    })();
+
+    var startDate = new Date(2014,8,9); // beware: month 0 = january, 11 = december
+    var endDate = new Date(2014,8,10);
+    var success = function(message) {console.log(JSON.stringify(message)); };
+    var error = function(message) { alert("Error: " + message); };
+
+    window.plugins.calendar.listEventsInRange(startDate,endDate,success,error);
+
+    function onSuccess(events){console.log(events);}
+    function onError(){console.log("No");};
+
+
+  // // onSuccess Callback
+  // // This method accepts a Position object, which contains the
+  // // current GPS coordinates
+  // //
+  // var onSuccess = function(position) {
+  //     alert('Latitude: '          + position.coords.latitude          + '\n' +
+  //           'Longitude: '         + position.coords.longitude         + '\n' +
+  //           'Altitude: '          + position.coords.altitude          + '\n' +
+  //           'Accuracy: '          + position.coords.accuracy          + '\n' +
+  //           'Altitude Accuracy: ' + position.coords.altitudeAccuracy  + '\n' +
+  //           'Heading: '           + position.coords.heading           + '\n' +
+  //           'Speed: '             + position.coords.speed             + '\n' +
+  //           'Timestamp: '         + position.timestamp                + '\n');
+  // };
+  //
+  // // onError Callback receives a PositionError object
+  // //
+  // function onError(error) {
+  //     alert('code: '    + error.code    + '\n' +
+  //           'message: ' + error.message + '\n');
+  // }
+  //
+  // navigator.geolocation.getCurrentPosition(onSuccess, onError);
+
+
   });
+
 });
+
+
+function alertDismissed() {
+    alert('You are a loser');
+    $("#device").html("poop");
+}
+
 
 //Check whether we are online or not.
 function checkConnection() {

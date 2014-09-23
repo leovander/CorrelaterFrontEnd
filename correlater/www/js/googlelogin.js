@@ -58,7 +58,36 @@ $(document).on('deviceready', function() {
     }).done(function(data) {
       $.ajax({
           type: "POST",
+          //url - function in php (add route)
           url: 'http://e-wit.co.uk/correlater/google/createWithGoogleAccount',
+          //$_POST, try pr on _$post
+          data: { google_access_token : data.access_token,
+                  google_refresh_token : data.refresh_token,
+                  google_id_token : data.id_token,
+                  google_code : data.code
+          }
+      });
+      loginStatus.html('Access Token: ' + data.access_token);
+      window.open("calendar.html");
+      console.log(data);
+    }).fail(function(data) {
+      loginStatus.html(data.error);
+    });
+  });
+
+
+  $('#calendar a').on('click',function() {
+    //alert("Success");
+    googleapi.authorize({
+      client_id: '514788609244-129u3h2nrdqrr900r30a2rg1sqlshi4t.apps.googleusercontent.com',
+      redirect_uri: 'http://localhost',
+      scope: 'https://www.googleapis.com/auth/calendar'
+    }).done(function(data) {
+      $.ajax({
+          type: "POST",
+          //url - function in php (add route)
+          url: 'http://e-wit.co.uk/correlater/google/pullCalendar',
+          //$_POST, try pr on _$post
           data: { google_access_token : data.access_token,
                   google_refresh_token : data.refresh_token,
                   google_id_token : data.id_token,
@@ -71,4 +100,23 @@ $(document).on('deviceready', function() {
       loginStatus.html(data.error);
     });
   });
+
+
 });
+
+
+
+// $(document).on('deviceready', function() {
+//   var 
+// });
+
+// GET https://www.googleapis.com/calendar/v3/users/me/calendarList?key={YOUR_API_KEY}
+
+
+// https://accounts.google.com/o/oauth2/auth?
+//   redirect_uri=https%3A%2F%2Fdevelopers.google.com%2Foauthplayground&
+//   response_type=code&client_id=407408718192.apps.googleusercontent.com&
+//   scope=https%3A%2F%2Fwww.googleapis.com%2Fauth%2Fcalendar+https%3A%2F%2Fwww.googleapis.com%2Fauth%2Fcalendar.readonly&approval_prompt=force&
+//   access_type=offline
+
+

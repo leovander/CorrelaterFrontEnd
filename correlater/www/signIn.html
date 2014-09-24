@@ -4,12 +4,12 @@
     <title>Correlater</title>
     <meta charset="utf-8" />
     <meta name="format-detection" content="telephone=no" />
-    <!-- WARNING: for iOS 7, remove the width=device-width and height=device-height attributes. See https://issues.apache.org/jira/browse/CB-4323 -->
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet" type="text/css" href="css/global.css" />
     <meta name="msapplication-tap-highlight" content="no" />
+
     <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet" type="text/css">
     <link rel="stylesheet" href="js/jquery.mobile-1.4.3/jquery.mobile-1.4.3.min.css">
+
     <script type="text/javascript" charset="utf-8" src="cordova.js"></script>
     <script type="text/javascript" charset="utf-8" src="js/jquery/jquery-2.1.1.min.js"></script>
     <script type="text/javascript" charset="utf-8" src="js/jquery.mobile-1.4.3/jquery.mobile-1.4.3.min.js"></script>
@@ -23,17 +23,19 @@
             <h1 id="title">Sign In</h1>
         </div><!-- /header -->
         <div data-role="content">
+
             <form method="post" id="login">
                 <label for="email">E-mail:</label>
-                <input type="text" name="email" id="email" value="">
+                <input type="email" name="email" id="email" value="">
                 <label for="password">Password:</label>
                 <input type="password" name="password" id="password" value="" autocomplete="off">
-                <div>
-                    <a id="forgotPW">Forget your password?</a>
-                </div>
                 <input type="submit" name="submit" value="Submit">
             </form>
+            <div>
+                <a id="forgotPW">Forget your password?</a>
+            </div>
             <p id="feedBack"></p>
+
         </div>
     </div>
 </body>

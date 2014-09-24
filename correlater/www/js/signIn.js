@@ -7,6 +7,7 @@ $(document).on('deviceready', function(){
 			data: $(this).serialize()}
 		).done(function(data){
 			$('#feedBack').html(data.message);
+    		window.location='main.html';
 		});
 		return false;
 	});

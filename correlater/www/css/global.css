@@ -115,6 +115,7 @@ h1 {
 
 /*Media Query*/
 #navBar {
+    padding-top: 1%;
 	background-color: blue;
     border-bottom: lightblue;
 }
@@ -124,14 +125,8 @@ h1 {
     font-size: large;
 }
 
-#back {
-    margin-top: 1%;
-}
-
 .navItem {
-	padding: 1% 3%;
-	margin: 1% 3%;
-    display: inline-block;
+    border-radius: 15px;
 }
 
 #feedBack {
@@ -142,4 +137,8 @@ h1 {
     font-size: x-small;
     color: red;
     text-align: right;
+}
+
+#invite {
+    display: none;
 }

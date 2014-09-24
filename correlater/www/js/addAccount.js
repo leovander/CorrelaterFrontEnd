@@ -71,6 +71,7 @@ $(document).on('deviceready', function() {
       });
       $loginStatus.html('Login Successful!');
       $loginStatus.css('color','green');
+      window.location='main.html';
       //$loginStatus.html('Access Token: ' + data.access_token);
     }).fail(function(data) {
       $loginStatus.html('Login Failed :(');

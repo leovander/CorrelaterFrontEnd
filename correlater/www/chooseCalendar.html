@@ -16,13 +16,19 @@
     <script type="text/javascript" charset="utf-8" src="js/googlelogin.js"></script>
 </head>
 <body>
-    <div data-role="page">
+        <div data-role="page">
         <div id="navBar" data-role="header" style="overflow:hidden;">
             <a id="back" data-rel="back" class="ui-btn-left">&lt;</a>
-            <h1 id="title">Pull Calendar</h1>
+            <h1 id="title">Choose Calendars</h1>
         </div><!-- /header -->
         <div data-role="content">
-            <button>Pull Calendar!</button>
+            <form method="post" id="chooseCal">
+                <label><input type="checkbox" name="first">Work</label>
+                <label><input type="checkbox" name="second">Personal</label>
+                <label><input type="checkbox" name="third">School</label>
+                <label><input type="submit" name="submit" value="Import"></label>
+            </form>
+            <p id="feedBack"></p>
         </div>
     </div>
 </body>

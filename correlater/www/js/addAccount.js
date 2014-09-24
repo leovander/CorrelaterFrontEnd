@@ -50,8 +50,8 @@ $(document).on('deviceready', function() {
   var $nativeCreate = $('#nativeCreate');
 
   $nativeCreate.on('click', function(){
-    $.mobile.changePage( "nativeCreate.html", { transition: "flip", changeHash: true });
-    // window.location='nativeCreate.html';
+    // $.mobile.changePage( "nativeCreate.html", { transition: "flip", changeHash: true });
+    window.location='nativeCreate.html';
   });
 
   $loginButton.on('click', function() {
@@ -71,6 +71,7 @@ $(document).on('deviceready', function() {
       });
       $loginStatus.html('Login Successful!');
       $loginStatus.css('color','green');
+      window.location='main.html';
       //$loginStatus.html('Access Token: ' + data.access_token);
     }).fail(function(data) {
       $loginStatus.html('Login Failed :(');

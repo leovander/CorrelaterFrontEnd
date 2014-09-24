@@ -6,7 +6,7 @@ $(document).on('deviceready', function(){
 
 	});
 	$friends.on('click', function(){
-
+    window.location='invite.html';
 	});
 });
 

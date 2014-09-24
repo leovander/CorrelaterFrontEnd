@@ -12,7 +12,7 @@ $(document).on('deviceready', function() {
   });
 
   $signIn.on('click', function(){
-    $.mobile.changePage( "signIn.html", { transition: "pop", changeHash: true });
-    // window.location='signIn.html';
+    // $.mobile.changePage( "signIn.html", { transition: "pop", changeHash: true });
+    window.location='signIn.html';
   });
 });

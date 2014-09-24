@@ -1,6 +1,5 @@
 $(document).on('deviceready', function(){
 	$('#login').submit(function (event){
-		event.preventDefault();
 		$.ajax({
 			type: "POST",
 			url: "http://e-wit.co.uk/correlater/user/login",
@@ -9,5 +8,6 @@ $(document).on('deviceready', function(){
 		).done(function(data){
 			$('#feedBack').html(data.message);
 		});
+		return false;
 	});
 });

@@ -50,8 +50,8 @@ $(document).on('deviceready', function() {
   var $nativeCreate = $('#nativeCreate');
 
   $nativeCreate.on('click', function(){
-    $.mobile.changePage( "nativeCreate.html", { transition: "flip", changeHash: true });
-    // window.location='nativeCreate.html';
+    // $.mobile.changePage( "nativeCreate.html", { transition: "flip", changeHash: true });
+    window.location='nativeCreate.html';
   });
 
   $loginButton.on('click', function() {

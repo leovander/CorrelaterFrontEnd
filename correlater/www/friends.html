@@ -9,28 +9,30 @@
 
     <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet" type="text/css">
     <link rel="stylesheet" href="js/jquery.mobile-1.4.3/jquery.mobile-1.4.3.min.css">
-    <link rel="stylesheet" type="text/css" href="css/start.css" />
+    <link rel="stylesheet" type="text/css" href="css/global.css">
 
     <script type="text/javascript" charset="utf-8" src="cordova.js"></script>
     <script type="text/javascript" charset="utf-8" src="js/jquery/jquery-2.1.1.min.js"></script>
     <script type="text/javascript" charset="utf-8" src="js/jquery.mobile-1.4.3/jquery.mobile-1.4.3.min.js"></script>
     <script type="text/javascript" charset="utf-8" src="js/angular.js"></script>
-    <script type="text/javascript" charset="utf-8" src="js/start.js"></script>
 </head>
 <body>
     <div data-role="page">
+        <div id="navBar" data-role="header" style="overflow:hidden;">
+            <a href="#" id="menu" class="navItem ui-btn ui-icon-bars ui-btn-icon-notext ui-corner-all"></a>
+            <h1 id="title">Friends</h1>
+            <a href="#" id="friends" class="navItem ui-btn ui-icon-user ui-btn-icon-notext ui-corner-all"></a>
+        </div>
         <div data-role="content">
-            <div id="logo">
-                <img src="img/logo.png"/>
+            <div data-role="collapsible" data-inset="false">
+            <h2 id="requestDivider">Requests<span class="ui-li-count">0</span></h2>
+                <ul data-role="listview" id="requests"></ul>
             </div>
-            <button id="addAccButton" class="ui-btn ui-corner-all ui-btn ui-shadow">
-                Add Account
-            </button>
 
-            <button id="signIn" class="ui-btn ui-corner-all ui-btn ui-shadow">
-                Sign In
-            </button>
-            <p id="feedBack"></p>
+            <div data-role="collapsible" data-collapsed="false" data-inset="false">
+            <h2 id="friendDivider">Friends<span class="ui-li-count">0</span></h2>
+                <ul data-role="listview" id="friendsList"></ul>
+            </div>
         </div>
     </div>
 </body>

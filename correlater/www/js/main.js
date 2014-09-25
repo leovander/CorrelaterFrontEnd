@@ -1,22 +1,14 @@
-$(document).on('deviceready', function(){
-	var $menu = $('#menu');
-	var $friends = $('#friends');
-	
-	$menu.on('click', function(){
-
-	});
-	$friends.on('click', function(){
-    window.location='invite.html';
-	});
+$( document ).on( "pagecreate", "#main", function() {
+    $( document ).on( "swipeleft swiperight", "#main", function( e ) {
+        // We check if there is no open panel on the page because otherwise
+        // a swipe to close the left panel would also open the right panel (and v.v.).
+        // We do this by checking the data that the framework stores on the page element (panel: open).
+        if ( $( ".ui-page-active" ).jqmData( "panel" ) !== "open" ) {
+            if ( e.type === "swipeleft" ) {
+                $( "#rightPanel" ).panel( "open" );
+            } else if ( e.type === "swiperight" ) {
+                $( "#leftPanel" ).panel( "open" );
+            }
+        }
+    });
 });
-
-document.addEventListener('deviceready', function(){
-  $('body').bind('swipeleft',function(){
-    // Add change to friend list here
-    alert('Friend List');
-  });
-  $('body').bind('swiperight',function(){
-    // Add change to menu here
-    alert('Menu');
-  });
-},false);

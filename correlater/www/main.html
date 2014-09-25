@@ -7,6 +7,7 @@
     <!-- WARNING: for iOS 7, remove the width=device-width and height=device-height attributes. See https://issues.apache.org/jira/browse/CB-4323 -->
     <meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width, height=device-height, target-densitydpi=device-dpi" />
     <link rel="stylesheet" type="text/css" href="css/global.css" />
+    <link rel="stylesheet" type="text/css" href="css/main.css" />
     <meta name="msapplication-tap-highlight" content="no" />
     <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet" type="text/css">
     <link rel="stylesheet" href="js/jquery.mobile-1.4.3/jquery.mobile-1.4.3.min.css">
@@ -14,21 +15,64 @@
     <script type="text/javascript" charset="utf-8" src="js/jquery/jquery-2.1.1.min.js"></script>
     <script type="text/javascript" charset="utf-8" src="js/jquery.mobile-1.4.3/jquery.mobile-1.4.3.min.js"></script>
     <script type="text/javascript" charset="utf-8" src="js/angular.js"></script>
-    <script type="text/javascript" charset="utf-8" src="js/utilities.js"></script>
     <script type="text/javascript" charset="utf-8" src="js/main.js"></script>
 </head>
 <body>
-    <div data-role="page">
-        <div id="navBar" data-role="header" style="overflow:hidden;">
-            <button id="menu" class="navItem ui-btn-top ui-btn-icon-notext ui-btn ui-icon-bars"></button>
+    <div data-role="page" id="main" data-url="demo-page">
+        <div  id="navBar" data-role="header" style="overflow:hidden;">
             <h1 id="title">imFree</h1>
-            <button id="friends" class="navItem ui-btn-top ui-btn-icon-notext ui-btn ui-icon-user"></button>
+            <a href="#leftPanel" id="menu" class="navItem ui-btn ui-icon-bars ui-btn-icon-notext">Menu</a>
+            <a href="#rightPanel" id="friends" class="navItem ui-btn ui-icon-user ui-btn-icon-notext">Friends</a>
         </div><!-- /header -->
-        <div data-role="content">
-            <div id="container">
-                MAIN SCREEN
+        <div id="centerPanel" role="main" class="ui-content jqm-content jqm-fullwidth">
+            <div data-role="content">
+                <div id="container">
+                    MAIN SCREEN
+                </div>
             </div>
-        </div>
+        </div><!-- /content -->
+        <div data-role="panel" id="leftPanel">
+            <ul data-role="listview">
+                <li data-icon="delete"><a id="menuTitle" href="#" data-rel="close">Menu</a></li>
+                <li><a href="#panel-responsive-page2">Profile</a></li>
+                <li><a href="#panel-responsive-page2">Weekly Schedule</a></li>
+                <li><a href="#panel-responsive-page2">Add Busy Time</a></li>
+                <li><a href="#panel-responsive-page2">Add Friends</a></li>
+                <li><a href="#panel-responsive-page2">Accounts</a></li>
+                <li><a href="#panel-responsive-page2">Help</a></li>
+                <li><a href="#panel-responsive-page2">Settings</a></li>
+                <li><a href="#panel-responsive-page2">Log Out</a></li>
+            </ul>
+        </div><!-- /panel -->
+        <div data-role="panel" id="rightPanel" data-position="right">
+            <div id="friendsList">
+                <div id="friendSearch">
+                    <form>
+                        <input data-type="search" id="divOfPs-input">
+                    </form>
+                </div>
+                <div class="elements" data-filter="true" data-input="#divOfPs-input">
+                    <div class="friendTile">
+                        Mary Jane
+                    </div>
+                    <div class="friendTile">
+                        Uncle Ben
+                    </div>
+                    <div class="friendTile">
+                        Auntie May
+                    </div>
+                    <div class="friendTile">
+                        Doctor Octopus
+                    </div>
+                    <div class="friendTile">
+                        Venom
+                    </div>
+                    <div class="friendTile">
+                        Green Goblin
+                    </div>
+                </div>
+            </div>
+        </div><!-- /panel -->
     </div>
 </body>
 </html>

@@ -37,6 +37,7 @@ document.addEventListener('deviceready', function(){
 },false);
 
 function openFriends(){
+    getRequests();
     $( "#rightPanel" ).panel( "open" );
 }
 

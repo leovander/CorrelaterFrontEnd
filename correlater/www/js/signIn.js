@@ -6,8 +6,11 @@ $(document).on('deviceready', function(){
 			dataType: 'json',
 			data: $(this).serialize()}
 		).done(function(data){
+			if (data.message == 'Logged In'){
+				$('#feedBack').html(data.message);
+    			window.location='main.html';
+			}
 			$('#feedBack').html(data.message);
-    		window.location='main.html';
 		});
 		return false;
 	});

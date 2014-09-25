@@ -48,7 +48,6 @@ function acceptFriend(id) {
 }
 
 function getRequests() {
-	$('#requests').html('');
 	$.ajax({
 		url: "http://e-wit.co.uk/correlater/user/getRequests",
 		dataType: 'json'}

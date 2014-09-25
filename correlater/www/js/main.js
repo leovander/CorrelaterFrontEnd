@@ -2,10 +2,10 @@ $(document).on('deviceready', function(){
 	var $menu = $('#menu');
 	var $friends = $('#friends');
 
-	$menu.on('click', function(){
-
+	$menu.on('click', function() {
+		window.location='friends.html';
 	});
-	$friends.on('click', function(){
+	$friends.on('click', function() {
     window.location='invite.html';
 	});
 

@@ -58,7 +58,7 @@ $(document).on('deviceready', function(){
 														'</li>');
 					}
 					$('ul').listview("refresh");
-					$('ul li a').removeClass('ui-icon-plus ui-btn-icon-right').addClass('recieved');
+					$('ul li a').removeClass('ui-icon-plus ui-btn-icon-right').addClass('received');
 				});
 			}
 		});
@@ -83,7 +83,7 @@ function addFriend(id) {
 	).done(function(data) {
 		if(data.message == 'Request Sent') {
 			$('ul li').removeClass('request');
-			$('ul a').addClass('recieved').removeClass('ui-icon-plus ui-btn-icon-right');
+			$('ul a').addClass('received').removeClass('ui-icon-plus ui-btn-icon-right');
 		} else {
 			$('ul a').addClass('failed');
 		}
@@ -100,7 +100,7 @@ function inviteFriend(friendEmail) {
 	}).done(function(data) {
 		if(data.message == 'Sent') {
 			$('ul li').removeClass('invitation');
-			$('ul a').addClass('recieved').removeClass('ui-icon-plus ui-btn-icon-right');
+			$('ul a').addClass('received').removeClass('ui-icon-plus ui-btn-icon-right');
 		} else {
 			$('ul a').addClass('failed');
 		}

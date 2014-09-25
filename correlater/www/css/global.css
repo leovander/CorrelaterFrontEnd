@@ -1,11 +1,11 @@
 /*List View Status Coloring*/
-.recieved {
+.received {
   background-color: #5cb85c !important;
   text-shadow: none !important;
   color: white !important;
 }
 
-.recieved:hover {
+.received:hover {
   background: #4cae4c !important;
 }
 

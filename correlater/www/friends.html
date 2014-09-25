@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>I'm Free</title>
+    <meta charset="utf-8" />
+    <meta name="format-detection" content="telephone=no" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="msapplication-tap-highlight" content="no" />
+
+    <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet" type="text/css">
+    <link rel="stylesheet" href="js/jquery.mobile-1.4.3/jquery.mobile-1.4.3.min.css">
+    <link rel="stylesheet" type="text/css" href="css/global.css">
+
+    <script type="text/javascript" charset="utf-8" src="cordova.js"></script>
+    <script type="text/javascript" charset="utf-8" src="js/jquery/jquery-2.1.1.min.js"></script>
+    <script type="text/javascript" charset="utf-8" src="js/jquery.mobile-1.4.3/jquery.mobile-1.4.3.min.js"></script>
+    <script type="text/javascript" charset="utf-8" src="js/angular.js"></script>
+    <script type="text/javascript" charset="utf-8" src="js/requests.js"></script>
+</head>
+<body>
+    <div data-role="page">
+        <div id="navBar" data-role="header" style="overflow:hidden;">
+            <a href="#" id="menu" class="navItem ui-btn ui-icon-bars ui-btn-icon-notext ui-corner-all"></a>
+            <h1 id="title">Requests</h1>
+            <a href="#" id="friends" class="navItem ui-btn ui-icon-user ui-btn-icon-notext ui-corner-all"></a>
+        </div>
+        <div data-role="content">
+          <ul data-role="listview" data-inset="true" data-icon="false" data-divider-theme="a">
+              <li data-role="list-divider" id="requestDivider">Requests<span class="ui-li-count">0</span></li>
+              <li data-role="list-divider" id="friendDivider">Friends<span class="ui-li-count">2</span></li>
+              <li><a href="#">Alex B.</a></li>
+              <li><a href="#">Nick G.</a></li>
+          </ul>
+        </div>
+    </div>
+</body>
+</html>

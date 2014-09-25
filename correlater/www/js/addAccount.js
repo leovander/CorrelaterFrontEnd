@@ -59,6 +59,7 @@ $(document).on('deviceready', function() {
       client_id: '514788609244-129u3h2nrdqrr900r30a2rg1sqlshi4t.apps.googleusercontent.com',
       redirect_uri: 'http://localhost',
       scope: 'profile email'
+      //scope: 'profile email https://www.googleapis.com/auth/calendar.readonly'
       //https://www.googleapis.com/auth/plus.login
     }).done(function(data) {
       $.ajax({

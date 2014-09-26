@@ -7,8 +7,7 @@ $(document).on('deviceready', function(){
 			dataType: 'json',
 			data: $(this).serialize()}
 		).done(function(data){
-			alert('test');
-			if(data.message == 'User Not Found') {
+				if(data.message == 'User Not Found') {
 				if($('ul').children().length == 1) {
 					$('ul').fadeOut(function() {
 						$('ul').html('');

@@ -8,14 +8,15 @@ $(document).on('deviceready', function(){
 				window.location='start.html';
 		});
 	});
-    var requests;
-    var friends;
-    $('ul').on('click', 'li', function() {
-        if($(this).hasClass("pendingRequest")) {
-            acceptFriend($(this).attr('id'));
-            $('#friendsList').listview('refresh');
-        }
-    });
+
+	var requests;
+  var friends;
+  $('ul').on('click', 'li', function() {
+      if($(this).hasClass("pendingRequest")) {
+        acceptFriend($(this).attr('id'));
+        $('#friendsList').listview('refresh');
+      }
+  });
 
 
     // $('#rightPanel').panel({beforeopen: function(){
@@ -27,7 +28,7 @@ $(document).on('deviceready', function(){
 document.addEventListener('deviceready', function(){
   $('body').bind('swipeleft',function(){
     // Add change to friend list here
-    getRequests();
+    //getRequests();
     openFriends();
   });
   $('body').bind('swiperight',function(){

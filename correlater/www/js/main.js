@@ -46,6 +46,9 @@ function openMenu(){
     $( "#leftPanel" ).panel( "open" );
 }
 
+function openInvite() {
+	window.location = 'invite.html';
+}
 
 // Friend stuff//
 function acceptFriend(id) {

@@ -1,5 +1,6 @@
 $(document).on('deviceready', function(){
 	$('#search').submit(function (event){
+		event.preventDefault();
 		$.ajax({
 			type: "POST",
 			url: "http://e-wit.co.uk/correlater/user/checkUserExists",

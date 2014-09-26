@@ -27,7 +27,6 @@ $(document).on('deviceready', function(){
 document.addEventListener('deviceready', function(){
   $('body').bind('swipeleft',function(){
     // Add change to friend list here
-    getRequests();
     openFriends();
   });
   $('body').bind('swiperight',function(){
@@ -118,4 +117,8 @@ function fillFriends(element, index, array) {
     $('#friendsList').append('<li id="' + element.id + '">' +
     '<a href="#">' + element.first_name + ' ' + element.last_name.substring(0,1).toUpperCase() + '</a>' +
                                                         '</li>');
+}
+
+function invite(){
+    window.location='invite.html';
 }

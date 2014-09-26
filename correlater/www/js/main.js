@@ -19,11 +19,26 @@ $(document).on('deviceready', function(){
   });
 
 
-    // $('#rightPanel').panel({beforeopen: function(){
-    //     getFriends();
-    //     getRequests();
-    // }});
+  getFriendsNow();
 });
+
+function getFriendsNow() {
+		$.ajax({
+				url: "http://e-wit.co.uk/correlater/user/getFriendsNow",
+				dataType: 'json'}
+		).done(function(data){
+				var friendsNow = $.makeArray(data.friends);
+				friendsNow.forEach(fillFriendsNow);
+				$('#friendsNow').listview('refresh');
+				$('#friendsNow li a').addClass('received').removeClass('ui-icon-right ui-icon-carat-r ui-btn');
+		});
+}
+
+function fillFriendsNow(element, index, array) {
+		$('#friendsNow').append('<li id="' + element.id + '">' +
+		'<a href="#">' + element.first_name + ' ' + element.last_name.substring(0,1).toUpperCase() + '</a>' +
+																												'</li>');
+}
 
 document.addEventListener('deviceready', function(){
   $('body').bind('swipeleft',function(){

@@ -22,6 +22,11 @@ $(document).on('deviceready', function(){
   getFriendsNow();
 });
 
+function refresh() {
+	$('#friendsNow').html('');
+	getFriendsNow();
+}
+
 function getFriendsNow() {
 		$.ajax({
 				url: "http://e-wit.co.uk/correlater/user/getFriendsNow",

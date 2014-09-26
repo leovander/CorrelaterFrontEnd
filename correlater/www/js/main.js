@@ -30,7 +30,7 @@ function getFriendsNow() {
 				var friendsNow = $.makeArray(data.friends);
 				friendsNow.forEach(fillFriendsNow);
 				$('#friendsNow').listview('refresh');
-				$('#friendsNow li a').addClass('received').removeClass('ui-icon-right ui-icon-carat-r');
+				$('#friendsNow li a').addClass('received').removeClass('ui-btn-icon-right ui-icon-carat-r');
 		});
 }
 

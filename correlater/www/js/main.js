@@ -8,14 +8,15 @@ $(document).on('deviceready', function(){
 				window.location='start.html';
 		});
 	});
-    var requests;
-    var friends;
-    $('ul').on('click', 'li', function() {
-        if($(this).hasClass("pendingRequest")) {
-            acceptFriend($(this).attr('id'));
-            $('#friendsList').listview('refresh');
-        }
-    });
+
+	var requests;
+  var friends;
+  $('ul').on('click', 'li', function() {
+      if($(this).hasClass("pendingRequest")) {
+        acceptFriend($(this).attr('id'));
+        $('#friendsList').listview('refresh');
+      }
+  });
 
 
     // $('#rightPanel').panel({beforeopen: function(){

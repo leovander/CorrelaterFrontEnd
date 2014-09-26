@@ -1,4 +1,4 @@
-$(document).on('deviceready', function(){
+$(document).on('deviceready', function() {
 	$('#search').submit(function (event){
 		event.preventDefault();
 		$.ajax({
@@ -7,7 +7,7 @@ $(document).on('deviceready', function(){
 			dataType: 'json',
 			data: $(this).serialize()}
 		).done(function(data){
-				if(data.message == 'User Not Found') {
+			if(data.message == 'User Not Found') {
 				if($('ul').children().length == 1) {
 					$('ul').fadeOut(function() {
 						$('ul').html('');
@@ -31,7 +31,7 @@ $(document).on('deviceready', function(){
 
 				$('ul').fadeIn(function() {
 					if(data.user.valid == 0) {
-					 $('ul').append('<li id="'+data.user.id+'" class="request">' +
+					$('ul').append('<li id="'+data.user.id+'" class="request">' +
 															'<a href="#">'+data.user.email+'</a>' +
 														'</li>');
 					} else {
@@ -63,7 +63,6 @@ $(document).on('deviceready', function(){
 				});
 			}
 		});
-		return false;
 	});
 
 	$('ul').on('click', 'li', function() {
@@ -72,10 +71,8 @@ $(document).on('deviceready', function(){
 		} else if($(this).hasClass('invitation')) {
 			inviteFriend($(this).find('a').html());
 		}
-  });
-
+	});
 });
-
 
 function addFriend(id) {
 	$.ajax({

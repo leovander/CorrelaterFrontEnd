@@ -7,6 +7,10 @@ $(document).on('deviceready', function(){
 			dataType: 'json',
 			data: $(this).serialize()}
 		).done(function(data){
+			if (data.message =='Account Created'){
+				window.location='main.html';
+				$('#feedBack').html(data.message);
+			}
 			$('#feedBack').html(data.message);
 		});
 	});

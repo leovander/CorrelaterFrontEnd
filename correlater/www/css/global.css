@@ -119,8 +119,8 @@
 /*PANELS*/
 div[data-role="panel"] {
   background-color: #dddddd !important;
-  -webkit-box-shadow: none;
-  box-shadow: none;
+  -webkit-box-shadow: none !important;
+  box-shadow: none !important;
 }
 
 /*FRIENDS PANEL*/

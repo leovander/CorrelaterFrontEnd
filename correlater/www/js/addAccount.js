@@ -73,16 +73,9 @@ $(document).on('deviceready', function() {
       $loginStatus.html('Login Successful!');
       $loginStatus.css('color','green');
       window.location='main.html';
-      //$loginStatus.html('Access Token: ' + data.access_token);
     }).fail(function(data) {
       $loginStatus.html('Login Failed :(');
       $loginStatus.css('color','red');
     });
   });
 });
-
-(function() {
-  var po = document.createElement('script'); po.type = 'text/javascript'; po.async = true;
-  po.src = 'https://apis.google.com/js/client:plusone.js';
-  var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(po, s);
-})();

@@ -1,4 +1,6 @@
-$(document).on('deviceready', function(){
+$(function() {
+	document.addEventListener("deviceready", onDeviceReady, false);
+	
 	$('#create').submit(function (event){
 		event.preventDefault();
 		$.ajax({
@@ -15,3 +17,7 @@ $(document).on('deviceready', function(){
 		});
 	});
 });
+
+function onDeviceReady() {
+	// Now safe to use the Cordova API
+}

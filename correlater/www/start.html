@@ -9,7 +9,7 @@
 
     <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet" type="text/css">
     <link rel="stylesheet" href="js/jquery.mobile-1.4.3/jquery.mobile-1.4.3.min.css">
-    <link rel="stylesheet" type="text/css" href="css/start.css" />
+    <link rel="stylesheet" type="text/css" href="css/global.css" />
 
     <script type="text/javascript" charset="utf-8" src="cordova.js"></script>
     <script type="text/javascript" charset="utf-8" src="js/jquery/jquery-2.1.1.min.js"></script>
@@ -19,13 +19,15 @@
 </head>
 <body>
     <div data-role="page">
+        <div id="navBar" data-role="header" class="primary-3">
+            <h1 id="title">Corral</h1>
+        </div>
         <div data-role="content">
-            <h1>Corral</h1>
-            <h2>(Working Title)</h2>
+            <h1>Welcome to Corral!</h1>
             <button id="addAccButton" class="ui-btn ui-corner-all ui-btn ui-shadow">
                 Add Account
             </button>
-
+            <p>or</p>
             <button id="signIn" class="ui-btn ui-corner-all ui-btn ui-shadow">
                 Sign In
             </button>

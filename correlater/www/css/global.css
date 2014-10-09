@@ -1,12 +1,153 @@
+/*Colors*/
+/*
+  COLOR SCHEME OF APP
+  http://colorschemedesigner.com/csd-3.5/#3I629ppvvw0w0
+*/
+
+/*PRIMARY COLOR*/
+.primary {
+  background-color: #2F59A7 !important;
+}
+
+.primary-1 {
+  background-color: #3A527D !important;
+}
+
+.primary-2 {
+  background-color: #0F306C !important;
+}
+
+.primary-3, .primary-3 h1, .primary-3 h1 a{
+  background-color: #628AD3 !important;
+  color: #ffffff;
+  text-shadow: none;
+  text-decoration: none;
+  overflow:hidden;
+  border: none !important;
+}
+
+.primary-3 a.navItem {
+  background-color: #628AD3 !important;
+  border-color: #628AD3 !important;
+}
+
+.availableNow {
+  padding: 0 !important;
+}
+
+.primary-4 {
+  background-color: #809DD3 !important;
+}
+
+/*SECONDARY COLOR A*/
+.secondary-a {
+  background-color: #622FAA !important;
+}
+
+.secondary-a-1 {
+  background-color: #573A80 !important;
+}
+
+.secondary-a-2 {
+  background-color: #370F6F !important;
+}
+
+.secondary-a-3 {
+  background-color: #9161D5 !important;
+}
+
+.secondary-a-4 {
+  background-color: #A380D5 !important;
+}
+
+/*SECONDARY COLOR B*/
+.secondary-b {
+  background-color: #25B363 !important;
+}
+
+.secondary-b-1 {
+  background-color: #368659 !important;
+}
+
+.secondary-b-2 {
+  background-color: #0C7439 !important;
+}
+
+.secondary-b-3 {
+  background-color: #58D990 !important;
+}
+
+.secondary-b-4 {
+  background-color: #7AD9A3 !important;
+}
+
+/*COMPLEMENTARY COLOR*/
+.complementary {
+  background-color: #FBB534 !important;
+}
+
+.complementary-1 {
+  background-color: #BC954C !important;
+}
+
+.complementary-2 {
+  background-color: #A37011 !important;
+}
+
+.complementary-3 {
+  background-color: #FDC866 !important;
+}
+
+.complementary-4 {
+  background-color: #FDD68F !important;
+}
+
+/*Main Available Now Page*/
+#mainPage {
+  padding: 0;
+  margin-top: -1px;
+}
+
+.ui-content .ui-content {
+  padding: 0;
+}
+
+#friendsNow {
+  margin: 0;
+}
+
+/*PANELS*/
+div[data-role="panel"] {
+  background-color: #dddddd !important;
+  -webkit-box-shadow: none;
+  box-shadow: none;
+}
+
+/*FRIENDS PANEL*/
+#rightPanel .ui-panel-inner {
+  padding: 0;
+  margin-top: -0.5em;
+}
+
+#friendsList {
+  margin: -9px 0 0 0;
+}
+
+#rightPanel .ui-input-search {
+  height: 2.65em;
+  border-radius: 0;
+  border-color: #fff;
+}
+
 /*List View Status Coloring*/
 .received {
-  background-color: #5cb85c !important;
+  background-color: #25B363 !important;
   text-shadow: none !important;
   color: white !important;
 }
 
 .received:hover {
-  background: #4cae4c !important;
+  background: #0C7439 !important;
 }
 
 .failed {
@@ -19,8 +160,9 @@
   background: #d43f3a !important;
 }
 
-#feedBack {
-    text-align: center;
+/*START PAGE*/
+div[data-role="content"] h1, div[data-role="content"] p {
+  text-align: center;
 }
 
 #forgotPW {
@@ -33,70 +175,12 @@
     display: none;
 }
 
-#menuTitle {
-    text-align: center;
-}
-
-#friendsList {
-  margin-top: 5%;
-}
-
 #friendSearch {
-  
+
 }
 
 .friendTile {
   padding: 5% 5%;
   border-bottom: 1px solid lightgray;
   border-radius: 15px;
-}
-
-/*FONT*/
-/* vietnamese */
-@font-face {
-  font-family: 'Alegreya Sans SC';
-  font-style: normal;
-  font-weight: 400;
-  src: local('Alegreya Sans SC'), local('AlegreyaSansSC-Regular'), url(http://fonts.gstatic.com/s/alegreyasanssc/v3/6kgb6ZvOagoVIRZyl8XV-Nvlz701Gs3rrXZ8pXnW-ec.woff2) format('woff2');
-  unicode-range: U+0102-0103, U+1EA0-1EF1, U+20AB;
-}
-/* latin-ext */
-@font-face {
-  font-family: 'Alegreya Sans SC';
-  font-style: normal;
-  font-weight: 400;
-  src: local('Alegreya Sans SC'), local('AlegreyaSansSC-Regular'), url(http://fonts.gstatic.com/s/alegreyasanssc/v3/6kgb6ZvOagoVIRZyl8XV-N-jslRKTPR3HuIggI2XWbo.woff2) format('woff2');
-  unicode-range: U+0100-024F, U+1E00-1EFF, U+20A0-20AB, U+20AD-20CF, U+2C60-2C7F, U+A720-A7FF;
-}
-/* latin */
-@font-face {
-  font-family: 'Alegreya Sans SC';
-  font-style: normal;
-  font-weight: 400;
-  src: local('Alegreya Sans SC'), local('AlegreyaSansSC-Regular'), url(http://fonts.gstatic.com/s/alegreyasanssc/v3/6kgb6ZvOagoVIRZyl8XV-DUAV8re_zuY5FPJtiiylrU.woff2) format('woff2');
-  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2212, U+2215, U+E0FF, U+EFFD, U+F000;
-}
-/* vietnamese */
-@font-face {
-  font-family: 'Alegreya Sans SC';
-  font-style: italic;
-  font-weight: 900;
-  src: local('Alegreya Sans SC Black Italic'), local('AlegreyaSansSC-BlackItalic'), url(http://fonts.gstatic.com/s/alegreyasanssc/v3/0VweK-TO3aQgazdxg8fs0KteSVYKrZtAHBHyutbEa5g.woff2) format('woff2');
-  unicode-range: U+0102-0103, U+1EA0-1EF1, U+20AB;
-}
-/* latin-ext */
-@font-face {
-  font-family: 'Alegreya Sans SC';
-  font-style: italic;
-  font-weight: 900;
-  src: local('Alegreya Sans SC Black Italic'), local('AlegreyaSansSC-BlackItalic'), url(http://fonts.gstatic.com/s/alegreyasanssc/v3/0VweK-TO3aQgazdxg8fs0BTLXGd1bRLH9zxqJ_Enx_c.woff2) format('woff2');
-  unicode-range: U+0100-024F, U+1E00-1EFF, U+20A0-20AB, U+20AD-20CF, U+2C60-2C7F, U+A720-A7FF;
-}
-/* latin */
-@font-face {
-  font-family: 'Alegreya Sans SC';
-  font-style: italic;
-  font-weight: 900;
-  src: local('Alegreya Sans SC Black Italic'), local('AlegreyaSansSC-BlackItalic'), url(http://fonts.gstatic.com/s/alegreyasanssc/v3/0VweK-TO3aQgazdxg8fs0Ia5Sk9aZj1IuNfTh5wmisM.woff2) format('woff2');
-  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2212, U+2215, U+E0FF, U+EFFD, U+F000;
 }

@@ -44,6 +44,8 @@ var googleapi = {
     }
 };
 
+var response;
+
 $(document).on('deviceready', function() {
   var $loginButton = $('#googleLogin');
   var $loginStatus = $('#feedBack');
@@ -68,11 +70,18 @@ $(document).on('deviceready', function() {
           data: { google_access_token : data.access_token,
                   google_refresh_token : data.refresh_token,
                   google_id_token : data.id_token,
-                  google_code : data.code }
+                  google_code : data.code },
+          dataType: 'json'
+      }).done(function(data) {
+        if (data.message == 'Account Created'){
+          $loginStatus.html(data.message);
+          $loginStatus.css('color','green');
+          window.location='main.html';
+        } else {
+          $loginStatus.html(data.message);
+          $loginStatus.css('color','red');
+        }
       });
-      $loginStatus.html('Login Successful!');
-      $loginStatus.css('color','green');
-      window.location='main.html';
     }).fail(function(data) {
       $loginStatus.html('Login Failed :(');
       $loginStatus.css('color','red');

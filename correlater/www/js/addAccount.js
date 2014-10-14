@@ -88,3 +88,6 @@ $(document).on('deviceready', function() {
     });
   });
 });
+$(function(){
+		$("#fbLogin").load("fbLogin.html");
+});	

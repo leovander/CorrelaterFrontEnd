@@ -27,6 +27,12 @@
               <button id="googleLogin" class="ui-btn ui-corner-all ui-btn ui-shadow failed">
                   Create with Google &#43;
               </button>
+              <div id="fbLogin"></div>
+			  <button class="ui-btn ui-corner-all ui-btn ui-shadow fb">
+                <fb:login-button scope="public_profile,email" onlogin="checkLoginState();">
+					Create with Facebook
+				</fb:login-button> 
+              </button>
               <button id="nativeCreate" class="ui-btn ui-corner-all ui-btn ui-shadow">
                   Create Corral Account
               </button>

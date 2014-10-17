@@ -160,6 +160,16 @@ div[data-role="panel"] {
   background: #d43f3a !important;
 }
 
+.fb {
+  background-color: #318ce7 !important;
+  text-shadow: none !important;
+  color: white !important;
+}
+
+.fb:hover {
+  background: #007fff !important;
+}
+
 /*START PAGE*/
 div[data-role="content"] h1, div[data-role="content"] p {
   text-align: center;

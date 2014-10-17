@@ -106,11 +106,21 @@ angular.module('ionicApp', ['ionic'])
   }
 
   $scope.clearMood = function() {
-    alert('Clear mood');
+    jQuery('#mood').val('');
   }
 
   $scope.updateMood = function() {
-    alert(jQuery('#mood').value);
+    var status = jQuery('#mood').val();
+    jQuery.ajax({
+      type: "POST",
+      url: "http://e-wit.co.uk/correlater/user/setMood",
+      dataType: 'json',
+      data: {mood : status } //CHANGED THIS
+    }).success(function() {
+      alert("status set");
+    }).always(function(){
+      jQuery('#mood').val('');
+    });
   }
 })
 

@@ -1,51 +1,87 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <title>I'm Free</title>
-    <meta charset="utf-8" />
-    <meta name="format-detection" content="telephone=no" />
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="msapplication-tap-highlight" content="no" />
-
-    <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet" type="text/css">
-    <link rel="stylesheet" href="js/jquery.mobile-1.4.3/jquery.mobile-1.4.3.min.css">
-    <link rel="stylesheet" type="text/css" href="css/global.css" />
-    <link rel="stylesheet" type="text/css" href="css/main.css" />
-
-    <script type="text/javascript" charset="utf-8" src="cordova.js"></script>
+<html ng-app="ionicApp">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no, width=device-width">
+    
+    <title>Correlater</title>
+    <link href="css/ionic.css" rel="stylesheet">
+    <script src="js/ionic.bundle.js"></script>
     <script type="text/javascript" charset="utf-8" src="js/jquery/jquery-2.1.1.min.js"></script>
-    <script type="text/javascript" charset="utf-8" src="js/jquery.mobile-1.4.3/jquery.mobile-1.4.3.min.js"></script>
-    <script type="text/javascript" charset="utf-8" src="js/angular.js"></script>
-    <script type="text/javascript" charset="utf-8" src="js/main.js"></script>
-</head>
-<body>
-    <div data-role="page" id="main" data-url="demo-page">
-        <div  id="navBar" data-role="header" class="primary-3">
-            <h1 id="title"><a href="#" onClick='refresh()'>Refresh</a></h1>
-            <a id="menu" onClick="openMenu();" class="navItem ui-btn ui-icon-bars ui-btn-icon-notext ui-corner-all">Menu</a>
-            <a id="friends" onClick="openFriends();" class="navItem ui-btn ui-icon-user ui-btn-icon-notext ui-corner-all">Friends</a>
-        </div>
-        <div role="main" id="mainPage" class="ui-content jqm-content jqm-fullwidth">
-            <div id="centerPanel" data-role="content">
-                <ul data-role="listview" data-inset="false" id="friendsNow"></ul>
-            </div>
-        </div>
-        <div data-role="panel" id="leftPanel">
-            <ul data-role="listview">
-                <li data-icon="delete"><a id="menuTitle" href="#" data-rel="close">Menu</a></li>
-                <li><a href="#panel-responsive-page2" class="ui-state-disabled">Profile</a></li>
-                <li><a href="#panel-responsive-page2" class="ui-state-disabled">Accounts</a></li>
-                <li><a href="#" onClick='invite();'>Add Friends</a></li>
-                <li><a href="#" id="logout">Log Out</a></li>
+    <script src="js/ionicMain.js"></script>
+  </head>
+ 
+  <body ng-controller="MainCtrl">
+
+      <ion-nav-view></ion-nav-view>
+    
+    <script id="templates/event-menu.html" type="text/ng-template">
+      <ion-side-menus>
+        
+        <ion-side-menu-content>
+        <ion-nav-bar class="bar-positive"></ion-nav-bar>
+          <ion-nav-buttons side="left">
+            <button class="button button-icon button-clear ion-navicon" ng-click="toggleLeft()"></button>
+          </ion-nav-buttons>
+          <ion-nav-buttons side="right">
+            <button class="button button-icon button-clear ion-person-stalker" ng-click="toggleRight()"></button>
+          </ion-nav-buttons>
+          <ion-nav-view animation="no-animation" name="menuContent"></ion-nav-view>
+        </ion-side-menu-content> 
+        
+        <ion-side-menu side="left">
+          <ion-content>
+            <ul class="list">
+              <a class="item item-icon-left" href=""><i class="icon ion-person"></i>Profile</a>
+              <a class="item item-icon-left" href=""><i class="icon ion-document-text"></i>Accounts</a>
+              <a class="item item-icon-left" href="invite.html" menu-close><i class="icon ion-person-add"></i>Add Friends</a>
+              <a class="item item-icon-left" ng-click="logout()"><i class="icon ion-log-out"></i>Log Out</a>
             </ul>
-        </div>
-        <div data-role="panel" id="rightPanel" data-position="right">
-            <form>
-                <input data-type="search" id="divOfPs-input">
-            </form>
-            <ul data-role="listview" class="touch elements" data-split-icon="delete" data-split-theme="d" data-filter="true" data-input="#divOfPs-input" data-split-icon="delete" data-split-theme="d" data-inset="false" id="friendsList"></ul>
-        </div>
-    </div><!-- /popup -->
-    </div>
-</body>
+          </ion-content>
+        </ion-side-menu>
+
+        <ion-side-menu side="right">
+          <ion-content>
+            <ion-refresher
+              pulling-text="Pull to refresh..."
+              on-refresh="refreshFriendsList()">
+            </ion-refresher>
+            <ion-list can-swipe="true">
+              <ion-item ng-repeat="friend in friendsList" item="friend">
+                {{friend.first_name}} {{friend.last_name.substring(0,1).toUpperCase()}}
+                <ion-option-button class="button button-large icon-right ion-gear-a" ng-click="editFriend(friend)">
+                </ion-option-button>
+              </ion-item>
+            </ion-list>
+          </ion-content>
+        </ion-side-menu>
+        
+      </ion-side-menus>
+    </script>
+    
+    <script id="templates/home.html" type="text/ng-template">
+      <ion-view title="Correlater">
+        <ion-content>
+          <ion-refresher
+            pulling-text="Pull to refresh..."
+            on-refresh="refreshFriendsNow()">
+          </ion-refresher>
+          <ion-list>
+            <ion-item ng-repeat="nowFriend in friendsNow" item="nowFriend">
+              {{nowFriend.first_name}} {{nowFriend.last_name.substring(0,1).toUpperCase()}}
+            </ion-item>
+          </ion-list>
+        </ion-content>
+        <ion-footer-bar class="bar bar-positive item-input-inset"> 
+          <label class="item-input-wrapper">
+            <i class="icon ion-chatbox placeholder-icon"></i>
+            <input id="mood" ng-model="mood" type="text" placeholder="Update your mood">
+          </label>
+            <button ng-if="mood.length" class="button-icon icon ion-android-close"
+              ng-click="clearMood()">
+            </button>
+          <button ng-if="mood.length" class="button button-outline icon ion-edit button-light" ng-click="updateMood()"></button>
+        </ion-footer-bar>
+      </ion-view>
+    </script>    
+  </body>
 </html>

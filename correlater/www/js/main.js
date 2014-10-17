@@ -9,7 +9,7 @@ $(document).on('deviceready', function(){
 		});
 	});
 
-	var requests;
+  var requests;
   var friends;
   $('ul').on('click', 'li', function() {
       if($(this).hasClass("pendingRequest")) {
@@ -18,6 +18,9 @@ $(document).on('deviceready', function(){
       }
   });
 
+  $('#edit').on('click', function(){
+    navigator.notification.confirm("Are you sure you want to delete "+$(this).parent().find('a').html()+"?", function(){}, "Delete friend", "Yes, No");
+  });
 
   getFriendsNow();
 });
@@ -42,7 +45,6 @@ function getFriendsNow() {
 function fillFriendsNow(element, index, array) {
 		$('#friendsNow').append('<li id="' + element.id + '">' +
 		'<a href="#">' + element.first_name + ' ' + element.last_name.substring(0,1).toUpperCase() + '</a>' +
-        '<p>' + 'Friend Status Here -----------------------------------' + '</p>' +
 																												'</li>');
 }
 
@@ -140,7 +142,7 @@ function getFriends() {
 
 function fillFriends(element, index, array) {
     $('#friendsList').append('<li id="' + element.id + '">' +
-    '<h3>' + element.first_name + ' ' + element.last_name.substring(0,1).toUpperCase() + '</h3>' +
+    '<a href="#" id="name">' + element.first_name + ' ' + element.last_name.substring(0,1).toUpperCase() +
                                                         '</li>');
 }
 
@@ -171,63 +173,9 @@ function invite(){
 
 $(document).on('deviceready', function(){
     // Swipe to remove list item
-    $( document ).on( "swipeleft swiperight", "#friendsList li", function( event ) {
-        var listitem = $( this ),
-            // These are the classnames used for the CSS transition
-            dir = event.type === "swipeleft" ? "left" : "right",
-            // Check if the browser supports the transform (3D) CSS transition
-            transition = $.support.cssTransform3d ? dir : false;
-            confirmAndDelete( listitem, transition );
+    $( document ).on( "swipeleft", "#friendsList li", function( event ) {
+        var listitem = $( this );
+        listitem.find('#edit').show();
+        listitem.find('#edit').addClass('ui-btn-right ui-icon-gear');
     });
-    // If it's not a touch device...
-    if ( ! $.mobile.support.touch ) {
-        // Remove the class that is used to hide the delete button on touch devices
-        $( "#friendsList" ).removeClass( "touch" );
-        // Click delete split-button to remove list item
-        $( ".delete" ).on( "click", function() {
-            var listitem = $( this ).parent( "li" );
-            confirmAndDelete( listitem );
-        });
-    }
-    function confirmAndDelete( listitem, transition ) {
-        // Highlight the list item that will be removed
-        listitem.addClass( "ui-btn-down-d" );
-        // Inject topic in confirmation popup after removing any previous injected topics
-        $( "#confirm .topic" ).remove();
-        listitem.find( ".topic" ).clone().insertAfter( "#question" );
-        // Show the confirmation popup
-
-        alert('Want to delete?');
-        // $( "#confirm" ).popup( "open" );
-        // // Proceed when the user confirms
-        // $( "#confirm #yes" ).on( "click", function() {
-        //     // Remove with a transition
-        //     if ( transition ) {
-        //         listitem
-        //             // Remove the highlight
-        //             .removeClass( "ui-btn-down-d" )
-        //             // Add the class for the transition direction
-        //             .addClass( transition )
-        //             // When the transition is done...
-        //             .on( "webkitTransitionEnd transitionend otransitionend", function() {
-        //                 // ...the list item will be removed
-        //                 listitem.remove();
-        //                 // ...the list will be refreshed and the temporary class for border styling removed
-        //                 $( "#friendsList" ).listview( "refresh" ).find( ".border" ).removeClass( "border" );
-        //             })
-        //             // During the transition the previous list item should get bottom border
-        //             .prev( "li" ).addClass( "border" );
-        //     }
-        //     // If it's not a touch device or the CSS transition isn't supported just remove the list item and refresh the list
-        //     else {
-        //         listitem.remove();
-        //         $( "#friendsList" ).listview( "refresh" );
-        //     }
-        // });
-        // // Remove active state and unbind when the cancel button is clicked
-        // $( "#confirm #cancel" ).on( "click", function() {
-        //     listitem.removeClass( "ui-btn-down-d" );
-        //     $( "#confirm #yes" ).off();
-        // });
-    }
 });

@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <title>I'm Free</title>
+    <title>Corral</title>
     <meta charset="utf-8" />
     <meta name="format-detection" content="telephone=no" />
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -16,11 +16,11 @@
     <script type="text/javascript" charset="utf-8" src="js/jquery.mobile-1.4.3/jquery.mobile-1.4.3.min.js"></script>
     <script type="text/javascript" charset="utf-8" src="js/angular.js"></script>
     <script type="text/javascript" charset="utf-8" src="js/createNative.js"></script>
-	<script type="text/javascript" charset="utf-8" src="js/verifynotify.js"></script>
+	<script type="text/javascript" charset="utf-8" src="js/jquery.validate.js"></script>
 </head>
 <body>
     <div data-role="page">
-        <div id="navBar" data-role="header" class="primary-3">
+        <div id="navBar" data-role="header" class="primary-3" data-position="fixed">
             <a href="#" id="back" class="navItem ui-btn ui-icon-carat-l ui-btn-icon-notext ui-corner-all" data-rel="back"></a>
             <h1 id="title">Create Account</h1>
         </div>
@@ -28,31 +28,19 @@
             <!-- first name, last name, email, password, verify password,  -->
             <form method="post" id="create" name="form">
                 <label for="first_name">First Name:</label>
-                <input type="text" name="first_name" id="first_name" value="">
+                <input type="text" name="first_name" id="first_name" value="" >
                 <label for="last_name">Last Name:</label>
-                <input type="text" name="last_name" id="last_name" value="">
+                <input type="text" name="last_name" id="last_name" value="" >
                 <label for="email">E-mail:</label>
-                <input type="email" name="email" id="email" value="">
+                <input type="email" name="email" id="email" value="" >
                 <label for="password">Password:</label>
-                <input type="password" name="password" id="password" value="" autocomplete="off" onKeyUp="verify.check()">
+                <input type="password" name="password" id="password" value="" autocomplete="off">
                 <label for="verify_password">Verify Password:</label>
-                <input type="password" name="verify_password" id="verify_password" value="" autocomplete="off" onKeyUp="verify.check()">
+                <input type="password" name="verify_password" id="verify_password" value="" autocomplete="off">
 				<div id="password_result">&nbsp;</div>
                 <input type="submit" name="submit" value="Submit">
             </form>
             <p id="feedBack"></p>
-			<SCRIPT TYPE="text/javascript">
-			<!--
-			verify = new verifynotify();
-			verify.field1 = document.form.password;
-			verify.field2 = document.form.verify_password;
-			verify.result_id = "password_result";
-			verify.match_html = "<SPAN STYLE=\"color:blue\">Thank you, your passwords match!<\/SPAN>";
-			verify.nomatch_html = "<SPAN STYLE=\"color:red\">Please make sure your passwords match.<\/SPAN>";
-			// Update the result message
-			verify.check();
-			// -->
-			</SCRIPT>
         </div
     </div>
 </body>

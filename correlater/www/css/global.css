@@ -194,3 +194,14 @@ div[data-role="content"] h1, div[data-role="content"] p {
   border-bottom: 1px solid lightgray;
   border-radius: 15px;
 }
+
+/* CREATE ACCOUNT PAGE */
+label.error {
+  color: red;
+  font-size: 16px;
+  font-weight: normal;
+  line-height: 1.4;
+  margin-top: 0.5em;
+  width: 100%;
+  float: none;
+}

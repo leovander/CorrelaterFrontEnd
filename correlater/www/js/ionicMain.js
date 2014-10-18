@@ -94,6 +94,26 @@ angular.module('ionicApp', ['ionic'])
   $scope.editFriend = function(friend) {
     alert('Editting '+friend.first_name+' '+friend.last_name);
   };
+  
+  //TODO: REMOVE THE CHECK MARK ONCE ADDED?
+  $scope.acceptFriend = function(friend) {
+    jQuery.ajax({
+        url: "http://e-wit.co.uk/correlater/user/acceptFriend/" + friend.id,
+        dataType: 'json'
+    }).done(function() {
+	    alert(friend.first_name + " added!");
+    });
+  };
+  
+  //TODO: REMOVE PERSON FROM THE LIST
+  $scope.deleteFriend = function(friend) {
+    jQuery.ajax({
+        url: "http://e-wit.co.uk/correlater/user/deleteFriend/" + friend.id,
+        dataType: 'json'
+    }).done(function() {
+	    alert(friend.first_name + " deleted!");
+    });
+  };
 
   $scope.logout = function(){
     jQuery.ajax({
@@ -116,8 +136,6 @@ angular.module('ionicApp', ['ionic'])
       url: "http://e-wit.co.uk/correlater/user/setMood",
       dataType: 'json',
       data: {mood : status } //CHANGED THIS
-    }).success(function() {
-      alert("status set");
     }).always(function(){
       jQuery('#mood').val('');
     });

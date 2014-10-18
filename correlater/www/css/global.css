@@ -36,7 +36,7 @@
 }
 
 .primary-4 {
-  background-color: #809DD3 !important;
+  background-color: #829fd4 !important;
 }
 
 /*SECONDARY COLOR A*/
@@ -161,13 +161,13 @@ div[data-role="panel"] {
 }
 
 .fb {
-  background-color: #318ce7 !important;
+  background-color: #3B5998 !important;
   text-shadow: none !important;
   color: white !important;
 }
 
 .fb:hover {
-  background: #007fff !important;
+  background: #2f477d !important;
 }
 
 /*START PAGE*/

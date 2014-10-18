@@ -3,7 +3,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no, width=device-width">
     
-    <title>Correlater</title>
+    <title>Corral</title>
     <link href="css/ionic.css" rel="stylesheet">
     <script src="js/ionic.bundle.js"></script>
     <script type="text/javascript" charset="utf-8" src="js/jquery/jquery-2.1.1.min.js"></script>
@@ -48,7 +48,9 @@
             <ion-list can-swipe="true">
               <ion-item ng-repeat="friend in friendsList" item="friend">
                 {{friend.first_name}} {{friend.last_name.substring(0,1).toUpperCase()}}
-                <ion-option-button class="button button-large icon-right ion-gear-a" ng-click="editFriend(friend)">
+                <ion-option-button class="button button-large icon-right ion-close" ng-click="deleteFriend(friend)">
+                </ion-option-button>
+                <ion-option-button class="button button-large icon-right ion-checkmark" ng-click="acceptFriend(friend)">
                 </ion-option-button>
               </ion-item>
             </ion-list>
@@ -59,7 +61,7 @@
     </script>
     
     <script id="templates/home.html" type="text/ng-template">
-      <ion-view title="Correlater">
+      <ion-view title="Corral">
         <ion-content>
           <ion-refresher
             pulling-text="Pull to refresh..."

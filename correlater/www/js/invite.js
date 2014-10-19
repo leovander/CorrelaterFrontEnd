@@ -1,68 +1,78 @@
 $(document).on('deviceready', function() {
-	$('#search').submit(function (event){
-		event.preventDefault();
-		$.ajax({
-			type: "POST",
-			url: "http://e-wit.co.uk/correlater/user/checkUserExists",
-			dataType: 'json',
-			data: $(this).serialize()}
-		).done(function(data){
-			if(data.message == 'User Not Found') {
-				if($('ul').children().length == 1) {
-					$('ul').fadeOut(function() {
-						$('ul').html('');
-					});
-				}
-
-				$('ul').fadeIn(function() {
-					$('ul').append('<li class="invitation" >' +
-														'<a href="#">' + data.email + '</a>' +
-													'</li>');
-					$('ul').listview("refresh");
-					$('ul li a').removeClass('ui-icon-plus').addClass('ui-icon-mail');
-				});
+	$("form").validate({
+		rules: {
+			email: {
+				required: true,
+				email: true
 			}
-			else if (data.message == 'Not Friends') {
-				if($('ul').children().length == 1) {
-					$('ul').fadeOut(function() {
-						$('ul').html('');
+		},
+		errorPlacement: function( error, element ) {
+			error.insertAfter( element.parent() );
+		},
+		submitHandler: function(form) {		
+			$.ajax({
+				type: "POST",
+				url: "http://e-wit.co.uk/correlater/user/checkUserExists",
+				dataType: 'json',
+				data: $(form).serialize()}
+			).done(function(data){
+				if(data.message == 'User Not Found') {
+					if($('ul').children().length == 1) {
+						$('ul').fadeOut(function() {
+							$('ul').html('');
+						});
+					}
+	
+					$('ul').fadeIn(function() {
+						$('ul').append('<li class="invitation" >' +
+															'<a href="#">' + data.email + '</a>' +
+														'</li>');
+						$('ul').listview("refresh");
+						$('ul li a').removeClass('ui-icon-plus').addClass('ui-icon-mail');
 					});
 				}
-
-				$('ul').fadeIn(function() {
-					if(data.user.valid == 0) {
-					$('ul').append('<li id="'+data.user.id+'" class="request">' +
-															'<a href="#">'+data.user.email+'</a>' +
-														'</li>');
-					} else {
+				else if (data.message == 'Not Friends') {
+					if($('ul').children().length == 1) {
+						$('ul').fadeOut(function() {
+							$('ul').html('');
+						});
+					}
+	
+					$('ul').fadeIn(function() {
+						if(data.user.valid == 0) {
 						$('ul').append('<li id="'+data.user.id+'" class="request">' +
-															'<a href="#">'+data.user.first_name+'</a>' +
-														'</li>');
+																'<a href="#">'+data.user.email+'</a>' +
+															'</li>');
+						} else {
+							$('ul').append('<li id="'+data.user.id+'" class="request">' +
+																'<a href="#">'+data.user.first_name+'</a>' +
+															'</li>');
+						}
+						$('ul').listview("refresh");
+					});
+				} else if(data.message == 'Already Friends') {
+					if($('ul').children().length == 1) {
+						$('ul').fadeOut(function() {
+							$('ul').html('');
+						});
 					}
-					$('ul').listview("refresh");
-				});
-			} else if(data.message == 'Already Friends') {
-				if($('ul').children().length == 1) {
-					$('ul').fadeOut(function() {
-						$('ul').html('');
+	
+					$('ul').fadeIn(function() {
+						if(data.user.valid == 0) {
+							$('ul').append('<li id="'+data.user.id+'">' +
+																'<a href="#">'+data.user.email+'</a>' +
+															'</li>');
+						} else {
+							$('ul').append('<li id="'+data.user.id+'">' +
+																'<a href="#">'+data.user.first_name+'</a>' +
+															'</li>');
+						}
+						$('ul').listview("refresh");
+						$('ul li a').removeClass('ui-icon-plus ui-btn-icon-right').addClass('received');
 					});
 				}
-
-				$('ul').fadeIn(function() {
-					if(data.user.valid == 0) {
-						$('ul').append('<li id="'+data.user.id+'">' +
-															'<a href="#">'+data.user.email+'</a>' +
-														'</li>');
-					} else {
-						$('ul').append('<li id="'+data.user.id+'">' +
-															'<a href="#">'+data.user.first_name+'</a>' +
-														'</li>');
-					}
-					$('ul').listview("refresh");
-					$('ul li a').removeClass('ui-icon-plus ui-btn-icon-right').addClass('received');
-				});
-			}
-		});
+			});
+		}
 	});
 
 	$('ul').on('click', 'li', function() {

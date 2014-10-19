@@ -14,34 +14,22 @@
     <script type="text/javascript" charset="utf-8" src="cordova.js"></script>
     <script type="text/javascript" charset="utf-8" src="js/jquery/jquery-2.1.1.min.js"></script>
     <script type="text/javascript" charset="utf-8" src="js/jquery.mobile-1.4.3/jquery.mobile-1.4.3.min.js"></script>
-    <script type="text/javascript" charset="utf-8" src="js/angular.js"></script>
     <script type="text/javascript" charset="utf-8" src="js/signIn.js"></script>
 </head>
 <body>
     <div data-role="page">
         <div id="navBar" data-role="header" class="primary-3">
-            <a href="#" id="back" class="navItem ui-btn ui-icon-carat-l ui-btn-icon-notext ui-corner-all" data-rel="back"></a>
+            <a href="#" id="back" class="navItem ui-btn ui-icon-carat-l ui-btn-icon-notext ui-nodisc-icon" data-rel="back"></a>
             <h1 id="title">Sign In</h1>
         </div>
         <div data-role="content">
-
-            <form method="post" id="login">
-                <label for="email">E-mail:</label>
-                <input type="email" name="email" id="email" value="">
-                <label for="password">Password:</label>
-                <input type="password" name="password" id="password" value="" autocomplete="off">
-                <input type="submit" name="submit" value="Submit">
-            </form>
-            <div>
-                <a id="forgotPW">Forget your password?</a>
-            </div>
-            <p id="feedBack"></p>
-            <h2>Google Account</h2>
-            <form method="post" id="googleLogin">
-                <label for="email">E-mail:</label>
-                <input type="email" name="email" id="email" value="">
-                <input type="submit" name="submit" value="Submit">
-            </form>
+              <button id="googleLogin" class="ui-btn ui-corner-all ui-btn ui-shadow failed">
+                  Sign in with Google &#43;
+              </button>
+              <button id="nativeLogin" class="ui-btn ui-corner-all ui-btn ui-shadow">
+                  Sign in with Corral
+              </button>
+              <p id="feedBack"></p>
         </div>
     </div>
 </body>

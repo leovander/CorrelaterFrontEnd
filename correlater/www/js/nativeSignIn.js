@@ -3,26 +3,13 @@ $(function() {
 	
 	$("form").validate({
 		rules: {
-			first_name: {
-				required: true	
-			},
-			last_name: {
-				required: true	
-			},
-			last_name: {
-				required: true	
-			},
 			email: {
 				required: true,
 				email: true
 			},
 			password: {
 				required: true
-			},
-			verify_password: {
-		    	required: true,
-		    	equalTo: "#password"
-		    }
+			}
 		},
 		errorPlacement: function( error, element ) {
 			error.insertAfter( element.parent() );
@@ -30,15 +17,15 @@ $(function() {
 		submitHandler: function(form) {		
 			$.ajax({
 				type: "POST",
-				url: "http://e-wit.co.uk/correlater/user/create",
+				url: "http://e-wit.co.uk/correlater/user/login",
 				dataType: 'json',
 				data: $(form).serialize()
 			}).done(function(data){
-				if (data.message =='Account Created'){
-					window.location='main.html';
-					$('#feedBack').html(data.message);
-				}
+				if(data.message == 'Logged In') {
 				$('#feedBack').html(data.message);
+				window.location='main.html';
+			}
+			$('#feedBack').html(data.message);
 			});
 		}
 	});

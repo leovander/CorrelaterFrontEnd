@@ -27,11 +27,8 @@ angular.module('ionicApp', ['ionic'])
 
   $scope.toggleLeft = function() {
     $ionicSideMenuDelegate.toggleLeft();
-    $scope.refreshMyInfo();
-    $scope.refreshFriendsNow();
   };
   $scope.toggleRight = function() {
-    $scope.refreshMyInfo();
     $ionicSideMenuDelegate.toggleRight();
   };
 
@@ -39,13 +36,20 @@ angular.module('ionicApp', ['ionic'])
     jQuery.ajax({
       url: "http://e-wit.co.uk/correlater/user/getMyInfo",
       dataType: 'json'
-    }).success(function(data){
+    }).done(function(data){
         if(data.message == "Logged In")
           currentUser = data.user;
         if (currentUser.status == "1")
           invisible = false;
         else
           invisible= true;
+        $scope.$broadcast('scroll.refreshComplete');
+    })
+    .fail(function(data){
+      alert('Failed getting my info');
+    })
+    .always(function() {
+      $scope.$broadcast('scroll.refreshComplete');
     });
   }
 
@@ -91,7 +95,17 @@ angular.module('ionicApp', ['ionic'])
   };
 
   $scope.acceptRequest = function(friend){
-    alert('Accepted '+friend.first_name+' '+friend.last_name.substring(0,1).toUpperCase());
+    jQuery.ajax({
+        url: "http://e-wit.co.uk/correlater/user/acceptFriend/" + friend.id,
+        dataType: 'json'}
+    ).done(function(data) {
+        if(data.message == 'Friend Accepted') {
+          // Add item animation here
+          alert('Success');
+        } else {
+          alert('Failed');
+        }
+    });
   };
 
   $scope.denyRequest = function(friend){
@@ -111,7 +125,7 @@ angular.module('ionicApp', ['ionic'])
         url: "http://e-wit.co.uk/correlater/user/acceptFriend/" + friend.id,
         dataType: 'json'
     }).done(function() {
-	    alert(friend.first_name + " added!");
+      alert(friend.first_name + " added!");
     });
   };
   
@@ -121,7 +135,7 @@ angular.module('ionicApp', ['ionic'])
         url: "http://e-wit.co.uk/correlater/user/deleteFriend/" + friend.id,
         dataType: 'json'
     }).done(function() {
-	    alert(friend.first_name + " deleted!");
+      alert(friend.first_name + " deleted!");
     });
   };
 
@@ -139,6 +153,12 @@ angular.module('ionicApp', ['ionic'])
     jQuery('#mood').val('');
   }
 
+  $scope.isMoodSetEmpty = function() {
+    if (jQuery('#mood').val().length>0 && jQuery('#mood').val()!='')
+      return true;
+    return false;
+  }
+
   $scope.updateMood = function() {
     var status = jQuery('#mood').val();
     jQuery.ajax({
@@ -146,10 +166,13 @@ angular.module('ionicApp', ['ionic'])
       url: "http://e-wit.co.uk/correlater/user/setMood",
       dataType: 'json',
       data: {mood : status } //CHANGED THIS
-    }).always(function(){
+    })
+    .fail(function(data){
+      alert('failed');
+    })
+    .always(function(){
       jQuery('#mood').val('');
     });
-    $scope.refreshMyInfo();
   }
 
   $scope.toggleInvisibility = function() {

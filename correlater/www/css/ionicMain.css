@@ -6,6 +6,7 @@
 	background: none;
 	border: none;
 }
+
 .sideTab {
 	width: 20%;
 	border: 3px solid #4a87ee;
@@ -20,8 +21,8 @@
 	text-shadow: 0 1px #FFF;
 	margin: 0 -5px;
 	padding: 0 30px;
-	bottom: -2px;
-	height: 40px;
+	bottom: 8px;
+	height: 50px;
 }
 
 .sideTab:after {
@@ -35,6 +36,57 @@
   border-bottom-left-radius: 30px;
   border-width: 0px 0px 1px 1px;
   box-shadow: -20px 0px 0 #4a87ee;
+}
+
+.rightTab {
+	width: 76.5%;
+	border: 3px solid #43cee6 ;
+	border-bottom: none;
+	background: #f8f8f8 ;
+	display: inline-block;
+	position:relative;
+	z-index: 0;
+	border-top-left-radius: 15px;
+	border-top-right-radius: 15px;
+	text-shadow: 0 1px #FFF;
+	margin: 0 -5px;
+	padding: 0 30px;
+	bottom: 33px;
+	left: 30px;
+	height: 50px;
+}
+.sideTab:before {
+  border: 1px solid #43cee6;
+  position: absolute;
+  bottom: -1px;
+  width: 50px;
+  height: 30px;
+  content: " ";
+  right: -30px;
+  border-bottom-right-radius: 30px;
+  border-width: 0px 1px 1px 0px;
+  box-shadow: 20px 0px 0 #43cee6;
+}
+
+.rightTab * {
+	display: inline-block;
+}
+
+#currentMood {
+	position: absolute;
+	width: 90%;
+}
+
+.rightTab #moodLabel {
+	font-size: 12px;
+	position: relative;
+    -ms-transform: rotate(-90deg); /* IE 9 */
+    -webkit-transform: rotate(-90deg); /* Chrome, Safari, Opera */
+    transform: rotate(-90deg);
+    text-decoration: underline;
+    color: lightgrey;
+    top: 13px;
+    margin-left: -35px;
 }
 
 .floatBlock {
@@ -52,8 +104,9 @@
 }
 
 #invisSet {
-	margin-top: -7px;
-	margin-left: -25px;
+	margin: 0px auto;
+	top: -3px;
+	left: -25px;
 	background: none;
 	border: none;
 	padding: 20px 0px;

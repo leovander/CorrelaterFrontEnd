@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <title>Corral</title>
+    <title>I'm Free</title>
     <meta charset="utf-8" />
     <meta name="format-detection" content="telephone=no" />
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -14,7 +14,7 @@
     <script type="text/javascript" charset="utf-8" src="js/jquery/jquery-2.1.1.min.js"></script>
     <script type="text/javascript" charset="utf-8" src="js/jquery.mobile-1.4.3/jquery.mobile-1.4.3.min.js"></script>
     <script type="text/javascript" charset="utf-8" src="js/angular.js"></script>
-    <script type="text/javascript" charset="utf-8" src="js/googlelogin.js"></script>
+    <script type="text/javascript" charset="utf-8" src="js/chooseCalendars.js"></script>
 </head>
 <body>
         <div data-role="page">
@@ -23,12 +23,10 @@
             <h1 id="title">Choose Calendars</h1>
         </div>
         <div data-role="content">
-            <form method="post" id="chooseCal">
-                <label><input type="checkbox" name="first">Work</label>
-                <label><input type="checkbox" name="second">Personal</label>
-                <label><input type="checkbox" name="third">School</label>
+            <form method="post" id="chooseCal" data-role="none">
                 <label><input type="submit" name="submit" value="Import"></label>
             </form>
+            <!-- <ul data-role="listview" data-inset="false" id="chooseCal"></ul> -->
             <p id="feedBack"></p>
         </div>
     </div>

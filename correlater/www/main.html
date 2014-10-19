@@ -2,21 +2,21 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no, width=device-width">
-    
+
     <title>Corral</title>
     <link href="css/ionic.css" rel="stylesheet">
     <script src="js/ionic.bundle.js"></script>
     <script type="text/javascript" charset="utf-8" src="js/jquery/jquery-2.1.1.min.js"></script>
     <script src="js/ionicMain.js"></script>
   </head>
- 
+
   <body ng-controller="MainCtrl">
 
       <ion-nav-view></ion-nav-view>
-    
+
     <script id="templates/event-menu.html" type="text/ng-template">
       <ion-side-menus>
-        
+
         <ion-side-menu-content>
         <ion-nav-bar class="bar-positive"></ion-nav-bar>
           <ion-nav-buttons side="left">
@@ -26,8 +26,8 @@
             <button class="button button-icon button-clear ion-person-stalker" ng-click="toggleRight()"></button>
           </ion-nav-buttons>
           <ion-nav-view animation="no-animation" name="menuContent"></ion-nav-view>
-        </ion-side-menu-content> 
-        
+        </ion-side-menu-content>
+
         <ion-side-menu side="left">
           <ion-content>
             <ul class="list">
@@ -35,6 +35,7 @@
               <a class="item item-icon-left" href=""><i class="icon ion-document-text"></i>Accounts</a>
               <a class="item item-icon-left" href="invite.html" menu-close><i class="icon ion-person-add"></i>Add Friends</a>
               <a class="item item-icon-left" ng-click="logout()"><i class="icon ion-log-out"></i>Log Out</a>
+              <a class="item item-icon-left" href="chooseCalendar.html" menu-close><i class="icon ion-person-add"></i>Choose Calendar</a>
             </ul>
           </ion-content>
         </ion-side-menu>
@@ -56,10 +57,10 @@
             </ion-list>
           </ion-content>
         </ion-side-menu>
-        
+
       </ion-side-menus>
     </script>
-    
+
     <script id="templates/home.html" type="text/ng-template">
       <ion-view title="Corral">
         <ion-content>
@@ -73,7 +74,7 @@
             </ion-item>
           </ion-list>
         </ion-content>
-        <ion-footer-bar class="bar bar-positive item-input-inset"> 
+        <ion-footer-bar class="bar bar-positive item-input-inset">
           <label class="item-input-wrapper">
             <i class="icon ion-chatbox placeholder-icon"></i>
             <input id="mood" ng-model="mood" type="text" placeholder="Update your mood">
@@ -84,6 +85,6 @@
           <button ng-if="mood.length" class="button button-outline icon ion-edit button-light" ng-click="updateMood()"></button>
         </ion-footer-bar>
       </ion-view>
-    </script>    
+    </script>
   </body>
 </html>

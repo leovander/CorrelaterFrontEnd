@@ -23,46 +23,31 @@ angular.module('ionicApp', ['ionic'])
 .controller('MainCtrl', function($scope, $ionicSideMenuDelegate, $ionicPopup) {
   var rightView = 'requests';
   var invisible;
-  // This code block loads the Friends Now List at start up
-  jQuery.ajax({
-        url: "http://e-wit.co.uk/correlater/user/getFriendsNow",
-        dataType: 'json'}
-    ).done(function(data){
-        $scope.friendsNow = data.friends;
-    })
-   .always(function() {
-     // Stop the ion-refresher from spinning
-     $scope.$broadcast('scroll.refreshComplete');
-   });
-
-  // This code block loads the Requests List at start up
-  jQuery.ajax({
-      url: "http://e-wit.co.uk/correlater/user/getRequests",
-      dataType: 'json'}
-  ).done(function(data){
-    $scope.requestsList = data.friends;
-  })
-  .always(function() {
-    $scope.$broadcast('scroll.refreshComplete');         
-  });
-
-  // This code block loads the Friends List at start up
-  jQuery.ajax({
-      url: "http://e-wit.co.uk/correlater/user/getFriends",
-      dataType: 'json'}
-  ).done(function(data){
-      $scope.friendsList = data.friends;
-  })
-  .always(function() {
-    $scope.$broadcast('scroll.refreshComplete');         
-  });
+  var currentUser;
 
   $scope.toggleLeft = function() {
     $ionicSideMenuDelegate.toggleLeft();
+    $scope.refreshMyInfo();
+    $scope.refreshFriendsNow();
   };
   $scope.toggleRight = function() {
+    $scope.refreshMyInfo();
     $ionicSideMenuDelegate.toggleRight();
   };
+
+  $scope.refreshMyInfo = function() {
+    jQuery.ajax({
+      url: "http://e-wit.co.uk/correlater/user/getMyInfo",
+      dataType: 'json'
+    }).success(function(data){
+        if(data.message == "Logged In")
+          currentUser = data.user;
+        if (currentUser.status == "1")
+          invisible = false;
+        else
+          invisible= true;
+    });
+  }
 
   $scope.refreshFriendsNow = function() {
   jQuery.ajax({
@@ -119,6 +104,26 @@ angular.module('ionicApp', ['ionic'])
       alert('Denied '+friend.first_name+' '+friend.last_name.substring(0,1).toUpperCase());
     });
   };
+  
+  //TODO: REMOVE THE CHECK MARK ONCE ADDED?
+  $scope.acceptFriend = function(friend) {
+    jQuery.ajax({
+        url: "http://e-wit.co.uk/correlater/user/acceptFriend/" + friend.id,
+        dataType: 'json'
+    }).done(function() {
+	    alert(friend.first_name + " added!");
+    });
+  };
+  
+  //TODO: REMOVE PERSON FROM THE LIST
+  $scope.deleteFriend = function(friend) {
+    jQuery.ajax({
+        url: "http://e-wit.co.uk/correlater/user/deleteFriend/" + friend.id,
+        dataType: 'json'
+    }).done(function() {
+	    alert(friend.first_name + " deleted!");
+    });
+  };
 
   $scope.logout = function(){
     jQuery.ajax({
@@ -141,11 +146,10 @@ angular.module('ionicApp', ['ionic'])
       url: "http://e-wit.co.uk/correlater/user/setMood",
       dataType: 'json',
       data: {mood : status } //CHANGED THIS
-    }).success(function() {
-      alert("status set");
     }).always(function(){
       jQuery('#mood').val('');
     });
+    $scope.refreshMyInfo();
   }
 
   $scope.toggleInvisibility = function() {
@@ -174,6 +178,10 @@ angular.module('ionicApp', ['ionic'])
 
   $scope.showRequests = function() {
     rightView='requests';
+  }
+
+  $scope.getMyMood = function() {
+    return currentUser.mood;
   }
 
   $scope.showFriends = function() {
@@ -206,6 +214,10 @@ angular.module('ionicApp', ['ionic'])
         alert('Nudged '+friend.first_name+' with message: '+$scope.data.nudgeMessage);
     });
   }
+  $scope.refreshMyInfo();
+  $scope.refreshFriendsNow();
+  $scope.refreshRequestsList();
+  $scope.refreshFriendsList();
 })
 
 // .controller('CheckinCtrl', function($scope) {

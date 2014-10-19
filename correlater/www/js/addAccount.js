@@ -66,7 +66,7 @@ $(document).on('deviceready', function() {
     }).done(function(data) {
       $.ajax({
           type: "POST",
-          url: 'http://e-wit.co.uk/correlater/google/createWithGoogleAccount',
+          url: 'http://e-wit.co.uk/correlater/google/create',
           data: { google_access_token : data.access_token,
                   google_refresh_token : data.refresh_token,
                   google_id_token : data.id_token,

@@ -16,31 +16,28 @@
     <script type="text/javascript" charset="utf-8" src="js/jquery.mobile-1.4.3/jquery.mobile-1.4.3.min.js"></script>
     <script type="text/javascript" charset="utf-8" src="js/angular.js"></script>
     <script type="text/javascript" charset="utf-8" src="js/jquery.validate.js"></script>
-    <script type="text/javascript" charset="utf-8" src="js/createNative.js"></script>
+    <script type="text/javascript" charset="utf-8" src="js/nativeSignIn.js"></script>
 </head>
 <body>
     <div data-role="page">
-        <div id="navBar" data-role="header" class="primary-3" data-position="fixed">
+        <div id="navBar" data-role="header" class="primary-3">
             <a href="#" id="back" class="navItem ui-btn ui-icon-carat-l ui-btn-icon-notext ui-nodisc-icon" data-rel="back"></a>
-            <h1 id="title">Create Account</h1>
+            <h1 id="title">Sign In with Corral</h1>
         </div>
         <div data-role="content">
-            <!-- first name, last name, email, password, verify password,  -->
-            <form method="post" id="create" name="form">
-                <label for="first_name">First Name:</label>
-                <input type="text" name="first_name" id="first_name" value="" >
-                <label for="last_name">Last Name:</label>
-                <input type="text" name="last_name" id="last_name" value="" >
+
+            <form method="post" id="login">
                 <label for="email">E-mail:</label>
-                <input type="email" name="email" id="email" value="" >
+                <input type="email" name="email" id="email" value="">
                 <label for="password">Password:</label>
                 <input type="password" name="password" id="password" value="" autocomplete="off">
-                <label for="verify_password">Verify Password:</label>
-                <input type="password" name="verify_password" id="verify_password" value="" autocomplete="off">
                 <input type="submit" name="submit" value="Submit">
             </form>
+            <div>
+                <a id="forgotPW">Forget your password?</a>
+            </div>
             <p id="feedBack"></p>
-        </div
+        </div>
     </div>
 </body>
 </html>

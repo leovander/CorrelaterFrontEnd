@@ -82,6 +82,9 @@ $(document).on('deviceready', function() {
 			inviteFriend($(this).find('a').html());
 		}
 	});
+	$('#phoneContacts').click(function() {
+		window.location = "inviteFromPhone.html";
+	});
 });
 
 function addFriend(id) {

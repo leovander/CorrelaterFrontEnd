@@ -16,7 +16,7 @@
     <script type="text/javascript" charset="utf-8" src="js/jquery.mobile-1.4.3/jquery.mobile-1.4.3.min.js"></script>
     <script type="text/javascript" charset="utf-8" src="js/angular.js"></script>
     <script type="text/javascript" charset="utf-8" src="js/jquery.validate.js"></script>
-    <script type="text/javascript" charset="utf-8" src="js/invite.js"></script>
+    <script type="text/javascript" charset="utf-8" src="js/inviteFromPhone.js"></script>
 </head>
 <body>
     <div data-role="page">
@@ -25,16 +25,7 @@
             <h1 id="title">Invite a Friend</h1>
         </div>
         <div data-role="content">
-          <form method="post" id="search" data-role="none">
-              <label for="email">Search by Email:</label>
-              <input type="email" name="email" id="email">
-              <input type="submit" id="submit" value="Search">
-          </form>
-          <ul data-role="listview" data-inset="true" data-icon="plus"></ul>
-          <p>Or</p>
-          <button id="phoneContacts" class="ui-btn ui-corner-all ui-btn ui-shadow">
-                Invite from phone contacts
-            </button>
+            <ul data-role="listview" data-inset="true" data-icon="plus"></ul>
         </div>
     </div>
 </body>

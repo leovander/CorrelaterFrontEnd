@@ -88,6 +88,12 @@ $(document).on('deviceready', function() {
     });
   });
 });
+
+// Facebook Login Code
+
 $(function(){
-		$("#fbLogin").load("fbLogin.html");
+		$('#Facebook').on('click', function(){
+      window.location = "http://www.facebook.com/dialog/oauth?client_id=1480365258889009&redirect_uri=https://www.facebook.com/connect/login_success.html&response_type=token";
+    });
 });	
+

@@ -49,7 +49,7 @@ angular.module('ionicApp', ['ionic'])
   }
 
   $scope.refreshFriendsNow = function() {
-  jQuery.ajax({
+    jQuery.ajax({
         url: "http://e-wit.co.uk/correlater/user/getFriendsNow",
         dataType: 'json'}
     ).done(function(data){
@@ -90,6 +90,13 @@ angular.module('ionicApp', ['ionic'])
         if(data.message != 'Friend Accepted') {
           alert('Add Failed');
         }
+        jQuery.ajax({
+            url: "http://e-wit.co.uk/correlater/user/getRequests",
+            dataType: 'json'}
+        ).done(function(data){
+          $scope.requestsList = data.friends;
+          $scope.$broadcast('scroll.refreshComplete'); 
+        });
     });
   };
 
@@ -104,7 +111,13 @@ angular.module('ionicApp', ['ionic'])
             url: "http://e-wit.co.uk/correlater/user/deleteFriend/" + friend.id,
             dataType: 'json'
         }).done(function() {
-          alert(friend.first_name + " denied!");
+          jQuery.ajax({
+              url: "http://e-wit.co.uk/correlater/user/getRequests",
+              dataType: 'json'}
+          ).done(function(data){
+            $scope.requestsList = data.friends;
+            $scope.$broadcast('scroll.refreshComplete');   
+          });
         });
       }
     });
@@ -121,7 +134,13 @@ angular.module('ionicApp', ['ionic'])
             url: "http://e-wit.co.uk/correlater/user/deleteFriend/" + friend.id,
             dataType: 'json'
         }).done(function() {
-          alert(friend.first_name + " deleted!");
+          jQuery.ajax({
+              url: "http://e-wit.co.uk/correlater/user/getFriends",
+              dataType: 'json'}
+          ).done(function(data){
+            $scope.friendsList = data.friends;
+            $scope.$broadcast('scroll.refreshComplete');  
+          });
         });
       }
     });

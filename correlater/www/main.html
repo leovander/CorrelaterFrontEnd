@@ -35,8 +35,8 @@
           </ion-header-bar>
           <ion-content>
             <ul class="list">
-              <a class="item item-icon-left assertive" href=""><i class="icon ion-person"></i>My Profile</a>
-              <a class="item item-icon-left assertive" href=""><i class="icon ion-android-mixer"></i>My Schedule</a>
+              <a class="item item-icon-left assertive" href=""><i class="icon ion-person"></i>Profile</a>
+              <a class="item item-icon-left assertive" href=""><i class="icon ion-android-mixer"></i>Schedule</a>
               <a class="item item-icon-left assertive" href=""><i class="icon ion-document-text"></i>Accounts</a>
               <a class="item item-icon-left" href="invite.html" menu-close><i class="icon ion-person-add"></i>Add Friends</a>
               <a class="item item-icon-left" href="chooseCalendar.html" menu-close><i class="icon ion-ios7-calendar-outline"></i>Choose Calendar</a>
@@ -69,10 +69,10 @@
                 <ion-item class="requestTile" class="item-balanced" ng-repeat="friend in requestsList" item="friend">
                   {{friend.first_name}} {{friend.last_name.substring(0,1).toUpperCase()}}
                   <span class="item-note">
-                    <button class="floatBlock button button-small icon ion-checkmark-round balanced" ng-click="acceptRequest(friend); refreshRequestsList(); refreshFriendsNow();">
+                    <button class="floatBlock button button-small icon ion-checkmark-round balanced" ng-click="acceptRequest(friend);">
                     </button>
                     <p class="floatBlock">&nbsp;</p>
-                    <button class="floatBlock button button-small icon ion-close-round assertive" ng-click="denyRequest(friend); refreshRequestsList();">
+                    <button class="floatBlock button button-small icon ion-close-round assertive" ng-click="denyRequest(friend);">
                     </button>
                   </span>
                 </ion-item>
@@ -88,7 +88,7 @@
                   {{friend.first_name}} {{friend.last_name.substring(0,1).toUpperCase()}}
                   <ion-option-button class="button button-large icon ion-ios7-star-outline" ng-click="toggleFavorite(friend)">
                   </ion-option-button>
-                  <ion-option-button class="button button-large icon ion-trash-a" ng-click="deleteFriend(friend); refreshFriendsList() refreshFriendsNow();">
+                  <ion-option-button class="button button-large icon ion-trash-a" ng-click="deleteFriend(friend);">
                   </ion-option-button>
                 </ion-item>
               </ion-list>

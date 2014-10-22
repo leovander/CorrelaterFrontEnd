@@ -24,7 +24,7 @@
             <button class="button button-icon button-clear ion-navicon" ng-click="toggleLeft(); refreshMyInfo()"></button>
           </ion-nav-buttons>
           <ion-nav-buttons side="right">
-            <button class="button button-icon button-clear ion-person-stalker" ng-click="refreshRequestsList(); refreshFriendsList(); toggleRight(); refreshMyInfo()"></button>
+            <button class="button button-icon button-clear ion-person-stalker" ng-click="refreshRequestsList(); refreshFriendsList(); toggleRight(); refreshMyInfo();"></button>
           </ion-nav-buttons>
           <ion-nav-view animation="no-animation" name="menuContent"></ion-nav-view>
         </ion-side-menu-content>
@@ -35,10 +35,13 @@
           </ion-header-bar>
           <ion-content>
             <ul class="list">
-              <a class="item item-icon-left" href=""><i class="icon ion-person"></i>Profile</a>
-              <a class="item item-icon-left" href=""><i class="icon ion-document-text"></i>Accounts</a>
+              <a class="item item-icon-left assertive" href=""><i class="icon ion-person"></i>My Profile</a>
+              <a class="item item-icon-left assertive" href=""><i class="icon ion-android-mixer"></i>My Schedule</a>
+              <a class="item item-icon-left assertive" href=""><i class="icon ion-document-text"></i>Accounts</a>
               <a class="item item-icon-left" href="invite.html" menu-close><i class="icon ion-person-add"></i>Add Friends</a>
               <a class="item item-icon-left" href="chooseCalendar.html" menu-close><i class="icon ion-ios7-calendar-outline"></i>Choose Calendar</a>
+              <a class="item item-icon-left assertive"><i class="icon ion-information"></i>Tutorial</a>
+              <a class="item item-icon-left assertive"><i class="icon ion-settings"></i>Settings</a>
               <a class="item item-icon-left" ng-click="logout()"><i class="icon ion-log-out"></i>Log Out</a>
             </ul>
           </ion-content>
@@ -62,14 +65,14 @@
                 pulling-text="Pull to refresh..."
                 on-refresh="refreshRequestsList()">
               </ion-refresher>
-              <ion-list can-swipe="true">
+              <ion-list>
                 <ion-item class="requestTile" class="item-balanced" ng-repeat="friend in requestsList" item="friend">
                   {{friend.first_name}} {{friend.last_name.substring(0,1).toUpperCase()}}
                   <span class="item-note">
-                    <button class="floatBlock button button-small icon ion-checkmark-round balanced" ng-click="acceptRequest(friend) refreshRequestsList();">
+                    <button class="floatBlock button button-small icon ion-checkmark-round balanced" ng-click="acceptRequest(friend); refreshRequestsList(); refreshFriendsNow();">
                     </button>
                     <p class="floatBlock">&nbsp;</p>
-                    <button class="floatBlock button button-small icon ion-close-round assertive" ng-click="denyRequest(friend)">
+                    <button class="floatBlock button button-small icon ion-close-round assertive" ng-click="denyRequest(friend); refreshRequestsList();">
                     </button>
                   </span>
                 </ion-item>
@@ -83,7 +86,9 @@
               <ion-list can-swipe="true">
                 <ion-item class="friendTile" ng-repeat="friend in friendsList" item="friend">
                   {{friend.first_name}} {{friend.last_name.substring(0,1).toUpperCase()}}
-                  <ion-option-button class="button button-large icon ion-gear-a" ng-click="editFriend(friend)">
+                  <ion-option-button class="button button-large icon ion-ios7-star-outline" ng-click="toggleFavorite(friend)">
+                  </ion-option-button>
+                  <ion-option-button class="button button-large icon ion-trash-a" ng-click="deleteFriend(friend); refreshFriendsList() refreshFriendsNow();">
                   </ion-option-button>
                 </ion-item>
               </ion-list>
@@ -96,7 +101,12 @@
 
     <script id="templates/home.html" type="text/ng-template">
       <ion-view title="Corral">
-        <ion-content>
+        <ion-header-bar align-title="center" class="moodBar bar-subheader">
+          <div id="currentMood">
+            <p>{{getMyMood()}}</p>
+          </div>
+        </ion-header-bar>
+        <ion-content class="has-subheader has-subfooter">
           <ion-refresher
             pulling-text="Pull to refresh..."
             on-refresh="refreshMyInfo(); refreshFriendsNow();">
@@ -104,10 +114,10 @@
           <ion-list>
             <ion-item id="{{'friend'+nowFriend.id}}" class="nowTile" ng-click="clickFriendNow('friend'+nowFriend.id)" ng-repeat="nowFriend in friendsNow"  item="nowFriend">
               <span class="item-note" ng-if="!isActiveNow('friend'+nowFriend.id)">
-                Free Time Left
+                hh:mm
               </span>
               <span class="item-note" ng-if="isActiveNow('friend'+nowFriend.id)">
-                <button class="button button-outline icon ion-radio-waves button-balanced" ng-click="nudgeFriend(nowFriend)"></button>
+                <button class="button icon ion-chatbubble button-clear button-outline button-balanced" ng-click="nudgeFriend(nowFriend)"></button>
               </span>
               <h2>
                 {{nowFriend.first_name}} {{nowFriend.last_name.substring(0,1).toUpperCase()}}
@@ -120,11 +130,20 @@
         </ion-content>
         <ion-footer-bar class="bar bar-subfooter"> 
           <div class="sideTab">
-            <ion-toggle id="invisSet" ng-checked="getInvisibility()" ng-model="invisible" toggle-class="toggle-balanced" ng-click="toggleInvisibility(); refreshMyInfo()"></ion-toggle>
-          </div>
-          <div class="rightTab">
-            <p id="moodLabel">Mood</p>
-            <p id="currentMood">{{getMyMood()}}</p>
+            <div id="invisArea">
+              <div class="freeSection">
+                <button class="button icon ion-eye button-clear" ng-class="{true: 'button-light', false: 'button-dark'}[getInvisibility()!='2']" ng-click="setInvisibility('2');">
+                </button>
+              </div>
+              <div class="calmSection">
+                <button class="button icon ion-eye button-clear" ng-class="{true: 'button-light', false: 'button-dark'}[getInvisibility()!='1']" ng-click="setInvisibility('1');">
+                </button>
+              </div>
+              <div class="invisSection">
+                <button class="button icon ion-eye-disabled button-clear" ng-class="{true: 'button-light', false: 'button-dark'}[getInvisibility()!='0']" ng-click="setInvisibility('0');">
+                </button>
+              </div>
+            </div>
           </div>
         </ion-footer-bar>
         <ion-footer-bar class="bar bar-positive item-input-inset"> 
@@ -135,7 +154,7 @@
             <button ng-if="isMoodSetEmpty()" class="button-icon icon ion-android-close light"
               ng-click="clearMood()">
             </button>
-          <button ng-if="isMoodSetEmpty()" class="button button-outline icon ion-edit button-light" ng-click="updateMood(); refreshMyInfo()"></button>
+          <button ng-if="isMoodSetEmpty()" class="button button-outline icon ion-edit button-light" ng-click="updateMood(); refreshMyInfo();"></button>
         </ion-footer-bar>
       </ion-view>
     </script>

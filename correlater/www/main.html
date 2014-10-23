@@ -95,8 +95,8 @@
                 </ion-item>
                 <ion-item class="friendTile" ng-repeat="friend in friendsList" item="friend">
                   {{friend.first_name}} {{friend.last_name}}
-                  <ion-option-button class="button button-large icon ion-ios7-star-outline" ng-click="toggleFavorite(friend)">
-                  </ion-option-button>
+                  <!--<ion-option-button class="button button-large icon ion-ios7-star-outline" ng-click="toggleFavorite(friend)">
+                  </ion-option-button>-->
                   <ion-option-button class="button button-large icon ion-trash-a" ng-click="deleteFriend(friend);">
                   </ion-option-button>
                 </ion-item>
@@ -126,12 +126,12 @@
               <div>No Available Friends</div>
             </ion-item>
             <ion-item id="{{'friend'+nowFriend.id}}" class="nowTile" ng-click="clickFriendNow('friend'+nowFriend.id); listResize();" ng-repeat="nowFriend in friendsNow"  item="nowFriend">
-              <span class="item-note" ng-if="!isActiveNow('friend'+nowFriend.id)">
+              <!--<span class="item-note" ng-if="!isActiveNow('friend'+nowFriend.id)">
                 hh:mm
-              </span>
-              <span class="item-note" ng-if="isActiveNow('friend'+nowFriend.id)">
+              </span>-->
+              <!--<span class="item-note" ng-if="isActiveNow('friend'+nowFriend.id)">
                 <button class="button icon ion-chatbubble button-clear button-outline button-balanced" ng-click="nudgeFriend(nowFriend)"></button>
-              </span>
+              </span>-->
               <h2>
                 {{nowFriend.first_name}} {{nowFriend.last_name}}
               </h2>

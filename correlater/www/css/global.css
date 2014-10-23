@@ -147,7 +147,7 @@ div[data-role="panel"] {
 }
 
 .received:hover {
-  background: #0C7439 !important;
+/*   background: #0C7439 !important; */
 }
 
 .failed {
@@ -157,7 +157,7 @@ div[data-role="panel"] {
 }
 
 .failed:hover {
-  background: #d43f3a !important;
+/*   background: #d43f3a !important; */
 }
 
 .fb {

@@ -86,3 +86,44 @@ $(document).on('deviceready', function() {
     });
   });
 });
+
+// Facebook Login Code
+
+$(function(){
+	$('#Facebook').on('click', function() {
+		openFB.init({appId: "1480365258889009"});
+		openFB.login(checkLogin, {scope: 'email'});
+    });
+});	
+
+function checkLogin() {
+	var token = localStorage.getItem("fbtoken");
+	$.ajax({
+		url: 'https://graph.facebook.com/v2.1/me?access_token=' + token + '&fields=id%2Cfirst_name%2Clast_name%2Cemail&format=json',
+		dataType: 'json'
+	}).done(function(data) {
+		var params = {	email: data.email,
+						facebook_id: data.id,
+						facebook_token: token	   	
+					};
+		$.ajax({
+			type: 'POST',
+			url: 'http://e-wit.co.uk/correlater/facebook/login',
+			data: params,
+			dataType: 'json'
+		}).done(function(data) {
+			if (data.message == 'Logged In'){
+	          $('#feedBack').html(data.message);
+	          $('#feedBack').css('color','green');
+	          window.location = 'main.html';
+	        } else {
+	          $('#feedBack').html(data.message);
+	          $('#feedBack').css('color','red');
+	        }
+		});
+	});
+}
+
+function errorHandler(error) {
+    alert(error.message);
+}

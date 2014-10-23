@@ -50,7 +50,7 @@ angular.module('ionicApp', ['ionic'])
 
   $scope.refreshFriendsNow = function() {
     jQuery.ajax({
-        url: "http://e-wit.co.uk/correlater/user/getFriendsNow",
+        url: "http://e-wit.co.uk/gyngai/user/getAvailable",
         dataType: 'json'}
     ).done(function(data){
         $scope.friendsNow = data.friends;
@@ -64,7 +64,7 @@ angular.module('ionicApp', ['ionic'])
         dataType: 'json'}
     ).done(function(data){
       $scope.requestsList = data.friends;
-      $scope.$broadcast('scroll.refreshComplete');   
+      $scope.$broadcast('scroll.refreshComplete');
     });
   };
 
@@ -74,7 +74,7 @@ angular.module('ionicApp', ['ionic'])
         dataType: 'json'}
     ).done(function(data){
       $scope.friendsList = data.friends;
-      $scope.$broadcast('scroll.refreshComplete');  
+      $scope.$broadcast('scroll.refreshComplete');
     });
   };
 
@@ -95,14 +95,14 @@ angular.module('ionicApp', ['ionic'])
             dataType: 'json'}
         ).done(function(data){
           $scope.requestsList = data.friends;
-          $scope.$broadcast('scroll.refreshComplete'); 
+          $scope.$broadcast('scroll.refreshComplete');
         });
     });
   };
 
   $scope.denyRequest = function(friend){
     $ionicPopup.confirm({
-      title: 'Deny '+friend.first_name+' '+friend.last_name+'?', 
+      title: 'Deny '+friend.first_name+' '+friend.last_name+'?',
       template: ''
     })
     .then(function(result){
@@ -116,16 +116,16 @@ angular.module('ionicApp', ['ionic'])
               dataType: 'json'}
           ).done(function(data){
             $scope.requestsList = data.friends;
-            $scope.$broadcast('scroll.refreshComplete');   
+            $scope.$broadcast('scroll.refreshComplete');
           });
         });
       }
     });
   };
-  
+
   $scope.deleteFriend = function(friend) {
     $ionicPopup.confirm({
-      title: 'Do you want to unfriend '+friend.first_name+' '+friend.last_name+'?', 
+      title: 'Do you want to unfriend '+friend.first_name+' '+friend.last_name+'?',
       template: ''
     })
     .then(function(result){
@@ -139,7 +139,7 @@ angular.module('ionicApp', ['ionic'])
               dataType: 'json'}
           ).done(function(data){
             $scope.friendsList = data.friends;
-            $scope.$broadcast('scroll.refreshComplete');  
+            $scope.$broadcast('scroll.refreshComplete');
           });
         });
       }
@@ -196,11 +196,11 @@ angular.module('ionicApp', ['ionic'])
 
   $scope.setInvisibility = function(stat) {
     status=stat;
-    if (status=="2") 
+    if (status=="2")
       $ionicLoading.show({ template: 'Free Mode', noBackdrop: true, duration: 1000 });
-    else if (status=="1") 
+    else if (status=="1")
       $ionicLoading.show({ template: 'Schedule Mode', noBackdrop: true, duration: 1000 });
-    else if (status=="0") 
+    else if (status=="0")
       $ionicLoading.show({ template: 'Invisible Mode', noBackdrop: true, duration: 1000 });
     jQuery.ajax({
       url: "http://e-wit.co.uk/correlater/user/setAvailability/"+stat,
@@ -291,5 +291,5 @@ angular.module('ionicApp', ['ionic'])
 // })
 
 // .controller('AttendeesCtrl', function($scope) {
-  
+
 // })

@@ -2,6 +2,8 @@ $(function() {
 	getCalendars();
 });
 
+angular.module('ionicApp', ['ionic'])
+
 function toast(msg){
 	$("<div class='ui-loader ui-overlay-shadow ui-body-e ui-corner-all'><p>"+msg+"</p></div>")
 	.css({ display: "block",
@@ -14,8 +16,8 @@ function toast(msg){
 		width: "270px",
 		left: ($(window).width() - 284)/2,
 		top: $(window).height()/4 })
-	.appendTo( $.mobile.pageContainer ).delay( 4500 )
-	.fadeOut( 400, function(){
+	.appendTo( $.mobile.pageContainer ).delay( 300 )
+	.fadeOut( 2000, function(){
 		$(this).remove();
 	});
 }
@@ -29,7 +31,7 @@ function getCalendars() {
 			cal = data;
 
 			$.each(data.calendars, function (i, calendar) {
-				$('#chooseCalUl').append('<li><label><input type="checkbox" name="'+calendar.id+'">'+calendar.name+'</label></li>');
+				$('#chooseCalUl').append('<li><label><input type="checkbox" id="checkbox-mini-0" data-mini="true" name="'+calendar.id+'">'+calendar.name+'</label></li>');
 			});
 			$('#chooseCalUl').listview("refresh");
 			$('#chooseCal').submit(function(event) {

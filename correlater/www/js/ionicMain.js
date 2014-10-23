@@ -50,7 +50,7 @@ angular.module('ionicApp', ['ionic'])
 
   $scope.refreshFriendsNow = function() {
     jQuery.ajax({
-        url: "http://e-wit.co.uk/gyngai/user/getAvailable",
+        url: "http://e-wit.co.uk/correlater/user/getAvailable",
         dataType: 'json'}
     ).done(function(data){
         $scope.friendsNow = data.friends;

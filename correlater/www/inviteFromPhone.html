@@ -9,30 +9,23 @@
 
     <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet" type="text/css">
     <link rel="stylesheet" href="js/jquery.mobile-1.4.3/jquery.mobile-1.4.3.min.css">
-    <link rel="stylesheet" type="text/css" href="css/global.css" />
+    <link rel="stylesheet" type="text/css" href="css/global.css">
 
     <script type="text/javascript" charset="utf-8" src="cordova.js"></script>
     <script type="text/javascript" charset="utf-8" src="js/jquery/jquery-2.1.1.min.js"></script>
     <script type="text/javascript" charset="utf-8" src="js/jquery.mobile-1.4.3/jquery.mobile-1.4.3.min.js"></script>
-    <script type="text/javascript" charset="utf-8" src="js/addAccount.js"></script>
+    <script type="text/javascript" charset="utf-8" src="js/angular.js"></script>
+    <script type="text/javascript" charset="utf-8" src="js/jquery.validate.js"></script>
+    <script type="text/javascript" charset="utf-8" src="js/inviteFromPhone.js"></script>
 </head>
 <body>
     <div data-role="page">
         <div id="navBar" data-role="header" class="primary-3">
             <a href="#" id="back" class="navItem ui-btn ui-icon-carat-l ui-btn-icon-notext ui-nodisc-icon" data-rel="back"></a>
-            <h1 id="title">Add Account</h1>
+            <h1 id="title">Invite a Friend</h1>
         </div>
         <div data-role="content">
-              <button id="googleLogin" class="ui-btn ui-corner-all ui-btn ui-shadow failed">
-                  Create with Google &#43;
-              </button>
-		<button id="Facebook" class="ui-btn ui-corner-all ui-btn ui-shadow fb">
-			Create with Facebook
-              </button>
-              <button id="nativeCreate" class="ui-btn ui-corner-all ui-btn ui-shadow">
-                  Create Corral Account
-              </button>
-              <p id="feedBack"></p>
+            <ul data-role="listview" data-inset="true" data-icon="plus"></ul>
         </div>
     </div>
 </body>

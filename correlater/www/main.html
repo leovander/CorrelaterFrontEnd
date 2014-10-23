@@ -5,6 +5,7 @@
 
     <title>Corral</title>
     <link href="css/ionic.css" rel="stylesheet">
+    <link href="css/ionicMain.css" rel="stylesheet">
     <script src="js/ionic.bundle.js"></script>
     <script type="text/javascript" charset="utf-8" src="js/jquery/jquery-2.1.1.min.js"></script>
     <script src="js/ionicMain.js"></script>
@@ -20,41 +21,78 @@
         <ion-side-menu-content>
         <ion-nav-bar class="bar-positive"></ion-nav-bar>
           <ion-nav-buttons side="left">
-            <button class="button button-icon button-clear ion-navicon" ng-click="toggleLeft()"></button>
+            <button class="button button-icon button-clear ion-navicon" ng-click="toggleLeft(); refreshMyInfo()"></button>
           </ion-nav-buttons>
           <ion-nav-buttons side="right">
-            <button class="button button-icon button-clear ion-person-stalker" ng-click="toggleRight()"></button>
+            <button class="button button-icon button-clear ion-person-stalker" ng-click="refreshRequestsList(); refreshFriendsList(); toggleRight(); refreshMyInfo();"></button>
           </ion-nav-buttons>
           <ion-nav-view animation="no-animation" name="menuContent"></ion-nav-view>
         </ion-side-menu-content>
 
         <ion-side-menu side="left">
+          <ion-header-bar align-title="center" class="bar-positive">
+            <h1 class="title"></h1>
+          </ion-header-bar>
           <ion-content>
             <ul class="list">
-              <a class="item item-icon-left" href=""><i class="icon ion-person"></i>Profile</a>
-              <a class="item item-icon-left" href=""><i class="icon ion-document-text"></i>Accounts</a>
+              <a class="item item-icon-left assertive" href=""><i class="icon ion-person"></i>Profile</a>
+              <a class="item item-icon-left assertive" href=""><i class="icon ion-android-mixer"></i>Schedule</a>
+              <a class="item item-icon-left assertive" href=""><i class="icon ion-document-text"></i>Accounts</a>
               <a class="item item-icon-left" href="invite.html" menu-close><i class="icon ion-person-add"></i>Add Friends</a>
+              <a class="item item-icon-left" href="chooseCalendar.html" menu-close><i class="icon ion-ios7-calendar-outline"></i>Choose Calendar</a>
+              <a class="item item-icon-left assertive"><i class="icon ion-information"></i>Tutorial</a>
+              <a class="item item-icon-left assertive"><i class="icon ion-settings"></i>Settings</a>
               <a class="item item-icon-left" ng-click="logout()"><i class="icon ion-log-out"></i>Log Out</a>
-              <a class="item item-icon-left" href="chooseCalendar.html" menu-close><i class="icon ion-person-add"></i>Choose Calendar</a>
             </ul>
           </ion-content>
         </ion-side-menu>
 
         <ion-side-menu side="right">
+          <ion-header-bar align-title="center" class="bar-positive">
+            <div class="buttons">
+              <button class="button-icon icon ion-android-inbox" ng-class="{true: 'energized', false: 'stable'}[getRightMenu()=='requests']" ng-click="refreshRequestsList(); showRequests();">&nbsp;Requests
+              </button>
+            </div>
+            <h1 class="title"></h1>
+            <div class="buttons">
+              <button class="button-icon icon ion-ios7-people" ng-class="{true: 'energized', false: 'stable'}[getRightMenu()=='friends']" ng-click="refreshFriendsList(); showFriends();">&nbsp;Friends
+              </button>
+            </div>
+          </ion-header-bar>
           <ion-content>
-            <ion-refresher
-              pulling-text="Pull to refresh..."
-              on-refresh="refreshFriendsList()">
-            </ion-refresher>
-            <ion-list can-swipe="true">
-              <ion-item ng-repeat="friend in friendsList" item="friend">
-                {{friend.first_name}} {{friend.last_name.substring(0,1).toUpperCase()}}
-                <ion-option-button class="button button-large icon-right ion-close" ng-click="deleteFriend(friend)">
-                </ion-option-button>
-                <ion-option-button class="button button-large icon-right ion-checkmark" ng-click="acceptFriend(friend)">
-                </ion-option-button>
-              </ion-item>
-            </ion-list>
+            <div ng-if="getRightMenu()=='requests'">
+              <ion-refresher
+                pulling-text="Pull to refresh..."
+                on-refresh="refreshRequestsList()">
+              </ion-refresher>
+              <ion-list>
+                <ion-item class="requestTile" class="item-balanced" ng-repeat="friend in requestsList" item="friend">
+                  {{friend.first_name}} {{friend.last_name.substring(0,1).toUpperCase()}}
+                  <span class="item-note">
+                    <button class="floatBlock button button-small icon ion-checkmark-round balanced" ng-click="acceptRequest(friend);">
+                    </button>
+                    <p class="floatBlock">&nbsp;</p>
+                    <button class="floatBlock button button-small icon ion-close-round assertive" ng-click="denyRequest(friend);">
+                    </button>
+                  </span>
+                </ion-item>
+              </ion-list>
+            </div>
+            <div ng-if="getRightMenu()=='friends'">
+              <ion-refresher
+                pulling-text="Pull to refresh..."
+                on-refresh="refreshFriendsList()">
+              </ion-refresher>
+              <ion-list can-swipe="true">
+                <ion-item class="friendTile" ng-repeat="friend in friendsList" item="friend">
+                  {{friend.first_name}} {{friend.last_name.substring(0,1).toUpperCase()}}
+                  <ion-option-button class="button button-large icon ion-ios7-star-outline" ng-click="toggleFavorite(friend)">
+                  </ion-option-button>
+                  <ion-option-button class="button button-large icon ion-trash-a" ng-click="deleteFriend(friend);">
+                  </ion-option-button>
+                </ion-item>
+              </ion-list>
+            </div>
           </ion-content>
         </ion-side-menu>
 
@@ -63,26 +101,60 @@
 
     <script id="templates/home.html" type="text/ng-template">
       <ion-view title="Corral">
-        <ion-content>
+        <ion-header-bar align-title="center" class="moodBar bar-subheader">
+          <div id="currentMood">
+            <p>{{getMyMood()}}</p>
+          </div>
+        </ion-header-bar>
+        <ion-content class="has-subheader has-subfooter">
           <ion-refresher
             pulling-text="Pull to refresh..."
-            on-refresh="refreshFriendsNow()">
+            on-refresh="refreshMyInfo(); refreshFriendsNow();">
           </ion-refresher>
           <ion-list>
-            <ion-item ng-repeat="nowFriend in friendsNow" item="nowFriend">
-              {{nowFriend.first_name}} {{nowFriend.last_name.substring(0,1).toUpperCase()}}
+            <ion-item id="{{'friend'+nowFriend.id}}" class="nowTile" ng-click="clickFriendNow('friend'+nowFriend.id)" ng-repeat="nowFriend in friendsNow"  item="nowFriend">
+              <span class="item-note" ng-if="!isActiveNow('friend'+nowFriend.id)">
+                hh:mm
+              </span>
+              <span class="item-note" ng-if="isActiveNow('friend'+nowFriend.id)">
+                <button class="button icon ion-chatbubble button-clear button-outline button-balanced" ng-click="nudgeFriend(nowFriend)"></button>
+              </span>
+              <h2>
+                {{nowFriend.first_name}} {{nowFriend.last_name.substring(0,1).toUpperCase()}}
+              </h2>
+              <p ng-if="isActiveNow('friend'+nowFriend.id)" ng-animate="">
+                {{nowFriend.mood}}
+              </p>
             </ion-item>
           </ion-list>
         </ion-content>
-        <ion-footer-bar class="bar bar-positive item-input-inset">
+        <ion-footer-bar class="bar bar-subfooter"> 
+          <div class="sideTab">
+            <div id="invisArea">
+              <div class="freeSection">
+                <button class="button icon ion-eye button-clear" ng-class="{true: 'button-light', false: 'button-dark'}[getInvisibility()!='2']" ng-click="setInvisibility('2');">
+                </button>
+              </div>
+              <div class="calmSection">
+                <button class="button icon ion-eye button-clear" ng-class="{true: 'button-light', false: 'button-dark'}[getInvisibility()!='1']" ng-click="setInvisibility('1');">
+                </button>
+              </div>
+              <div class="invisSection">
+                <button class="button icon ion-eye-disabled button-clear" ng-class="{true: 'button-light', false: 'button-dark'}[getInvisibility()!='0']" ng-click="setInvisibility('0');">
+                </button>
+              </div>
+            </div>
+          </div>
+        </ion-footer-bar>
+        <ion-footer-bar class="bar bar-positive item-input-inset"> 
           <label class="item-input-wrapper">
             <i class="icon ion-chatbox placeholder-icon"></i>
             <input id="mood" ng-model="mood" type="text" placeholder="Update your mood">
           </label>
-            <button ng-if="mood.length" class="button-icon icon ion-android-close"
+            <button ng-if="isMoodSetEmpty()" class="button-icon icon ion-android-close light"
               ng-click="clearMood()">
             </button>
-          <button ng-if="mood.length" class="button button-outline icon ion-edit button-light" ng-click="updateMood()"></button>
+          <button ng-if="isMoodSetEmpty()" class="button button-outline icon ion-edit button-light" ng-click="updateMood(); refreshMyInfo();"></button>
         </ion-footer-bar>
       </ion-view>
     </script>

@@ -73,6 +73,7 @@
 }
 
 #invisArea {
+	top: 2px;
 	position: absolute;
 	z-index: 5;
 }
@@ -118,4 +119,20 @@
 
 .moodBar {
 	background-color: #CCCCCC;
+}
+
+.emptyListItem {
+	height: 100%;
+	padding-top: 70%;
+	text-align: center;
+}
+
+.emptyNowItem {
+	height: 100%;
+	padding-top: 40%;
+	text-align: center;
+}
+
+.emptyListItem i, .emptyNowItem i {
+	font-size: xx-large;
 }

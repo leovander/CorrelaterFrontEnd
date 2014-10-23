@@ -20,7 +20,7 @@ angular.module('ionicApp', ['ionic'])
   $urlRouterProvider.otherwise("/event/home");
 })
 
-.controller('MainCtrl', function($scope, $ionicSideMenuDelegate, $ionicPopup, $ionicLoading, $ionicPopover) {
+.controller('MainCtrl', function($scope, $ionicSideMenuDelegate, $ionicPopup, $ionicLoading, $ionicPopover, $ionicScrollDelegate) {
   var rightView = 'requests';
   var myMood;
   var status;
@@ -262,6 +262,10 @@ angular.module('ionicApp', ['ionic'])
       if (res)
         alert('Nudged '+friend.first_name+' with message: '+$scope.data.nudgeMessage);
     });
+  }
+
+  $scope.listResize = function(){
+    $ionicScrollDelegate.resize();
   }
 
   $scope.refreshMyInfo();

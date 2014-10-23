@@ -32,7 +32,7 @@ function refresh() {
 
 function getFriendsNow() {
 		$.ajax({
-				url: "http://e-wit.co.uk/correlater/user/getFriendsNow",
+				url: "http://e-wit.co.uk/correlater/user/getAvailable",
 				dataType: 'json'}
 		).done(function(data){
 				var friendsNow = $.makeArray(data.friends);

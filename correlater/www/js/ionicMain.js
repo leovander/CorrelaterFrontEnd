@@ -50,7 +50,7 @@ angular.module('ionicApp', ['ionic'])
 
   $scope.refreshFriendsNow = function() {
     jQuery.ajax({
-        url: "http://e-wit.co.uk/gyngai/user/getAvailable",
+        url: "http://e-wit.co.uk/correlater/user/getAvailable",
         dataType: 'json'}
     ).done(function(data){
         $scope.friendsNow = data.friends;
@@ -173,6 +173,18 @@ angular.module('ionicApp', ['ionic'])
       url: "http://e-wit.co.uk/correlater/user/setMood",
       dataType: 'json',
       data: {mood : myMood } //CHANGED THIS
+    })
+    .done(function(){
+      jQuery.ajax({
+        url: "http://e-wit.co.uk/correlater/user/getMyInfo",
+        dataType: 'json'
+      }).done(function(data){
+          if(data.message == "Logged In"){
+            myMood = data.user.mood;
+            status = data.user.status;
+          }
+          $scope.$broadcast('scroll.refreshComplete');
+      });
     })
     .fail(function(data){
       alert('Failed updating mood');

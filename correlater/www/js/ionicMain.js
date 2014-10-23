@@ -174,6 +174,18 @@ angular.module('ionicApp', ['ionic'])
       dataType: 'json',
       data: {mood : myMood } //CHANGED THIS
     })
+    .done(function(){
+      jQuery.ajax({
+        url: "http://e-wit.co.uk/correlater/user/getMyInfo",
+        dataType: 'json'
+      }).done(function(data){
+          if(data.message == "Logged In"){
+            myMood = data.user.mood;
+            status = data.user.status;
+          }
+          $scope.$broadcast('scroll.refreshComplete');
+      });
+    })
     .fail(function(data){
       alert('Failed updating mood');
     })

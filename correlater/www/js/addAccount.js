@@ -92,8 +92,14 @@ $(document).on('deviceready', function() {
 // Facebook Login Code
 
 $(function(){
-		$('#Facebook').on('click', function(){
-      window.location = "http://www.facebook.com/dialog/oauth?client_id=1480365258889009&redirect_uri=https://www.facebook.com/connect/login_success.html&response_type=token";
+	$('#Facebook').on('click', function()
+	{
+		function callback() {/*window.location='main.html';*/}
+		openFB.init({appId: "1480365258889009"});
+		openFB.login(callback, {scope: 'email'});
+		var token = localStorage.getItem("fbtoken");
+		console.log(token);
+      //window.location = "http://www.facebook.com/dialog/oauth?client_id=1480365258889009&redirect_uri=https://www.facebook.com/connect/login_success.html&response_type=token";
     });
 });	
 

@@ -242,7 +242,9 @@ angular.module('ionicApp', ['ionic'])
   }
 
   $scope.getMyMood = function() {
-    return myMood;
+    if (myMood.length!=0)
+      return myMood;
+    return "Update you mood";
   }
 
   $scope.showFriends = function() {

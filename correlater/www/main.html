@@ -110,12 +110,7 @@
 
     <script id="templates/home.html" type="text/ng-template">
       <ion-view title="Corral">
-        <ion-header-bar align-title="center" class="moodBar bar-subheader">
-          <div id="currentMood">
-            <p>{{getMyMood()}}</p>
-          </div>
-        </ion-header-bar>
-        <ion-content class="has-subheader has-subfooter">
+        <ion-content class="has-subfooter">
           <ion-refresher
             pulling-text="Pull to refresh..."
             on-refresh="refreshMyInfo(); refreshFriendsNow();">
@@ -162,12 +157,12 @@
         <ion-footer-bar class="bar bar-positive item-input-inset">
           <label class="item-input-wrapper">
             <i class="icon ion-chatbox placeholder-icon"></i>
-            <input id="mood" ng-model="mood" type="text" placeholder="Update your mood">
+            <input id="mood" ng-model="mood" type="text" placeholder="{{getMyMood()}}">
           </label>
             <button ng-if="isMoodSetEmpty()" class="button-icon icon ion-android-close light"
               ng-click="clearMood()">
             </button>
-          <button ng-if="isMoodSetEmpty()" class="button button-outline icon ion-edit button-light" ng-click="updateMood();"></button>
+          <button ng-class="{true: 'ion-android-close',false: 'ion-edit'}[!isMoodSetEmpty()]" class="button button-outline icon button-light" ng-click="updateMood();"></button>
         </ion-footer-bar>
       </ion-view>
     </script>

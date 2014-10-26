@@ -282,6 +282,20 @@ angular.module('ionicApp', ['ionic'])
     $ionicScrollDelegate.resize();
   }
 
+  $scope.getSearchFriend = function(){
+    return jQuery('#searchFriend').val();
+  }
+
+  $scope.isSearchFriendEmpty = function(){
+    if (jQuery('#searchFriend').val().length>0 && jQuery('#searchFriend').val()!='')
+      return true;
+    return false;
+  }
+
+  $scope.clearSearchFriend = function(){
+    jQuery('#searchFriend').val('');
+  }
+
   $scope.refreshMyInfo();
   $scope.refreshFriendsNow();
   $scope.refreshRequestsList();

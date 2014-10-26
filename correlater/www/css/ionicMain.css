@@ -1,42 +1,40 @@
 .bar-footer {
-	border-top: none;
+	border-top: transparent;
 }
 
 .bar-subfooter {
-	background: none;
-	border: none;
+	background: transparent;
+	border: transparent;
 }
 
 .sideTab {
-	width: 140px;
-	border: 3px solid #4a87ee;
+	width: 130px;
+	border: 1px solid #ccc;
 	border-bottom: none;
-	background: #4a87ee;
+	background: #f8f8f8;
 	display: inline-block;
 	position:relative;
 	z-index: 0;
-	border-top-left-radius: 15px;
 	border-top-right-radius: 15px;
-	box-shadow: 0 1px 3px rgba(0, 0, 0, 0.4), inset 0 1px 0 #4a87ee;
 	text-shadow: 0 1px #FFF;
-	margin: 0 -5px;
-	padding: 0 10px;
-	bottom: 5px;
+	margin: 0 -15px;
+	padding: 0px 10px;
+	bottom: 0px;
 	height: 50px;
 }
 
 .sideTab:after {
-  border: 1px solid #4a87ee;
+  border: 1px solid #ccc;
   position: absolute;
-  bottom: 5px;
-  width: 100px;
+  bottom: 11px;
+  width: 2000px;
   height: 20px;
   z-index: 1;
   content: " ";
-  right: -102px;
+  left: 128px;
   border-bottom-left-radius: 25px;
   border-width: 0px 0px 1px 1px;
-  box-shadow: -20px 0px 0 #4a87ee;
+  box-shadow: -20px 0px 0 #f8f8f8;
 }
 
 #currentMood {
@@ -73,13 +71,13 @@
 }
 
 #invisArea {
-	top: 2px;
+	top: 1px;
 	position: absolute;
 	z-index: 5;
 }
 
 .calmSection {
-	background-color: #43cee6;
+	background-color: rgba(67, 206, 230, 0.6);;
 	display: inline-block;
 	margin: 0px 38px;
 	padding: 0px;
@@ -87,7 +85,7 @@
 }
 
 .freeSection {
-	background-color: #66cc33;
+	background-color: rgba(102, 204, 51, 0.6);
 	display: inline-block;
 	margin: 0px 0px;
 	padding: 0px;
@@ -103,7 +101,7 @@
 }
 
 .invisSection {
-	background-color: white;
+	background-color: #FFF;
 	display: inline-block;
 	margin: 0px 76px;
 	padding: 0px;
@@ -129,10 +127,35 @@
 
 .emptyNowItem {
 	height: 100%;
-	padding-top: 40%;
+	padding-top: 50%;
 	text-align: center;
 }
 
 .emptyListItem i, .emptyNowItem i {
 	font-size: xx-large;
+}
+
+.favoriteTile.item {
+	color: #ef4e3a;
+}
+
+.textInput .placeholder-icon {
+	padding-right: 15px;
+}
+
+.textInput.item-input-wrapper {
+	background: transparent;
+}
+
+button.sizedButton {
+	font-size: 16px;
+	padding: 0px 10px;
+}
+
+.greyButton {
+	color: #aaa;
+}
+
+#searchHead {
+	top: 44px;
 }

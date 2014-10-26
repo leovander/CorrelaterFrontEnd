@@ -60,10 +60,17 @@
               </button>
             </div>
           </ion-header-bar>
-          <ion-content>
+          <ion-header-bar id="searchHead" class="bar" ng-if="getRightMenu()=='friends'">
+            <label class="textInput item-input-wrapper">
+              <i class="icon ion-search placeholder-icon" ng-class="{true: '',false: 'calm'}[!isSearchFriendEmpty()]"></i>
+              <input id="searchFriend" ng-model="searchFriend" type="text" placeholder="Search through friends..." filter="search" value="">
+            </label>
+            <button ng-if="isSearchFriendEmpty()" class="sizedButton button-icon ion-android-close calm" ng-click="clearSearchFriend();">
+            </button>
+          </ion-header-bar>
+          <ion-content ng-class="{true:'has-subheader',false:''}[getRightMenu()=='friends']">
             <div ng-if="getRightMenu()=='requests'">
               <ion-refresher
-                pulling-text="Pull to refresh..."
                 on-refresh="refreshRequestsList()">
               </ion-refresher>
               <ion-list>
@@ -85,7 +92,6 @@
             </div>
             <div ng-if="getRightMenu()=='friends'">
               <ion-refresher
-                pulling-text="Pull to refresh..."
                 on-refresh="refreshFriendsList()">
               </ion-refresher>
               <ion-list can-swipe="true">
@@ -93,10 +99,12 @@
                   <i class="icon ion-sad"></i><br><br>
                   <div>No Friends</div>
                 </ion-item>
-                <ion-item class="friendTile" ng-repeat="friend in friendsList" item="friend">
+                <ion-item class="friendTile" 
+                  ng-if="friend.first_name.toLowerCase().indexOf(getSearchFriend().toLowerCase())>=0 || friend.last_name.toLowerCase().indexOf(getSearchFriend().toLowerCase())>=0" 
+                  ng-class="{true: 'assertive', false: ''}[friend.favorite==1]" ng-repeat="friend in friendsList" item="friend">
                   {{friend.first_name}} {{friend.last_name}}
-                  <!--<ion-option-button class="button button-large icon ion-ios7-star-outline" ng-click="toggleFavorite(friend)">
-                  </ion-option-button>-->
+                  <ion-option-button class="button button-large icon ion-ios7-star-outline" ng-click="toggleFavorite(friend)">
+                  </ion-option-button>
                   <ion-option-button class="button button-large icon ion-trash-a" ng-click="deleteFriend(friend);">
                   </ion-option-button>
                 </ion-item>
@@ -112,29 +120,30 @@
       <ion-view title="Corral">
         <ion-content class="has-subfooter">
           <ion-refresher
-            pulling-text="Pull to refresh..."
             on-refresh="refreshMyInfo(); refreshFriendsNow();">
           </ion-refresher>
-          <ion-list>
-            <ion-item class="emptyNowItem" ng-if="friendsNow.length==0">
-              <i class="icon ion-sad"></i><br><br>
-              <div>No Available Friends</div>
-            </ion-item>
-            <ion-item id="{{'friend'+nowFriend.id}}" class="nowTile" ng-click="clickFriendNow('friend'+nowFriend.id); listResize();" ng-repeat="nowFriend in friendsNow"  item="nowFriend">
-              <!--<span class="item-note" ng-if="!isActiveNow('friend'+nowFriend.id)">
-                hh:mm
-              </span>-->
-              <!--<span class="item-note" ng-if="isActiveNow('friend'+nowFriend.id)">
-                <button class="button icon ion-chatbubble button-clear button-outline button-balanced" ng-click="nudgeFriend(nowFriend)"></button>
-              </span>-->
-              <h2>
-                {{nowFriend.first_name}} {{nowFriend.last_name}}
-              </h2>
-              <p ng-if="isActiveNow('friend'+nowFriend.id)" ng-animate="">
-                {{nowFriend.mood}}
-              </p>
-            </ion-item>
-          </ion-list>
+          <div class="list-inset">
+            <ion-list>
+              <ion-item class="emptyNowItem" ng-if="friendsNow.length==0">
+                <i class="icon ion-sad"></i><br><br>
+                <div>No Available Friends</div>
+              </ion-item>
+              <ion-item id="{{'friend'+nowFriend.id}}" ng-class="{true: 'assertive', false: ''}[friend.favorite==1]" class="nowTile" ng-click="clickFriendNow('friend'+nowFriend.id); listResize();" ng-repeat="nowFriend in friendsNow"  item="nowFriend">
+                <span class="item-note" ng-if="!isActiveNow('friend'+nowFriend.id)">
+                  hh:mm
+                </span>
+                <span class="item-note" ng-if="isActiveNow('friend'+nowFriend.id)">
+                  <button class="button icon ion-chatbubble button-clear button-outline button-balanced" ng-click="nudgeFriend(nowFriend)"></button>
+                </span>
+                <h2>
+                  {{nowFriend.first_name}} {{nowFriend.last_name}}
+                </h2>
+                <p ng-if="isActiveNow('friend'+nowFriend.id)" ng-animate="">
+                  {{nowFriend.mood}}
+                </p>
+              </ion-item>
+            </ion-list>
+          </div>
         </ion-content>
         <ion-footer-bar class="bar bar-subfooter">
           <div class="sideTab">
@@ -154,15 +163,15 @@
             </div>
           </div>
         </ion-footer-bar>
-        <ion-footer-bar class="bar bar-positive item-input-inset">
-          <label class="item-input-wrapper">
-            <i class="icon ion-chatbox placeholder-icon"></i>
+        <ion-footer-bar class="bar">
+          <label class="textInput item-input-wrapper">
+            <i class="icon ion-chatbox placeholder-icon" ng-class="{true: '',false: 'calm'}[!isMoodSetEmpty()]"></i>
             <input id="mood" ng-model="mood" type="text" placeholder="{{getMyMood()}}">
           </label>
-            <button ng-if="isMoodSetEmpty()" class="button-icon icon ion-android-close light"
-              ng-click="clearMood()">
-            </button>
-          <button ng-class="{true: 'ion-android-close',false: 'ion-edit'}[!isMoodSetEmpty()]" class="button button-outline icon button-light" ng-click="updateMood();"></button>
+          <button ng-if="isMoodSetEmpty()" class="sizedButton button-icon ion-android-close calm"
+            ng-click="clearMood()">
+          </button>
+          <button ng-class="{true: 'ion-android-close greyButton',false: 'ion-edit balanced'}[!isMoodSetEmpty()]" class="sizedButton button-icon stable" ng-click="updateMood();"></button>
         </ion-footer-bar>
       </ion-view>
     </script>

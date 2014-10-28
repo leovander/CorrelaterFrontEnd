@@ -33,34 +33,39 @@
           <ion-header-bar align-title="center" class="bar-positive">
             <h1 class="title"></h1>
           </ion-header-bar>
-          <ion-content>
+          <ion-content class="content slideMenu">
             <ul class="list">
-              <a class="item item-icon-left assertive" href=""><i class="icon ion-person"></i>Profile</a>
-              <a class="item item-icon-left assertive" href=""><i class="icon ion-android-mixer"></i>Schedule</a>
-              <a class="item item-icon-left assertive" href=""><i class="icon ion-document-text"></i>Accounts</a>
-              <a class="item item-icon-left" href="invite.html" menu-close><i class="icon ion-person-add"></i>Add Friends</a>
-              <a class="item item-icon-left" href="chooseCalendar.html" menu-close><i class="icon ion-ios7-calendar-outline"></i>Choose Calendar</a>
-              <a class="item item-icon-left assertive"><i class="icon ion-information"></i>Tutorial</a>
-              <a class="item item-icon-left assertive"><i class="icon ion-settings"></i>Settings</a>
-              <a class="item item-icon-left assertive"><i class="icon ion-android-developer"></i>Ver. 0.10.23.02.54</a>
-              <a class="item item-icon-left" ng-click="logout()"><i class="icon ion-log-out"></i>Log Out</a>
+              <a class="item item-icon-left assertive menuTile" href=""><i class="icon ion-person"></i>Profile</a>
+              <a class="item item-icon-left menuTile assertive" href=""><i class="icon ion-android-mixer"></i>Schedule</a>
+              <a class="item item-icon-left menuTile assertive" href=""><i class="icon ion-document-text"></i>Accounts</a>
+              <a class="item item-icon-left menuTile" href="invite.html" menu-close><i class="icon ion-person-add"></i>Add Friends</a>
+              <a class="item item-icon-left menuTile" href="chooseCalendar.html" menu-close><i class="icon ion-ios7-calendar-outline"></i>Choose Calendar</a>
+              <a class="item item-icon-left menuTile assertive"><i class="icon ion-information"></i>Tutorial</a>
+              <a class="item item-icon-left menuTile assertive"><i class="icon ion-settings"></i>Settings</a>
+              <a class="item item-icon-left menuTile" ng-click="logout()"><i class="icon ion-log-out"></i>Log Out</a>
             </ul>
+            <div id='LeftMenuMessage' class="Trench">
+              Ver. 0.10.23.02.54
+            </div>
           </ion-content>
         </ion-side-menu>
 
-        <ion-side-menu side="right">
-          <ion-header-bar align-title="center" class="bar-positive">
+        <ion-side-menu side="right" width="325">
+          <ion-header-bar class="rightHeader bar-positive">
             <div class="buttons">
-              <button class="button-icon icon ion-android-inbox" ng-class="{true: 'energized', false: 'stable'}[getRightMenu()=='requests']" ng-click="refreshRequestsList(); showRequests();">&nbsp;Requests
+              <button class="navButton button-icon icon ion-android-inbox" ng-class="{true: 'energized', false: 'stable'}[getRightMenu()=='requests']" ng-click="refreshRequestsList(); showRequests();">&nbsp;Requests
               </button>
             </div>
-            <h1 class="title"></h1>
             <div class="buttons">
-              <button class="button-icon icon ion-ios7-people" ng-class="{true: 'energized', false: 'stable'}[getRightMenu()=='friends']" ng-click="refreshFriendsList(); showFriends();">&nbsp;Friends
+              <button class="navButton button-icon icon ion-chatbubbles" ng-class="{true: 'energized', false: 'stable'}[getRightMenu()=='nudges']" ng-click="refreshNudges(); showNudges();">&nbsp;Nudges
+              </button>
+            </div>
+            <div class="buttons">
+              <button class="navButton button-icon icon ion-ios7-people" ng-class="{true: 'energized', false: 'stable'}[getRightMenu()=='friends']" ng-click="refreshFriendsList(); showFriends();">&nbsp;Friends
               </button>
             </div>
           </ion-header-bar>
-          <ion-header-bar id="searchHead" class="bar" ng-if="getRightMenu()=='friends'">
+          <ion-header-bar class="searchHead bar" ng-if="getRightMenu()=='friends'">
             <label class="textInput item-input-wrapper">
               <i class="icon ion-search placeholder-icon" ng-class="{true: '',false: 'calm'}[!isSearchFriendEmpty()]"></i>
               <input id="searchFriend" ng-model="searchFriend" type="text" placeholder="Search through friends..." filter="search" value="">
@@ -68,17 +73,20 @@
             <button ng-if="isSearchFriendEmpty()" class="sizedButton button-icon ion-android-close calm" ng-click="clearSearchFriend();">
             </button>
           </ion-header-bar>
-          <ion-content ng-class="{true:'has-subheader',false:''}[getRightMenu()=='friends']">
+          <ion-content class="content slideMenu" ng-class="{true:'has-subheader',false:''}[getRightMenu()=='friends']">
             <div ng-if="getRightMenu()=='requests'">
               <ion-refresher
+                disable-pulling-rotation="true"
+                pulling-icon="ion-load-c"
+                refreshing-icon="ion-loading-c"
                 on-refresh="refreshRequestsList()">
               </ion-refresher>
               <ion-list>
-                <ion-item class="emptyListItem" ng-if="requestsList.length==0">
+                <div id="emptyRListItem" ng-if="requestsList.length==0">
                   <i class="icon ion-sad"></i><br><br>
                   <div>No Friend Requests</div>
-                </ion-item>
-                <ion-item class="requestTile" ng-repeat="friend in requestsList" item="friend">
+                </div>
+                <ion-item class="requestTile Trench" ng-repeat="friend in requestsList" item="friend">
                   {{friend.first_name}} {{friend.last_name}}
                   <span class="item-note">
                     <button class="floatBlock button button-small icon ion-checkmark-round balanced" ng-click="acceptRequest(friend);">
@@ -90,16 +98,36 @@
                 </ion-item>
               </ion-list>
             </div>
+            <div ng-if="getRightMenu()=='nudges'">
+              <ion-refresher
+                disable-pulling-rotation="true"
+                pulling-icon="ion-load-c"
+                refreshing-icon="ion-loading-c"
+                on-refresh="refreshNudges()">
+              </ion-refresher>
+              <ion-list>
+                <div id="emptyNListItem" ng-if="nudgesList.length==0">
+                  <i class="icon ion-sad"></i><br><br>
+                  <div>No Nudges</div>
+                </div>
+                <ion-item class="nudgeTile Trench" ng-repeat="friend in nudgesList" item="friend">
+                  {{friend.first_name}} {{friend.last_name}}
+                </ion-item>
+              </ion-list>
+            </div>
             <div ng-if="getRightMenu()=='friends'">
               <ion-refresher
+                disable-pulling-rotation="true"
+                pulling-icon="ion-load-c"
+                refreshing-icon="ion-loading-c"
                 on-refresh="refreshFriendsList()">
               </ion-refresher>
               <ion-list can-swipe="true">
-                <ion-item class="emptyListItem" ng-if="friendsList.length==0">
+                <div id="emptyRListItem" ng-if="friendsList.length==0">
                   <i class="icon ion-sad"></i><br><br>
                   <div>No Friends</div>
-                </ion-item>
-                <ion-item class="friendTile" 
+                </div>
+                <ion-item class="friendTile Trench" 
                   ng-if="friend.first_name.toLowerCase().indexOf(getSearchFriend().toLowerCase())>=0 || friend.last_name.toLowerCase().indexOf(getSearchFriend().toLowerCase())>=0" 
                   ng-class="{true: 'assertive', false: ''}[friend.favorite==1]" ng-repeat="friend in friendsList" item="friend">
                   {{friend.first_name}} {{friend.last_name}}
@@ -118,32 +146,34 @@
 
     <script id="templates/home.html" type="text/ng-template">
       <ion-view title="Corral">
-        <ion-content class="has-subfooter">
+        <ion-content class="mainContent">
           <ion-refresher
+            disable-pulling-rotation="true"
+            pulling-icon="ion-load-c"
+            refreshing-icon="ion-loading-c"
             on-refresh="refreshMyInfo(); refreshFriendsNow();">
           </ion-refresher>
-          <div class="list-inset">
-            <ion-list>
-              <ion-item class="emptyNowItem" ng-if="friendsNow.length==0">
-                <i class="icon ion-sad"></i><br><br>
-                <div>No Available Friends</div>
-              </ion-item>
-              <ion-item id="{{'friend'+nowFriend.id}}" ng-class="{true: 'assertive', false: ''}[friend.favorite==1]" class="nowTile" ng-click="clickFriendNow('friend'+nowFriend.id); listResize();" ng-repeat="nowFriend in friendsNow"  item="nowFriend">
-                <span class="item-note" ng-if="!isActiveNow('friend'+nowFriend.id)">
-                  hh:mm
-                </span>
-                <span class="item-note" ng-if="isActiveNow('friend'+nowFriend.id)">
-                  <button class="button icon ion-chatbubble button-clear button-outline button-balanced" ng-click="nudgeFriend(nowFriend)"></button>
-                </span>
-                <h2>
-                  {{nowFriend.first_name}} {{nowFriend.last_name}}
-                </h2>
-                <p ng-if="isActiveNow('friend'+nowFriend.id)" ng-animate="">
-                  {{nowFriend.mood}}
-                </p>
-              </ion-item>
-            </ion-list>
-          </div>
+          <ion-list>
+            <div id="emptyNowItem" ng-if="friendsNow.length==0">
+              <i class="icon ion-sad"></i><br><br>
+              <div>No Available Friends</div>
+            </div>
+            <ion-item id="{{'friend'+nowFriend.id}}" ng-class="{true: 'assertive', false: ''}[friend.favorite==1]" class="nowTile" ng-click="clickFriendNow('friend'+nowFriend.id); listResize();" ng-repeat="nowFriend in friendsNow"  item="nowFriend">
+              <span class="item-note Trench balanced" ng-if="!isActiveNow('friend'+nowFriend.id)">
+                <i class="timeLeft icon ion-ios7-clock-outline"></i>
+                hh:mm
+              </span>
+              <span class="item-note" ng-if="isActiveNow('friend'+nowFriend.id)">
+                <button class="button icon ion-chatbubble button-clear button-outline button-balanced" ng-click="nudgeFriend(nowFriend)"></button>
+              </span>
+              <h2 class="Trench">
+                {{nowFriend.first_name}} {{nowFriend.last_name}}
+              </h2>
+              <p class="Trench" ng-if="isActiveNow('friend'+nowFriend.id)" ng-animate="">
+                {{nowFriend.mood}}
+              </p>
+            </ion-item>
+          </ion-list>
         </ion-content>
         <ion-footer-bar class="bar bar-subfooter">
           <div class="sideTab">
@@ -163,7 +193,7 @@
             </div>
           </div>
         </ion-footer-bar>
-        <ion-footer-bar class="bar">
+        <ion-footer-bar class="setMoodBar bar">
           <label class="textInput item-input-wrapper">
             <i class="icon ion-chatbox placeholder-icon" ng-class="{true: '',false: 'calm'}[!isMoodSetEmpty()]"></i>
             <input id="mood" ng-model="mood" type="text" placeholder="{{getMyMood()}}">

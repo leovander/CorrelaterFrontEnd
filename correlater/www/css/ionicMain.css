@@ -1,3 +1,7 @@
+.Trench {
+	font-family: Trench;
+}
+
 .bar-footer {
 	border-top: transparent;
 }
@@ -11,40 +15,31 @@
 	width: 130px;
 	border: 1px solid #ccc;
 	border-bottom: none;
-	background: #f8f8f8;
+	background: white;
 	display: inline-block;
 	position:relative;
-	z-index: 0;
+	z-index: 5;
 	border-top-right-radius: 15px;
 	text-shadow: 0 1px #FFF;
 	margin: 0 -15px;
 	padding: 0px 10px;
 	bottom: 0px;
-	height: 50px;
+	height: 39px;
+    box-shadow: 0px 0px 30px #888888;
 }
 
 .sideTab:after {
   border: 1px solid #ccc;
   position: absolute;
-  bottom: 11px;
+  bottom: 0px;
   width: 2000px;
   height: 20px;
   z-index: 1;
   content: " ";
   left: 128px;
-  border-bottom-left-radius: 25px;
+  border-bottom-left-radius: 10px;
   border-width: 0px 0px 1px 1px;
-  box-shadow: -20px 0px 0 #f8f8f8;
-}
-
-#currentMood {
-	position: absolute;
-	top: ;
-	width: 95%;
-	height: 34px;
-	margin-left: 1.5%;
-	background-color: white;
-	border-radius: 10px;
+  box-shadow: -200px 0px 0 #f8f8f8;
 }
 
 #currentMood p {
@@ -53,8 +48,6 @@
 	color: black;
 	font-size: x-small;
 }
-
-
 
 .floatBlock {
 	width: 10px;
@@ -73,11 +66,14 @@
 #invisArea {
 	top: 1px;
 	position: absolute;
-	z-index: 5;
+	z-index: 10;
+}
+
+.calmSection, .freeSection, .invisSection {
 }
 
 .calmSection {
-	background-color: rgba(67, 206, 230, 0.6);;
+	background-color: #43cee6;
 	display: inline-block;
 	margin: 0px 38px;
 	padding: 0px;
@@ -85,7 +81,7 @@
 }
 
 .freeSection {
-	background-color: rgba(102, 204, 51, 0.6);
+	background-color: #66cc33;
 	display: inline-block;
 	margin: 0px 0px;
 	padding: 0px;
@@ -101,7 +97,7 @@
 }
 
 .invisSection {
-	background-color: #FFF;
+	background-color: #f8f8f8;
 	display: inline-block;
 	margin: 0px 76px;
 	padding: 0px;
@@ -119,19 +115,25 @@
 	background-color: #CCCCCC;
 }
 
-.emptyListItem {
+#emptyRListItem, #emptyNListItem {
 	height: 100%;
 	padding-top: 70%;
 	text-align: center;
 }
 
-.emptyNowItem {
+#emptyFListItem {
+	height: 100%;
+	padding-top: 60%;
+	text-align: center;
+}
+
+#emptyNowItem {
 	height: 100%;
 	padding-top: 50%;
 	text-align: center;
 }
 
-.emptyListItem i, .emptyNowItem i {
+#emptyRListItem i, #emptyFListItem i, #emptyNowItem i {
 	font-size: xx-large;
 }
 
@@ -156,6 +158,90 @@ button.sizedButton {
 	color: #aaa;
 }
 
-#searchHead {
+.searchHead {
 	top: 44px;
+	background: transparent;
+}
+
+#searchFriend {
+	background: transparent;
+}
+
+.bar-header:not(.searchHead) {
+    box-shadow: 0px 1px 30px #888888;
+}
+
+.setMoodBar.bar-footer {
+	position: absolute;
+	z-index: 10;
+    box-shadow: 0px 0px 30px #888888;
+}
+
+.mainContent {
+	background-image: -ms-radial-gradient(center top, ellipse farthest-corner, #FDFDFD 0%, #F0F0F0 80%);
+	background-image: -moz-radial-gradient(center top, ellipse farthest-corner, #FDFDFD 0%, #F0F0F0 80%);
+	background-image: -o-radial-gradient(center top, ellipse farthest-corner, #FDFDFD 0%, #F0F0F0 80%);
+	background-image: -webkit-gradient(radial, center top, 0, center top, 567, color-stop(0, #FDFDFD), color-stop(0.8, #F0F0F0));
+	background-image: -webkit-radial-gradient(center top, ellipse farthest-corner, #FDFDFD 0%, #F0F0F0 80%);
+	background-image: radial-gradient(center top, ellipse farthest-corner, #FDFDFD 0%, #F0F0F0 80%);
+
+}
+
+.content.slideMenu {
+	background-image: -ms-radial-gradient(center bottom, ellipse farthest-corner, #E4E4E4 0%, #FDFDFD 150%);
+	background-image: -moz-radial-gradient(center bottom, ellipse farthest-corner, #E4E4E4 0%, #FDFDFD 150%);
+	background-image: -o-radial-gradient(center bottom, ellipse farthest-corner, #E4E4E4 0%, #FDFDFD 150%);
+	background-image: -webkit-gradient(radial, center bottom, 0, center bottom, 567, color-stop(0, #E4E4E4), color-stop(1.5, #FDFDFD));
+	background-image: -webkit-radial-gradient(center bottom, ellipse farthest-corner, #E4E4E4 0%, #FDFDFD 150%);
+	background-image: radial-gradient(center bottom, ellipse farthest-corner, #E4E4E4 0%, #FDFDFD 150%);
+}
+
+.bar.bar-subfooter{
+	background-color: transparent;
+}
+
+.bar.bar-positive .title{
+	color: #fff;
+	font-family: Channel;
+}
+
+.navButton{
+	font-family: Trench;
+}
+
+#LeftMenuMessage {
+	font-size: 16px;
+	text-align: right;
+	padding-right: 15px;
+}
+
+.item.menuTile {
+	font-family: Trench;
+	font-size: 22px; 
+}
+
+@font-face {
+	font-family: Channel;
+	src: url(../fonts/Channel.ttf)
+}
+
+@font-face {
+	font-family: Trench;
+	src: url(../fonts/trench.otf)
+}
+
+.item-note.Trench {
+	font-size: 16px;
+}
+
+.timeLeft {
+	font-size: 12px;
+}
+
+.rightHeader.bar-positive {
+	padding-left: 20px;
+}
+
+h2 {
+	font-size: 18px;
 }

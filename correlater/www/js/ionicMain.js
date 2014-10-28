@@ -251,6 +251,10 @@ angular.module('ionicApp', ['ionic'])
     rightView='friends';
   }
 
+  $scope.showNudges = function() {
+    rightView='nudges';
+  }
+
   $scope.getRightMenu = function() {
     return rightView;
   }
@@ -267,14 +271,17 @@ angular.module('ionicApp', ['ionic'])
           text: '<b>Nudge</b>',
           type: 'button-positive',
           onTap: function(e) {
-            return $scope.data.nudgeMessage;
+            return ''+$scope.data.nudgeMessage;
           }
         },
       ]
     });
     myPopup.then(function(res) {
       if (res)
-        alert('Nudged '+friend.first_name+' with message: '+$scope.data.nudgeMessage);
+        if (typeof $scope.data.nudgeMessage!=='undefined')
+          alert('Nudged '+friend.first_name+' with message: '+$scope.data.nudgeMessage);
+        else
+          alert('Nudged '+friend.first_name);
     });
   }
 

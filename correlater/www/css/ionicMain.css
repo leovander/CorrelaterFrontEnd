@@ -133,7 +133,7 @@
 	text-align: center;
 }
 
-#emptyRListItem i, #emptyFListItem i, #emptyNowItem i {
+#emptyRListItem i, #emptyFListItem i, #emptyNowItem i, #emptyNListItem i {
 	font-size: xx-large;
 }
 
@@ -244,4 +244,29 @@ button.sizedButton {
 
 h2 {
 	font-size: 18px;
+}
+
+.badge.nudgeBadge {
+	vertical-align: top;
+	padding: 3px 5px;
+	height: 20px;
+	position: absolute;
+	left: 160px;
+}
+
+.badge.requestBadge {
+	vertical-align: top;
+	padding: 3px 5px;
+	height: 20px;
+	position: absolute;
+	left: 60px;
+}
+
+.badge.toggleBadge {
+	vertical-align: top;
+	padding: 3px 5px;
+	height: 20px;
+	position: absolute;
+	z-index: 10;
+	left: -5px;
 }

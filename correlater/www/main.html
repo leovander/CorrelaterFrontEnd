@@ -24,6 +24,7 @@
             <button class="button button-icon button-clear ion-navicon" ng-click="toggleLeft(); refreshMyInfo()"></button>
           </ion-nav-buttons>
           <ion-nav-buttons side="right">
+            <div class="badge badge-assertive toggleBadge" ng-if="requestsList.length!=0 || nudgesList.length!=0">!</div>
             <button class="button button-icon button-clear ion-person-stalker" ng-click="refreshRequestsList(); refreshFriendsList(); toggleRight(); refreshMyInfo();"></button>
           </ion-nav-buttons>
           <ion-nav-view animation="no-animation" name="menuContent"></ion-nav-view>
@@ -53,10 +54,12 @@
         <ion-side-menu side="right" width="325">
           <ion-header-bar class="rightHeader bar-positive">
             <div class="buttons">
+              <div class="badge badge-assertive requestBadge" ng-if="requestsList.length!=0">{{requestsList.length}}</div>
               <button class="navButton button-icon icon ion-android-inbox" ng-class="{true: 'energized', false: 'stable'}[getRightMenu()=='requests']" ng-click="refreshRequestsList(); showRequests();">&nbsp;Requests
               </button>
             </div>
             <div class="buttons">
+              <div class="badge badge-assertive nudgeBadge" ng-if="nudgesList.length!=0">{{nudgessList.length}}</div>
               <button class="navButton button-icon icon ion-chatbubbles" ng-class="{true: 'energized', false: 'stable'}[getRightMenu()=='nudges']" ng-click="refreshNudges(); showNudges();">&nbsp;Nudges
               </button>
             </div>
@@ -159,7 +162,7 @@
               <div>No Available Friends</div>
             </div>
             <ion-item id="{{'friend'+nowFriend.id}}" ng-class="{true: 'assertive', false: ''}[friend.favorite==1]" class="nowTile" ng-click="clickFriendNow('friend'+nowFriend.id); listResize();" ng-repeat="nowFriend in friendsNow"  item="nowFriend">
-              <span class="item-note Trench balanced" ng-if="!isActiveNow('friend'+nowFriend.id)">
+              <span class="item-note Trench" ng-if="!isActiveNow('friend'+nowFriend.id)">
                 <i class="timeLeft icon ion-ios7-clock-outline"></i>
                 hh:mm
               </span>

@@ -302,7 +302,7 @@ angular.module('ionicApp', ['ionic'])
   $scope.clearSearchFriend = function(){
     jQuery('#searchFriend').val('');
   }
-
+  $scope.nudgesList = [];          // Get rid of this when nudges are implemented
   $scope.refreshMyInfo();
   $scope.refreshFriendsNow();
   $scope.refreshRequestsList();

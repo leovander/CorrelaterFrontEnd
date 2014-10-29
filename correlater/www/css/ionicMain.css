@@ -201,6 +201,7 @@ button.sizedButton {
 }
 
 .bar.bar-positive .title{
+	margin-top: 3px;
 	color: #fff;
 	font-family: Channel;
 }
@@ -249,6 +250,7 @@ h2 {
 .badge.nudgeBadge {
 	vertical-align: top;
 	padding: 3px 5px;
+	padding-top: 2px;
 	height: 20px;
 	position: absolute;
 	left: 160px;
@@ -257,6 +259,7 @@ h2 {
 .badge.requestBadge {
 	vertical-align: top;
 	padding: 3px 5px;
+	padding-top: 2px;
 	height: 20px;
 	position: absolute;
 	left: 60px;
@@ -266,7 +269,72 @@ h2 {
 	vertical-align: top;
 	padding: 3px 5px;
 	height: 20px;
+	padding-top: 2px;
 	position: absolute;
 	z-index: 10;
 	left: -5px;
+}
+
+#nudgeWindow {
+	background-color: transparent;
+}
+
+#nudgeCard {
+	width: 250px;
+	height: 250px;
+	margin: 0px auto;
+	margin-top: 30%;
+	background-color: blue;
+	border: 3px solid rgba(255,255,255,0.5);
+	border-radius: 250px;
+	box-shadow: 0px 10px 30px #000000;
+}
+
+#nudgeWindow p {
+	position: absolute;
+	margin-left: 40%;
+	margin-top: 34%;
+	z-index: 10;
+	font-family: Channel;
+	color: rgba(255,255,255,0.8);
+	font-size: 18px;
+	text-align: center;
+	text-shadow: 0px 10px 10px #000000;
+}
+
+#nudgeText {
+	margin-top: 3%;
+	font-family: Trench;
+	color: white;
+	text-align: center;
+}
+
+#nudgeName {
+	font-size: 24px;
+}
+
+#nudgeMessage {
+	font-size: 18px;
+}
+
+@-webkit-keyframes spaceboots {
+	0% { -webkit-transform: translate(2px, 1px) rotate(0deg); }
+	10% { -webkit-transform: translate(-1px, -2px) rotate(-3deg); }
+	20% { -webkit-transform: translate(-3px, 0px) rotate(3deg); }
+	30% { -webkit-transform: translate(0px, 2px) rotate(0deg); }
+	40% { -webkit-transform: translate(1px, -1px) rotate(3deg); }
+	50% { -webkit-transform: translate(-1px, 2px) rotate(-3deg); }
+	60% { -webkit-transform: translate(-3px, 1px) rotate(0deg); }
+	70% { -webkit-transform: translate(2px, 1px) rotate(-3deg); }
+	80% { -webkit-transform: translate(-1px, -1px) rotate(3deg); }
+	90% { -webkit-transform: translate(2px, 1px) rotate(0deg); }
+	100% { -webkit-transform: translate(1px, 0px) rotate(-1deg); }
+}
+
+.shake {
+	-webkit-animation-name: spaceboots;
+	-webkit-animation-duration: 1.5s;
+	-webkit-transform-origin:50% 50%;
+	-webkit-animation-iteration-count: infinite;
+	-webkit-animation-timing-function: linear;
 }

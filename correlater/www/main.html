@@ -134,7 +134,7 @@
                   ng-if="friend.first_name.toLowerCase().indexOf(getSearchFriend().toLowerCase())>=0 || friend.last_name.toLowerCase().indexOf(getSearchFriend().toLowerCase())>=0" 
                   ng-class="{true: 'assertive', false: ''}[friend.favorite==1]" ng-repeat="friend in friendsList" item="friend">
                   {{friend.first_name}} {{friend.last_name}}
-                  <ion-option-button class="button button-large icon ion-ios7-star-outline" ng-click="toggleFavorite(friend)">
+                  <ion-option-button class="button button-large icon" ng-class="{true:'ion-ios7-star assertive',false:'ion-ios7-star-outline'}[friend.favorite==1]" ng-click="toggleFavorite(friend)">
                   </ion-option-button>
                   <ion-option-button class="button button-large icon ion-trash-a" ng-click="deleteFriend(friend);">
                   </ion-option-button>
@@ -161,7 +161,7 @@
               <i class="icon ion-sad"></i><br><br>
               <div>No Available Friends</div>
             </div>
-            <ion-item id="{{'friend'+nowFriend.id}}" ng-class="{true: 'assertive', false: ''}[friend.favorite==1]" class="nowTile" ng-click="clickFriendNow('friend'+nowFriend.id); listResize();" ng-repeat="nowFriend in friendsNow"  item="nowFriend">
+            <ion-item id="{{'friend'+nowFriend.id}}" ng-class="{true: 'assertive', false: ''}[nowFriend.favorite==1]" class="nowTile Trench" ng-click="clickFriendNow('friend'+nowFriend.id); listResize();" ng-repeat="nowFriend in friendsNow"  item="nowFriend">
               <span class="item-note Trench" ng-if="!isActiveNow('friend'+nowFriend.id)">
                 <i class="timeLeft icon ion-ios7-clock-outline"></i>
                 hh:mm
@@ -169,9 +169,7 @@
               <span class="item-note" ng-if="isActiveNow('friend'+nowFriend.id)">
                 <button class="button icon ion-chatbubble button-clear button-outline button-balanced" ng-click="nudgeFriend(nowFriend)"></button>
               </span>
-              <h2 class="Trench">
-                {{nowFriend.first_name}} {{nowFriend.last_name}}
-              </h2>
+              {{nowFriend.first_name}} {{nowFriend.last_name}}
               <p class="Trench" ng-if="isActiveNow('friend'+nowFriend.id)" ng-animate="">
                 {{nowFriend.mood}}
               </p>
@@ -207,6 +205,22 @@
           <button ng-class="{true: 'ion-android-close greyButton',false: 'ion-edit balanced'}[!isMoodSetEmpty()]" class="sizedButton button-icon stable" ng-click="updateMood();"></button>
         </ion-footer-bar>
       </ion-view>
+    </script>
+
+    <script id="modal.html" type="text/ng-template">
+      <div id="nudgeWindow" class="modal" ng-controller="NudgeCtrl">
+        <p>Nudge</p>
+        <div id="nudgeCard" class="shake" ng-click="nudgeModal.hide();">
+        </div>
+        <div id="nudgeText">
+          <div id="nudgeName">
+            {{getFirstNudge().nudger.first_name}} {{getFirstNudge().nudger.last_name}}
+          </div>
+          <div id="nudgeMessage">
+            {{getFirstNudge().message}}
+          </div>
+        </div>
+      </div>
     </script>
   </body>
 </html>

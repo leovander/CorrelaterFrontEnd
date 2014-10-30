@@ -56,7 +56,7 @@ function getCalendars() {
 
 				jQuery.ajax({
 					type: "POST",
-					url: 'http://e-wit.co.uk/gyngai/google/confirmCalendars',
+					url: 'http://e-wit.co.uk/correlater/google/confirmCalendars',
 					data: {id: selectedCal},
 					dataType: 'json',
 					complete: function (data) {
@@ -64,7 +64,7 @@ function getCalendars() {
 							console.log("confirm calendar success");
 
 							jQuery.ajax({
-								url: 'http://e-wit.co.uk/gyngai/google/pullEvents',
+								url: 'http://e-wit.co.uk/correlater/google/pullEvents',
 								dataType:'json',
 								complete: function (data){
 									if(data.responseText == "{\"message\":\"Pull events succeed\"}") {

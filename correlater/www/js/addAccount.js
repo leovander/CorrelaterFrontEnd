@@ -60,7 +60,7 @@ $(document).on('deviceready', function() {
     googleapi.authorize({
       client_id: '514788609244-129u3h2nrdqrr900r30a2rg1sqlshi4t.apps.googleusercontent.com',
       redirect_uri: 'http://localhost',
-      scope: 'profile email https://www.googleapis.com/auth/calendar.readonly'
+      scope: 'profile email https://www.googleapis.com/auth/calendar.readonly https://www.googleapis.com/auth/contacts.readonly'
       // scope: 'profile email'
       //https://www.googleapis.com/auth/plus.login
     }).done(function(data) {

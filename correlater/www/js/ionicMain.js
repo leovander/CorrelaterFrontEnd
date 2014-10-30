@@ -20,7 +20,7 @@ angular.module('ionicApp', ['ionic'])
   $urlRouterProvider.otherwise("/event/home");
 })
 
-.controller('MainCtrl', function($scope, $ionicSideMenuDelegate, $ionicPopup, $ionicLoading, $ionicPopover, $ionicScrollDelegate) {
+.controller('MainCtrl', function($scope, NudgeFactory, $ionicSideMenuDelegate, $ionicPopup, $ionicLoading, $ionicPopover, $ionicScrollDelegate, $ionicModal) {
   var rightView = 'requests';
   var myMood;
   var status;
@@ -44,7 +44,7 @@ angular.module('ionicApp', ['ionic'])
         $scope.$broadcast('scroll.refreshComplete');
     })
     .fail(function(data){
-      alert('Failed getting my info');
+      // $ionicLoading.show({ template: 'Check network connection', noBackdrop: false, duration: 1000 });
     });
   }
 
@@ -79,7 +79,18 @@ angular.module('ionicApp', ['ionic'])
   };
 
   $scope.toggleFavorite = function(friend) {
-    alert('Toggle favorite for '+friend.first_name+' '+friend.last_name.substring(0,1).toUpperCase());
+    jQuery.ajax({
+        url: "http://e-wit.co.uk/correlater/user/setFavorite/"+friend.id,
+        dataType: 'json'}
+    ).done(function(data){
+      jQuery.ajax({
+          url: "http://e-wit.co.uk/correlater/user/getFriends",
+          dataType: 'json'}
+      ).done(function(data){
+        $scope.friendsList = data.friends;
+        $scope.$broadcast('scroll.refreshComplete');
+      });
+    });
   };
 
   $scope.acceptRequest = function(friend){
@@ -242,11 +253,17 @@ angular.module('ionicApp', ['ionic'])
   }
 
   $scope.getMyMood = function() {
-    return myMood;
+    if (myMood.length!=0)
+      return myMood;
+    return "Update you mood";
   }
 
   $scope.showFriends = function() {
     rightView='friends';
+  }
+
+  $scope.showNudges = function() {
+    rightView='nudges';
   }
 
   $scope.getRightMenu = function() {
@@ -265,14 +282,21 @@ angular.module('ionicApp', ['ionic'])
           text: '<b>Nudge</b>',
           type: 'button-positive',
           onTap: function(e) {
-            return $scope.data.nudgeMessage;
+            return ''+$scope.data.nudgeMessage;
           }
         },
       ]
     });
     myPopup.then(function(res) {
       if (res)
-        alert('Nudged '+friend.first_name+' with message: '+$scope.data.nudgeMessage);
+        if (typeof $scope.data.nudgeMessage!=='undefined'){
+          NudgeFactory.set([{nudger:friend,message:$scope.data.nudgeMessage}]);
+          $scope.nudgeModal.show();
+        }
+        else {
+          NudgeFactory.set([{nudger:friend,message:''}]);
+          $scope.nudgeModal.show();
+        }
     });
   }
 
@@ -280,15 +304,87 @@ angular.module('ionicApp', ['ionic'])
     $ionicScrollDelegate.resize();
   }
 
+  $scope.getSearchFriend = function(){
+    return jQuery('#searchFriend').val();
+  }
+
+  $scope.isSearchFriendEmpty = function(){
+    if (jQuery('#searchFriend').val().length>0 && jQuery('#searchFriend').val()!='')
+      return true;
+    return false;
+  }
+
+  $scope.clearSearchFriend = function(){
+    jQuery('#searchFriend').val('');
+  }
+
+  $ionicModal.fromTemplateUrl('modal.html', function(modal) {
+    $scope.nudgeModal = modal;
+  }, {
+    scope: $scope,
+    animation: 'slide-in-up',
+    backdropClickToClose: false
+  })
+  
+  // Need to figure out how to write a service that retrieves stack of nudges
+  // every arbitrary amount of seconds. 
+  //    If the stack of nudges has at least 1 nudge, then fire the nudge modal
+  $scope.nudgeRefreshService = function(){
+    var stack = [];
+    // Service goes here; nudges should be ordered by timestamp
+
+    // Once we have the list of nudges, loop through them and push each onto the stack
+    // for (var i=0; i<stackList; i++){
+    //   stack.push({nudger:stackList[i].friend,message:stackList[i].nudgeMessage});
+
+    // }
+    NudgeFactory.set(stack);
+
+  }
+
+  $scope.nudgesList = [];          // Get rid of this when nudges are implemented
   $scope.refreshMyInfo();
   $scope.refreshFriendsNow();
   $scope.refreshRequestsList();
   $scope.refreshFriendsList();
+  $scope.nudgeRefreshService();
 })
 
-// .controller('CheckinCtrl', function($scope) {
+// Need this factory to pass the stack of Nudges to the Nudge Modal
+.factory('NudgeFactory', function(){
+  var nudgeStack = [];
+  function set(data){
+    nudgeStack=data;
+  }
+  function get(){
+    return nudgeStack;
+  }
+  return {
+    set: set,
+    get: get
+  }
+})
 
-// })
+.controller('NudgeCtrl', function($scope, NudgeFactory) {
+  $scope.getFirstNudge = function(){
+    var stack = NudgeFactory.get();
+    return stack[0];
+  }
+
+  // Function to reject nudge
+  //    Don't forget to update nudge list in db
+  $scope.rejectNudge = function(nudger){
+
+    $scope.nudgeModal.hide();
+  }
+
+  // Function to accept nudge
+  //    Don't forget to update nudge list in db
+  $scope.acceptNudge = function(nudger){
+    
+    $scope.nudgeModal.hide();
+  }
+})
 
 // .controller('AttendeesCtrl', function($scope) {
 

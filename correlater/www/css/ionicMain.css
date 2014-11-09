@@ -338,3 +338,11 @@ h2 {
 	-webkit-animation-iteration-count: infinite;
 	-webkit-animation-timing-function: linear;
 }
+
+.popup-body p {
+	text-align: center;
+}
+
+.popup-body p.thered {
+	color: #ef4e3a;
+}

@@ -33,6 +33,7 @@ angular.module('ionicApp', ['ionic'])
   };
 
   $scope.refreshMyInfo = function() {
+    $scope.Math = window.Math;
     jQuery.ajax({
       url: "http://e-wit.co.uk/correlater/user/getMyInfo",
       dataType: 'json'
@@ -204,32 +205,118 @@ angular.module('ionicApp', ['ionic'])
       jQuery('#mood').val('');
     });
   }
-
   $scope.setInvisibility = function(stat) {
+    var oldStatus=status;
+    var maxIntervalTime=180;
+    var interval=0;
     status=stat;
-    if (status=="2")
-      $ionicLoading.show({ template: 'Free Mode', noBackdrop: true, duration: 1000 });
-    else if (status=="1")
-      $ionicLoading.show({ template: 'Schedule Mode', noBackdrop: true, duration: 1000 });
-    else if (status=="0")
-      $ionicLoading.show({ template: 'Invisible Mode', noBackdrop: true, duration: 1000 });
-    jQuery.ajax({
-      url: "http://e-wit.co.uk/correlater/user/setAvailability/"+stat,
-      dataType: 'json'
-    }).done(function(){
+    // This if statement disables pressing the same button
+    if (oldStatus!=status){
+      if (status=="2"){
+        var myPopup = $ionicPopup.show({
+          template: '<div class="range"><input id="timeRange" type="range" name="volume" min="0" max="180" step="15" ng-model="data.interval"></div><p ng-if="data.interval">Hours: {{Math.floor(data.interval/60)}} Minutes: {{data.interval%60}}</p><p ng-if="!data.interval">Hours: '+Math.floor(maxIntervalTime/2/60)+' Minutes: '+maxIntervalTime/2%60+'</p><p class="thered" ng-if="data.interval==0">Forever</p>',
+          title: 'Set free mode time',
+          scope: $scope,
+          buttons: [
+            { text: 'Nevermind',
+              onTap: function(e){
+                status=oldStatus;
+              } 
+            },
+            {
+              text: '<b>Go!</b>',
+              type: 'button-positive',
+              onTap: function(e) {
+                interval=jQuery("#timeRange").val();
+                return jQuery("#timeRange").val();
+              }
+            },
+          ]
+        });
+        myPopup.then(function(res) {
+          if (res){
+            if (interval>0){
+              if (interval>=60)
+                $ionicLoading.show({ template: Math.floor(interval/60)+' hours and '+interval%60+' minutes in Free Mode', noBackdrop: true, duration: 1000 });
+              else
+                $ionicLoading.show({ template: interval%60+' minutes in Free Mode', noBackdrop: true, duration: 1000 });
+              $scope.availabilityFiniteCall(status,interval);
+            }
+            else {
+              $ionicLoading.show({ template: 'Free Mode', noBackdrop: true, duration: 1000 }); 
+              $scope.availabilityInfiniteCall(status);
+            }
+          }      
+        });
+      }
+      else if (status=="1"){
+        interval=0;
+        $ionicLoading.show({ template: 'Schedule Mode', noBackdrop: true, duration: 1000 });
+        $scope.availabilityInfiniteCall(status);
+      }
+      else if (status=="0"){
+        var myPopup = $ionicPopup.show({
+          template: '<div class="range"><input id="timeRange" type="range" name="volume" min="0" max="180" step="15" ng-model="data.interval"></div><p ng-if="data.interval">Hours: {{Math.floor(data.interval/60)}} Minutes: {{data.interval%60}}</p><p ng-if="!data.interval">Hours: '+Math.floor(maxIntervalTime/2/60)+' Minutes: '+maxIntervalTime/2%60+'</p><p class="thered" ng-if="data.interval==0">Forever</p>',
+          title: 'Set invisible mode time',
+          scope: $scope,
+          buttons: [
+            { text: 'Nevermind',
+              onTap: function(e){
+                status=oldStatus;
+              } 
+            },
+            {
+              text: '<b>Go!</b>',
+              type: 'button-positive',
+              onTap: function(e) {
+                interval=jQuery("#timeRange").val();
+                return jQuery("#timeRange").val();
+              }
+            },
+          ]
+        });
+        myPopup.then(function(res) {
+          if (res){
+            if (interval>0){
+              if (interval>=60)
+                $ionicLoading.show({ template: Math.floor(interval/60)+' hours and '+interval%60+' minutes in Invisible Mode', noBackdrop: true, duration: 1000 });
+              else
+                $ionicLoading.show({ template: interval%60+' minutes in Invisible Mode', noBackdrop: true, duration: 1000 });
+              $scope.availabilityFiniteCall(status,interval);
+            }
+            else {
+              $ionicLoading.show({ template: 'Invisible Mode', noBackdrop: true, duration: 1000 }); 
+              $scope.availabilityInfiniteCall(status);
+            }
+          }      
+        });
+      }
+    }
+  }
+
+  $scope.availabilityFiniteCall = function(statusVar, time){
+    alert('Set availability for status '+statusVar+' with '+time+' minutes');
+    // Ajax call to set availability with time interval here
+  }
+
+  $scope.availabilityInfiniteCall = function(statusVar){
       jQuery.ajax({
-        url: "http://e-wit.co.uk/correlater/user/getMyInfo",
+        url: "http://e-wit.co.uk/correlater/user/setAvailability/"+statusVar,
         dataType: 'json'
-      }).done(function(data){
-          if(data.message == "Logged In")
-            currentUser = data.user;
-          status=currentUser.status;
-            $scope.$broadcast('scroll.refreshComplete');
-      })
-      .fail(function(data){
-        alert('Failed getting my info');
+      }).done(function(){
+        jQuery.ajax({
+          url: "http://e-wit.co.uk/correlater/user/getMyInfo",
+          dataType: 'json'
+        }).done(function(data){
+            if(data.message == "Logged In")
+              currentUser = data.user;
+            status=currentUser.status;
+              $scope.$broadcast('scroll.refreshComplete');
+        })
+        .fail(function(data){
+          alert('Failed getting my info');
+        });
       });
-    });
   }
 
   $scope.getInvisibility = function() {
@@ -341,8 +428,10 @@ angular.module('ionicApp', ['ionic'])
     NudgeFactory.set(stack);
 
   }
-
   $scope.nudgesList = [];          // Get rid of this when nudges are implemented
+  $scope.requestsList = [];
+  $scope.friendsList = [];
+  $scope.friendsNow = [];
   $scope.refreshMyInfo();
   $scope.refreshFriendsNow();
   $scope.refreshRequestsList();

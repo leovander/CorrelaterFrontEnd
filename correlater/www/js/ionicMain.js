@@ -240,11 +240,11 @@ angular.module('ionicApp', ['ionic'])
                 $ionicLoading.show({ template: Math.floor(interval/60)+' hours and '+interval%60+' minutes in Free Mode', noBackdrop: true, duration: 1000 });
               else
                 $ionicLoading.show({ template: interval%60+' minutes in Free Mode', noBackdrop: true, duration: 1000 });
-              $scope.availabilityFiniteCall(status,interval);
+              $scope.availabilityCall(status,interval);
             }
             else {
               $ionicLoading.show({ template: 'Free Mode', noBackdrop: true, duration: 1000 }); 
-              $scope.availabilityInfiniteCall(status);
+              $scope.availabilityCall(status,interval);
             }
           }      
         });
@@ -252,7 +252,7 @@ angular.module('ionicApp', ['ionic'])
       else if (status=="1"){
         interval=0;
         $ionicLoading.show({ template: 'Schedule Mode', noBackdrop: true, duration: 1000 });
-        $scope.availabilityInfiniteCall(status);
+        $scope.availabilityCall(status,interval);
       }
       else if (status=="0"){
         var myPopup = $ionicPopup.show({
@@ -282,11 +282,11 @@ angular.module('ionicApp', ['ionic'])
                 $ionicLoading.show({ template: Math.floor(interval/60)+' hours and '+interval%60+' minutes in Invisible Mode', noBackdrop: true, duration: 1000 });
               else
                 $ionicLoading.show({ template: interval%60+' minutes in Invisible Mode', noBackdrop: true, duration: 1000 });
-              $scope.availabilityFiniteCall(status,interval);
+              $scope.availabilityCall(status,interval);
             }
             else {
               $ionicLoading.show({ template: 'Invisible Mode', noBackdrop: true, duration: 1000 }); 
-              $scope.availabilityInfiniteCall(status);
+              $scope.availabilityCall(status,interval);
             }
           }      
         });
@@ -294,15 +294,14 @@ angular.module('ionicApp', ['ionic'])
     }
   }
 
-  $scope.availabilityFiniteCall = function(statusVar, time){
-    alert('Set availability for status '+statusVar+' with '+time+' minutes');
-    // Ajax call to set availability with time interval here
-  }
-
-  $scope.availabilityInfiniteCall = function(statusVar){
+  $scope.availabilityCall = function(statusVar, interval){
       jQuery.ajax({
-        url: "http://e-wit.co.uk/correlater/user/setAvailability/"+statusVar,
-        dataType: 'json'
+        url: "http://e-wit.co.uk/correlater/user/setTimeAvailability",
+        dataType: 'json',
+        data: {
+          status: statusVar,
+          time: interval
+        }
       }).done(function(){
         jQuery.ajax({
           url: "http://e-wit.co.uk/correlater/user/getMyInfo",
@@ -364,7 +363,7 @@ angular.module('ionicApp', ['ionic'])
       title: 'Nudging '+friend.first_name,
       scope: $scope,
       buttons: [
-        { text: 'Nah' },
+        { text: 'Cancel' },
         {
           text: '<b>Nudge</b>',
           type: 'button-positive',

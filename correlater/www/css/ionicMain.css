@@ -1,3 +1,13 @@
+@font-face {
+  font-family: Channel;
+  src: url(../fonts/Channel.ttf)
+}
+
+@font-face {
+  font-family: Trench;
+  src: url(../fonts/trench.otf)
+}
+
 .Trench {
 	font-family: Trench;
 }
@@ -116,19 +126,19 @@
 }
 
 #emptyRListItem, #emptyNListItem {
-	height: 100%;
+	height: 500px;
 	padding-top: 70%;
 	text-align: center;
 }
 
 #emptyFListItem {
-	height: 100%;
+	height: 500px;
 	padding-top: 60%;
 	text-align: center;
 }
 
 #emptyNowItem {
-	height: 100%;
+	height: 500px;
 	padding-top: 50%;
 	text-align: center;
 }
@@ -219,16 +229,6 @@ button.sizedButton {
 .item.menuTile {
 	font-family: Trench;
 	font-size: 22px; 
-}
-
-@font-face {
-	font-family: Channel;
-	src: url(../fonts/Channel.ttf)
-}
-
-@font-face {
-	font-family: Trench;
-	src: url(../fonts/trench.otf)
 }
 
 .item-note.Trench {
@@ -345,4 +345,36 @@ h2 {
 
 .popup-body p.thered {
 	color: #ef4e3a;
+}
+
+.noAvailBG {
+  background-image: url(../img/filename.png);
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: 100% 100%;
+  opacity: 0.7;
+}
+
+.noFriendsBG {
+  background-image: url(../img/filename.png);
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: 100% 100%;
+  opacity: 0.7;
+}
+
+.noNudgesBG {
+  background-image: url(../img/filename.png);
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: 100% 100%;
+  opacity: 0.7;
+}
+
+.noRequestsBG {
+  background-image: url(../img/filename.png);
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: 100% 100%;
+  opacity: 0.7;
 }

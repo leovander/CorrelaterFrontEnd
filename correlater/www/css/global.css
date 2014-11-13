@@ -205,3 +205,28 @@ label.error {
   width: 100%;
   float: none;
 }
+
+.cityBG {
+  background-image: url(../img/SignInBG.jpg);
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: 100% 100%;
+}
+
+@font-face {
+  font-family: Channel;
+  src: url(../fonts/Channel.ttf)
+}
+
+@font-face {
+  font-family: Trench;
+  src: url(../fonts/trench.otf)
+}
+
+.channel {
+  font-family: Channel;
+}
+
+h1.channel {
+  color: white;
+}

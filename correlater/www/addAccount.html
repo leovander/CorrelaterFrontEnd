@@ -18,12 +18,14 @@
     <script type="text/javascript" charset="utf-8" src="js/addAccount.js"></script>
 </head>
 <body>
-    <div data-role="page">
+    <div class="cityBG" data-role="page">
         <div id="navBar" data-role="header" class="primary-3">
             <a href="#" id="back" class="navItem ui-btn ui-icon-carat-l ui-btn-icon-notext ui-nodisc-icon" data-rel="back"></a>
             <h1 id="title">Add Account</h1>
         </div>
         <div data-role="content">
+              <p id="feedBack">&nbsp;</p>
+            <br><br><br><br><br><br><br><br><br><br><br><br><br>
               <button id="googleLogin" class="ui-btn ui-corner-all ui-btn ui-shadow failed">
                   Create with Google
               </button>
@@ -33,7 +35,6 @@
               <button id="nativeCreate" class="ui-btn ui-corner-all ui-btn ui-shadow">
                   Create Corral Account
               </button>
-              <p id="feedBack"></p>
         </div>
     </div>
 </body>

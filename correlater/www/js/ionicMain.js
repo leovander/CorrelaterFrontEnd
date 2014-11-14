@@ -51,7 +51,7 @@ angular.module('ionicApp', ['ionic'])
 
   $scope.refreshFriendsNow = function() {
     jQuery.ajax({
-        url: "http://e-wit.co.uk/correlater/user/getAvailable",
+        url: "http://e-wit.co.uk/correlater/user/getAvailableV2",
         dataType: 'json'}
     ).done(function(data){
         $scope.friendsNow = data.friends;
@@ -294,8 +294,10 @@ angular.module('ionicApp', ['ionic'])
     }
   }
 
+//TODO: change from gygngai to correlater
   $scope.availabilityCall = function(statusVar, interval){
       jQuery.ajax({
+        type: "POST",
         url: "http://e-wit.co.uk/correlater/user/setTimeAvailability",
         dataType: 'json',
         data: {

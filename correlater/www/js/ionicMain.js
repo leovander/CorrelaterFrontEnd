@@ -35,12 +35,13 @@ angular.module('ionicApp', ['ionic'])
   $scope.refreshMyInfo = function() {
     $scope.Math = window.Math;
     jQuery.ajax({
+      type: "GET",
       url: "http://e-wit.co.uk/correlater/user/getMyInfo",
       dataType: 'json'
     }).done(function(data){
         if(data.message == "Logged In"){
           myMood = data.user.mood;
-          status = data.user.status;
+          status = data.status;
         }
         $scope.$broadcast('scroll.refreshComplete');
     })
@@ -51,6 +52,7 @@ angular.module('ionicApp', ['ionic'])
 
   $scope.refreshFriendsNow = function() {
     jQuery.ajax({
+        type: "GET",
         url: "http://e-wit.co.uk/correlater/user/getAvailableV2",
         dataType: 'json'}
     ).done(function(data){
@@ -61,6 +63,7 @@ angular.module('ionicApp', ['ionic'])
 
   $scope.refreshRequestsList = function() {
     jQuery.ajax({
+        type: "GET",
         url: "http://e-wit.co.uk/correlater/user/getRequests",
         dataType: 'json'}
     ).done(function(data){
@@ -71,6 +74,7 @@ angular.module('ionicApp', ['ionic'])
 
   $scope.refreshFriendsList = function() {
     jQuery.ajax({
+        type: "GET",
         url: "http://e-wit.co.uk/correlater/user/getFriends",
         dataType: 'json'}
     ).done(function(data){
@@ -188,12 +192,13 @@ angular.module('ionicApp', ['ionic'])
     })
     .done(function(){
       jQuery.ajax({
+      type: "GET",
         url: "http://e-wit.co.uk/correlater/user/getMyInfo",
         dataType: 'json'
       }).done(function(data){
           if(data.message == "Logged In"){
             myMood = data.user.mood;
-            status = data.user.status;
+            status = data.status;
           }
           $scope.$broadcast('scroll.refreshComplete');
       });
@@ -306,12 +311,13 @@ angular.module('ionicApp', ['ionic'])
         }
       }).done(function(){
         jQuery.ajax({
+          type: "GET",
           url: "http://e-wit.co.uk/correlater/user/getMyInfo",
           dataType: 'json'
         }).done(function(data){
             if(data.message == "Logged In")
               currentUser = data.user;
-            status=currentUser.status;
+            status=data.status;
               $scope.$broadcast('scroll.refreshComplete');
         })
         .fail(function(data){
@@ -343,7 +349,7 @@ angular.module('ionicApp', ['ionic'])
   $scope.getMyMood = function() {
     if (myMood.length!=0)
       return myMood;
-    return "Update you mood";
+    return "Update your mood";
   }
 
   $scope.showFriends = function() {

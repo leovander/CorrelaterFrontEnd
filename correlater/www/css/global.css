@@ -230,3 +230,27 @@ label.error {
 h1.channel {
   color: white;
 }
+
+#AccountForm{
+
+}
+
+/*SIGN IN/ADD ACCOUNT PAGE*/
+#googleLogin {
+	border: none;
+}
+
+#Facebook {
+	border: none;
+}
+
+#accountButtons {
+	display: block;
+	margin-left: auto;
+	margin-right: auto;
+	position: absolute;
+     bottom: 40px;
+     left: 0px;
+	 right: 0px;
+     width: 90%;
+}

@@ -19,13 +19,10 @@
 </head>
 <body>
     <div class="cityBG" data-role="page">
-        <div id="navBar" data-role="header" class="primary-3">
-            <a href="#" id="back" class="navItem ui-btn ui-icon-carat-l ui-btn-icon-notext ui-nodisc-icon" data-rel="back"></a>
-            <h1 id="title">Sign In</h1>
-        </div>
         <div data-role="content">
+			<h1 class="channel">Sign in!</h1>
             <p id="feedBack">&nbsp;</p>
-            <br><br><br><br><br><br><br><br><br><br><br><br><br>
+            <div id="accountButtons">
               <button id="googleLogin" class="ui-btn ui-corner-all ui-btn ui-shadow failed">
                   Sign in with Google
               </button>
@@ -35,6 +32,7 @@
               <button id="nativeLogin" class="ui-btn ui-corner-all ui-btn ui-shadow">
                   Sign in with Corral
               </button>
+			</div>
         </div>
     </div>
 </body>

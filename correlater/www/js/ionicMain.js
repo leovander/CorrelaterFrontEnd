@@ -420,21 +420,24 @@ angular.module('ionicApp', ['ionic'])
     backdropClickToClose: false
   })
   
-  // Need to figure out how to write a service that retrieves stack of nudges
-  // every arbitrary amount of seconds. 
-  //    If the stack of nudges has at least 1 nudge, then fire the nudge modal
-  $scope.nudgeRefreshService = function(){
-    var stack = [];
-    // Service goes here; nudges should be ordered by timestamp
-
-    // Once we have the list of nudges, loop through them and push each onto the stack
-    // for (var i=0; i<stackList; i++){
-    //   stack.push({nudger:stackList[i].friend,message:stackList[i].nudgeMessage});
-
-    // }
-    NudgeFactory.set(stack);
-
+  $scope.backgroundService = function(bgService){
+    var service = function(){
+        while (true && NudgeFactory.get().length==0){
+          var stack=[];
+          setTimeout(function(){
+            jQuery.ajax({
+              type: "GET",
+              url: "http://e-wit.co.uk/correlater/user/getNudges",
+              dataType: 'json'}
+            ).done(function(data){
+              stack=data;
+            });
+          },5000);
+          NudgeFactory.set(stack);
+        }
+      }
   }
+
   $scope.nudgesList = [];          // Get rid of this when nudges are implemented
   $scope.requestsList = [];
   $scope.friendsList = [];
@@ -443,9 +446,7 @@ angular.module('ionicApp', ['ionic'])
   $scope.refreshFriendsNow();
   $scope.refreshRequestsList();
   $scope.refreshFriendsList();
-  $scope.nudgeRefreshService();
 })
-
 // Need this factory to pass the stack of Nudges to the Nudge Modal
 .factory('NudgeFactory', function(){
   var nudgeStack = [];

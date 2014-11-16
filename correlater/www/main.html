@@ -86,7 +86,10 @@
                 on-refresh="refreshRequestsList()">
               </ion-refresher>
               <ion-list>
-                <div id="emptyRListItem" class="noRequestsBG" ng-if="requestsList.length==0">&nbsp;
+                <div id="emptyRListItem" class="noRequestsBG" ng-if="requestsList.length==0">
+                  <div class="emptyItemContainer">
+                    <p class="trench">No Requests</p>
+                  </div>
                 </div>
                 <ion-item class="requestTile Trench" ng-repeat="friend in requestsList" item="friend">
                   {{friend.first_name}} {{friend.last_name}}
@@ -108,7 +111,10 @@
                 on-refresh="refreshNudges()">
               </ion-refresher>
               <ion-list>
-                <div id="emptyNListItem" class="noNudgesBG"ng-if="nudgesList.length==0">&nbsp;
+                <div id="emptyNListItem" class="noNudgesBG"ng-if="nudgesList.length==0">
+                <div class="emptyItemContainer">
+                  <p class="trench">No Nudges</p>
+                </div>
                 </div>
                 <ion-item class="nudgeTile Trench" ng-repeat="friend in nudgesList" item="friend">
                   {{friend.first_name}} {{friend.last_name}}
@@ -123,7 +129,10 @@
                 on-refresh="refreshFriendsList()">
               </ion-refresher>
               <ion-list can-swipe="true">
-                <div id="emptyFListItem" class="noFriendsBG" ng-if="friendsList.length==0">&nbsp;
+                <div id="emptyFListItem" class="noFriendsBG" ng-if="friendsList.length==0">
+                <div class="emptyItemContainer">
+                  <p class="trench">No Friends</p>
+                </div>
                 </div>
                 <ion-item class="friendTile Trench" 
                   ng-if="friend.first_name.toLowerCase().indexOf(getSearchFriend().toLowerCase())>=0 || friend.last_name.toLowerCase().indexOf(getSearchFriend().toLowerCase())>=0" 
@@ -152,7 +161,10 @@
             on-refresh="refreshMyInfo(); refreshFriendsNow();">
           </ion-refresher>
           <ion-list>
-            <div id="emptyNowItem" class="noAvailBG" ng-if="friendsNow.length==0">&nbsp;
+            <div id="emptyNowItem" class="noAvailBG" ng-if="friendsNow==''">
+              <div class="emptyNowItemContainer">
+                <p class="trench">No Friends Available Now</p>
+              </div>
             </div>
             <ion-item id="{{'friend'+nowFriend.id}}" ng-class="{true: 'assertive', false: ''}[nowFriend.favorite==1]" class="nowTile Trench" ng-click="clickFriendNow('friend'+nowFriend.id); listResize();" ng-repeat="nowFriend in friendsNow"  item="nowFriend">
               <span class="item-note Trench" ng-if="!isActiveNow('friend'+nowFriend.id)">

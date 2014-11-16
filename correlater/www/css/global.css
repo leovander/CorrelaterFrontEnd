@@ -252,6 +252,17 @@ h1.channel {
 	left: 5%;
 	right: 5%;
 }
+
+#startPageButtons{
+	display: block;
+	margin-left: auto;
+	margin-right: auto;
+	position: absolute;
+    bottom: 10%;
+    left: 0%;
+	right: 0%;
+    width: 90%;
+}
 /*SIGN IN/ADD ACCOUNT PAGE*/
 #googleLogin {
 	border: none;

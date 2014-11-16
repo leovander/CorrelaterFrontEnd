@@ -19,24 +19,23 @@
     <script type="text/javascript" charset="utf-8" src="js/nativeSignIn.js"></script>
 </head>
 <body>
-    <div data-role="page">
-        <div id="navBar" data-role="header" class="primary-3">
-            <a href="#" id="back" class="navItem ui-btn ui-icon-carat-l ui-btn-icon-notext ui-nodisc-icon" data-rel="back"></a>
-            <h1 id="title">Sign In with Corral</h1>
-        </div>
+    <div data-role="page" class="blankBG">
         <div data-role="content">
-
-            <form method="post" id="login">
-                <label for="email">E-mail:</label>
-                <input type="email" name="email" id="email" value="">
-                <label for="password">Password:</label>
-                <input type="password" name="password" id="password" value="" autocomplete="off">
-                <input type="submit" name="submit" value="Submit">
-            </form>
-            <div>
-                <a id="forgotPW">Forget your password?</a>
-            </div>
-            <p id="feedBack"></p>
+			<h1 class="channel">Sign in with</h1>
+			<h1 class="channel">Corral!</h1>
+			<div id="loginForm">
+				<form method="post" id="login">
+					<label for="email">E-mail:</label>
+					<input type="email" name="email" id="email" value="">
+					<label for="password">Password:</label>
+					<input type="password" name="password" id="password" value="" autocomplete="off">
+					<input type="submit" name="submit" value="Submit">
+				</form>
+				<div>
+					<a id="forgotPW">Forget your password?</a>
+				</div>
+				<p id="feedBack"></p>
+			</div>
         </div>
     </div>
 </body>

@@ -17,7 +17,14 @@
   background-color: #0F306C !important;
 }
 
+.primary-3{
+-moz-box-shadow: 0 7px 40px -16px #000000;
+-webkit-box-shadow: 0 7px 40px -16px #000000;
+box-shadow: 0 7px 40px -16px #000000;
+}
+
 .primary-3, .primary-3 h1, .primary-3 h1 a{
+
   background-color: #4a87ee  !important;
   color: #ffffff;
   text-shadow: none;
@@ -176,6 +183,7 @@ div[data-role="content"] h1, div[data-role="content"] p {
 }
 
 #forgotPW {
+	position: relative;
     font-size: x-small;
     color: red;
     text-align: right;
@@ -213,6 +221,13 @@ label.error {
   background-size: 100% 100%;
 }
 
+.blankBG {
+  background-image: url(../img/blankBG.jpg);
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: 100% 100%;
+}
+
 @font-face {
   font-family: Channel;
   src: url(../fonts/Channel.ttf)
@@ -231,10 +246,12 @@ h1.channel {
   color: white;
 }
 
-#AccountForm{
-
+#create{
+	position:absolute;
+	bottom: 0%;
+	left: 5%;
+	right: 5%;
 }
-
 /*SIGN IN/ADD ACCOUNT PAGE*/
 #googleLogin {
 	border: none;
@@ -249,8 +266,24 @@ h1.channel {
 	margin-left: auto;
 	margin-right: auto;
 	position: absolute;
-     bottom: 40px;
-     left: 0px;
-	 right: 0px;
-     width: 90%;
+    bottom: 5%;
+    left: 0%;
+	right: 0%;
+    width: 90%;
+}
+
+#loginForm{
+	position:absolute;
+	bottom: 3%;
+	left: 5%;
+	right: 5%;
+	
+}
+
+/*INVITE FRIENDS PAGE*/
+
+#title{
+	font-family: channel;
+	display:inline-block;
+    text-align:center;
 }

@@ -367,8 +367,21 @@ angular.module('ionicApp', ['ionic'])
         message: mess
       }
     }).done(function(){
-      getMyInfo();
+      getNudges();
     });
+  }
+
+  function deleteNudge(friend){
+    jQuery.ajax({
+      url: "http://e-wit.co.uk/correlater/user/deleteNudge/"+friend.id,
+      dataType: 'json'
+    }).done(function(){
+      getNudges();
+    });
+  }
+
+  $scope.removeNudge = function(friend){
+    deleteNudge(friend);
   }
 
   $scope.nudgeFriend = function(friend){

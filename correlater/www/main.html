@@ -60,7 +60,7 @@
               </button>
             </div>
             <div class="buttons">
-              <div class="badge badge-assertive nudgeBadge" ng-if="nudgesList.length!=0">{{nudgessList.length}}</div>
+              <div class="badge badge-assertive nudgeBadge" ng-if="nudgesList.length!=0">{{nudgesList.length}}</div>
               <button class="navButton button-icon icon ion-chatbubbles" ng-class="{true: 'energized', false: 'stable'}[getRightMenu()=='nudges']" ng-click="refreshNudgesList(); showNudges();">&nbsp;Nudges
               </button>
             </div>
@@ -116,10 +116,14 @@
                   <p class="trench">No Nudges</p>
                 </div>
                 </div>
-                <ion-item class="nudgeTile Trench" ng-repeat="friend in nudgesList" item="friend">
-                  {{first_name}} {{last_name}}
+                <ion-item class="nudgeTile Trench" ng-repeat="nudges in nudgesList" item="nudges">
+                  <span class="item-note Trench">
+                    <i class="timeLeft icon ion-ios7-clock-outline"></i>
+                    hh:mm
+                  </span>
+                  {{nudges.first_name}} {{nudges.last_name}}
                   <p class="Trench">
-                    {{message}}
+                    {{nudges.message}}
                   </p>
                 </ion-item>
               </ion-list>

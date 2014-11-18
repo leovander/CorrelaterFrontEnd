@@ -90,7 +90,8 @@ angular.module('ionicApp', ['ionic'])
       url: "http://e-wit.co.uk/correlater/user/getNudges",
       dataType: 'json'}
     ).done(function(data){
-      $scope.nudgesList=data;
+      $scope.nudgesList=data.nudges;
+      $scope.$broadcast('scroll.refreshComplete');
     });
   }
 
@@ -356,10 +357,10 @@ angular.module('ionicApp', ['ionic'])
     return rightView;
   }
 
-  function setNudge(friend, mess){
+  function setNudges(friend, mess){
     jQuery.ajax({
       type: "POST",
-      url: "http://e-wit.co.uk/correlater/user/setNudge",
+      url: "http://e-wit.co.uk/correlater/user/setNudges",
       dataType: 'json',
       data: {
         receiver_id: friend.id,
@@ -390,12 +391,12 @@ angular.module('ionicApp', ['ionic'])
     myPopup.then(function(res) {
       if (res)
         if (typeof $scope.data.nudgeMessage!=='undefined'){
-          setNudge(friend,$scope.data.nudgeMessage);
+          setNudges(friend,$scope.data.nudgeMessage);
           // NudgeFactory.set([{nudger:friend,message:$scope.data.nudgeMessage}]);
           // $scope.nudgeModal.show();
         }
         else {
-          setNudge(friend,'');
+          setNudges(friend,'');
           // NudgeFactory.set([{nudger:friend,message:''}]);
           // $scope.nudgeModal.show();
         }
@@ -439,6 +440,7 @@ angular.module('ionicApp', ['ionic'])
   $scope.refreshFriendsNow();
   $scope.refreshRequestsList();
   $scope.refreshFriendsList();
+  $scope.refreshNudgesList();
 })
 
 // Need this factory to pass the list of Nudges to the Nudge Modal

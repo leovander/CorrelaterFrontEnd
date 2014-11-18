@@ -32,8 +32,7 @@ angular.module('ionicApp', ['ionic'])
     $ionicSideMenuDelegate.toggleRight();
   };
 
-  $scope.refreshMyInfo = function() {
-    $scope.Math = window.Math;
+  function getMyInfo(){
     jQuery.ajax({
       type: "GET",
       url: "http://e-wit.co.uk/correlater/user/getMyInfo",
@@ -46,11 +45,16 @@ angular.module('ionicApp', ['ionic'])
         $scope.$broadcast('scroll.refreshComplete');
     })
     .fail(function(data){
-      // $ionicLoading.show({ template: 'Check network connection', noBackdrop: false, duration: 1000 });
+      $ionicLoading.show({ template: 'Check network connection', noBackdrop: false, duration: 1000 });
     });
   }
 
-  $scope.refreshFriendsNow = function() {
+  $scope.refreshMyInfo = function() {
+    $scope.Math = window.Math;
+    getMyInfo();
+  }
+
+  function getAvailable(){
     jQuery.ajax({
         type: "GET",
         url: "http://e-wit.co.uk/correlater/user/getAvailableV2",
@@ -59,9 +63,13 @@ angular.module('ionicApp', ['ionic'])
         $scope.friendsNow = data.friends;
         $scope.$broadcast('scroll.refreshComplete');
     });
+  }
+
+  $scope.refreshFriendsNow = function() {
+    getAvailable();
   };
 
-  $scope.refreshRequestsList = function() {
+  function getRequests(){
     jQuery.ajax({
         type: "GET",
         url: "http://e-wit.co.uk/correlater/user/getRequests",
@@ -70,9 +78,27 @@ angular.module('ionicApp', ['ionic'])
       $scope.requestsList = data.friends;
       $scope.$broadcast('scroll.refreshComplete');
     });
+  }
+
+  $scope.refreshRequestsList = function() {
+    getRequests();
   };
 
-  $scope.refreshFriendsList = function() {
+  function getNudges(){
+    jQuery.ajax({
+      type: "GET",
+      url: "http://e-wit.co.uk/correlater/user/getNudges",
+      dataType: 'json'}
+    ).done(function(data){
+      $scope.nudgesList=data;
+    });
+  }
+
+  $scope.refreshNudgesList = function(){
+    getNudges();
+  }
+
+  function getFriends(){
     jQuery.ajax({
         type: "GET",
         url: "http://e-wit.co.uk/correlater/user/getFriends",
@@ -81,40 +107,50 @@ angular.module('ionicApp', ['ionic'])
       $scope.friendsList = data.friends;
       $scope.$broadcast('scroll.refreshComplete');
     });
+  }
+
+  $scope.refreshFriendsList = function() {
+    getFriends();
   };
 
-  $scope.toggleFavorite = function(friend) {
+  function setFavorite(friend){
     jQuery.ajax({
         url: "http://e-wit.co.uk/correlater/user/setFavorite/"+friend.id,
         dataType: 'json'}
     ).done(function(data){
-      jQuery.ajax({
-          url: "http://e-wit.co.uk/correlater/user/getFriends",
-          dataType: 'json'}
-      ).done(function(data){
-        $scope.friendsList = data.friends;
-        $scope.$broadcast('scroll.refreshComplete');
-      });
-    });
+      getFriends();
+    });    
+  }
+
+  $scope.toggleFavorite = function(friend) {
+    setFavorite(friend);
   };
 
-  $scope.acceptRequest = function(friend){
+  function acceptFriend(friend){
     jQuery.ajax({
         url: "http://e-wit.co.uk/correlater/user/acceptFriend/" + friend.id,
         dataType: 'json'}
     ).done(function(data) {
-        if(data.message != 'Friend Accepted') {
-          alert('Add Failed');
-        }
-        jQuery.ajax({
-            url: "http://e-wit.co.uk/correlater/user/getRequests",
-            dataType: 'json'}
-        ).done(function(data){
-          $scope.requestsList = data.friends;
-          $scope.$broadcast('scroll.refreshComplete');
-        });
-    });
+      if(data.message != 'Friend Accepted') {
+        alert('Add Failed');
+      }
+      getRequests();
+    });    
+  }
+
+  $scope.acceptRequest = function(friend){
+    acceptFriend(friend);
   };
+
+  function deleteFriend(friend){
+    jQuery.ajax({
+        url: "http://e-wit.co.uk/correlater/user/deleteFriend/" + friend.id,
+        dataType: 'json'
+    }).done(function() {
+      getRequests();
+      getFriends();
+    });
+  }
 
   $scope.denyRequest = function(friend){
     $ionicPopup.confirm({
@@ -123,18 +159,7 @@ angular.module('ionicApp', ['ionic'])
     })
     .then(function(result){
       if (result){
-        jQuery.ajax({
-            url: "http://e-wit.co.uk/correlater/user/deleteFriend/" + friend.id,
-            dataType: 'json'
-        }).done(function() {
-          jQuery.ajax({
-              url: "http://e-wit.co.uk/correlater/user/getRequests",
-              dataType: 'json'}
-          ).done(function(data){
-            $scope.requestsList = data.friends;
-            $scope.$broadcast('scroll.refreshComplete');
-          });
-        });
+        deleteFriend(friend);
       }
     });
   };
@@ -146,18 +171,7 @@ angular.module('ionicApp', ['ionic'])
     })
     .then(function(result){
       if (result){
-        jQuery.ajax({
-            url: "http://e-wit.co.uk/correlater/user/deleteFriend/" + friend.id,
-            dataType: 'json'
-        }).done(function() {
-          jQuery.ajax({
-              url: "http://e-wit.co.uk/correlater/user/getFriends",
-              dataType: 'json'}
-          ).done(function(data){
-            $scope.friendsList = data.friends;
-            $scope.$broadcast('scroll.refreshComplete');
-          });
-        });
+        deleteFriend(friend);
       }
     });
   };
@@ -190,21 +204,11 @@ angular.module('ionicApp', ['ionic'])
       dataType: 'json',
       data: {mood : myMood } //CHANGED THIS
     })
-    .done(function(){
-      jQuery.ajax({
-      type: "GET",
-        url: "http://e-wit.co.uk/correlater/user/getMyInfo",
-        dataType: 'json'
-      }).done(function(data){
-          if(data.message == "Logged In"){
-            myMood = data.user.mood;
-            status = data.status;
-          }
-          $scope.$broadcast('scroll.refreshComplete');
-      });
+    .done(function(){      
+      getMyInfo();
     })
     .fail(function(data){
-      alert('Failed updating mood');
+      $ionicLoading.show({ template: 'Check network connection', noBackdrop: false, duration: 1000 });
     })
     .always(function(){
       jQuery('#mood').val('');
@@ -245,11 +249,11 @@ angular.module('ionicApp', ['ionic'])
                 $ionicLoading.show({ template: Math.floor(interval/60)+' hours and '+interval%60+' minutes in Free Mode', noBackdrop: true, duration: 1000 });
               else
                 $ionicLoading.show({ template: interval%60+' minutes in Free Mode', noBackdrop: true, duration: 1000 });
-              $scope.availabilityCall(status,interval);
+              setTimeAvailability(status,interval);
             }
             else {
               $ionicLoading.show({ template: 'Free Mode', noBackdrop: true, duration: 1000 }); 
-              $scope.availabilityCall(status,interval);
+              setTimeAvailability(status,interval);
             }
           }      
         });
@@ -257,7 +261,7 @@ angular.module('ionicApp', ['ionic'])
       else if (status=="1"){
         interval=0;
         $ionicLoading.show({ template: 'Schedule Mode', noBackdrop: true, duration: 1000 });
-        $scope.availabilityCall(status,interval);
+        setTimeAvailability(status,interval);
       }
       else if (status=="0"){
         var myPopup = $ionicPopup.show({
@@ -287,11 +291,11 @@ angular.module('ionicApp', ['ionic'])
                 $ionicLoading.show({ template: Math.floor(interval/60)+' hours and '+interval%60+' minutes in Invisible Mode', noBackdrop: true, duration: 1000 });
               else
                 $ionicLoading.show({ template: interval%60+' minutes in Invisible Mode', noBackdrop: true, duration: 1000 });
-              $scope.availabilityCall(status,interval);
+              setTimeAvailability(status,interval);
             }
             else {
               $ionicLoading.show({ template: 'Invisible Mode', noBackdrop: true, duration: 1000 }); 
-              $scope.availabilityCall(status,interval);
+              setTimeAvailability(status,interval);
             }
           }      
         });
@@ -300,30 +304,18 @@ angular.module('ionicApp', ['ionic'])
   }
 
 //TODO: change from gygngai to correlater
-  $scope.availabilityCall = function(statusVar, interval){
-      jQuery.ajax({
-        type: "POST",
-        url: "http://e-wit.co.uk/correlater/user/setTimeAvailability",
-        dataType: 'json',
-        data: {
-          status: statusVar,
-          time: interval
-        }
-      }).done(function(){
-        jQuery.ajax({
-          type: "GET",
-          url: "http://e-wit.co.uk/correlater/user/getMyInfo",
-          dataType: 'json'
-        }).done(function(data){
-            if(data.message == "Logged In")
-              currentUser = data.user;
-            status=data.status;
-              $scope.$broadcast('scroll.refreshComplete');
-        })
-        .fail(function(data){
-          alert('Failed getting my info');
-        });
-      });
+  function setTimeAvailability(statusVar, interval){
+    jQuery.ajax({
+      type: "POST",
+      url: "http://e-wit.co.uk/correlater/user/setTimeAvailability",
+      dataType: 'json',
+      data: {
+        status: statusVar,
+        time: interval
+      }
+    }).done(function(){
+      getMyInfo();
+    });
   }
 
   $scope.getInvisibility = function() {
@@ -364,6 +356,20 @@ angular.module('ionicApp', ['ionic'])
     return rightView;
   }
 
+  function setNudge(friend, mess){
+    jQuery.ajax({
+      type: "POST",
+      url: "http://e-wit.co.uk/correlater/user/setNudge",
+      dataType: 'json',
+      data: {
+        receiver_id: friend.id,
+        message: mess
+      }
+    }).done(function(){
+      getMyInfo();
+    });
+  }
+
   $scope.nudgeFriend = function(friend){
     $scope.data = {}
     var myPopup = $ionicPopup.show({
@@ -384,12 +390,14 @@ angular.module('ionicApp', ['ionic'])
     myPopup.then(function(res) {
       if (res)
         if (typeof $scope.data.nudgeMessage!=='undefined'){
-          NudgeFactory.set([{nudger:friend,message:$scope.data.nudgeMessage}]);
-          $scope.nudgeModal.show();
+          setNudge(friend,$scope.data.nudgeMessage);
+          // NudgeFactory.set([{nudger:friend,message:$scope.data.nudgeMessage}]);
+          // $scope.nudgeModal.show();
         }
         else {
-          NudgeFactory.set([{nudger:friend,message:''}]);
-          $scope.nudgeModal.show();
+          setNudge(friend,'');
+          // NudgeFactory.set([{nudger:friend,message:''}]);
+          // $scope.nudgeModal.show();
         }
     });
   }
@@ -419,42 +427,28 @@ angular.module('ionicApp', ['ionic'])
     animation: 'slide-in-up',
     backdropClickToClose: false
   })
-  
-  $scope.backgroundService = function(bgService){
-    var service = function(){
-        while (true && NudgeFactory.get().length==0){
-          var stack=[];
-          setTimeout(function(){
-            jQuery.ajax({
-              type: "GET",
-              url: "http://e-wit.co.uk/correlater/user/getNudges",
-              dataType: 'json'}
-            ).done(function(data){
-              stack=data;
-            });
-          },5000);
-          NudgeFactory.set(stack);
-        }
-      }
-  }
 
-  $scope.nudgesList = [];          // Get rid of this when nudges are implemented
+  // These empty array initializations are to display
+  // the empty list graphics in a browser
+  $scope.nudgesList = [];
   $scope.requestsList = [];
   $scope.friendsList = [];
   $scope.friendsNow = [];
+
   $scope.refreshMyInfo();
   $scope.refreshFriendsNow();
   $scope.refreshRequestsList();
   $scope.refreshFriendsList();
 })
-// Need this factory to pass the stack of Nudges to the Nudge Modal
+
+// Need this factory to pass the list of Nudges to the Nudge Modal
 .factory('NudgeFactory', function(){
-  var nudgeStack = [];
+  var nudgeList = [];
   function set(data){
-    nudgeStack=data;
+    nudgeList=data;
   }
   function get(){
-    return nudgeStack;
+    return nudgeList;
   }
   return {
     set: set,
@@ -482,7 +476,3 @@ angular.module('ionicApp', ['ionic'])
     $scope.nudgeModal.hide();
   }
 })
-
-// .controller('AttendeesCtrl', function($scope) {
-
-// })

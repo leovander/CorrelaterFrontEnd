@@ -16,31 +16,16 @@
     <script type="text/javascript" charset="utf-8" src="js/jquery.mobile-1.4.3/jquery.mobile-1.4.3.min.js"></script>
     <script type="text/javascript" charset="utf-8" src="js/angular.js"></script>
     <script type="text/javascript" charset="utf-8" src="js/jquery.validate.js"></script>
-    <script type="text/javascript" charset="utf-8" src="js/invite.js"></script>
+    <script type="text/javascript" charset="utf-8" src="js/inviteFromGoogle.js"></script>
 </head>
 <body>
     <div data-role="page">
         <div id="navBar" data-role="header" class="primary-3">
             <a href="#" id="back" class="navItem ui-btn ui-icon-carat-l ui-btn-icon-notext ui-nodisc-icon" data-rel="back"></a>
-            <h1 id="title">Invite a Friend</h1>
+            <h1 id="title">Invite from Google</h1>
         </div>
         <div data-role="content">
-          <form method="post" id="search" data-role="none">
-              <label for="email">Search by Email:</label>
-              <input type="email" name="email" id="email" placeholder="example@corral.com">
-              <input type="submit" id="submit" value="Search">
-          </form>
-          <ul data-role="listview" data-inset="true" data-icon="plus"></ul>
-          <p>Or</p>
-          <button id="phoneContacts" class="ui-btn ui-corner-all ui-btn ui-shadow">
-                Invite from phone contacts
-          </button>
-          <div id="inviteGoogle">
-            <p>Or</p>
-            <button id="googleContacts" class="ui-btn ui-corner-all ui-btn ui-shadow">
-                Invite from Google contacts
-            </button>
-          </div>
+            <ul data-role="listview" data-filter="true" data-filter-placeholder="Search contacts..." data-inset="true" data-icon="plus"></ul>
         </div>
     </div>
 </body>

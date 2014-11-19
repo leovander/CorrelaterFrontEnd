@@ -85,6 +85,21 @@ $(document).on('deviceready', function() {
 	$('#phoneContacts').click(function() {
 		window.location = "inviteFromPhone.html";
 	});
+
+
+	$.ajax({
+	url: "http://e-wit.co.uk/correlater/user/getMyInfo",
+	dataType: 'json'
+	}).success(function(data){
+		if(data.hasOwnProperty('google')) {
+			$('#inviteGoogle').show(); 
+		}
+	});
+
+	$('#googleContacts').click(function() {
+		window.location = "inviteFromGoogle.html";
+	});
+
 });
 
 function addFriend(id) {

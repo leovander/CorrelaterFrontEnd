@@ -193,6 +193,10 @@ div[data-role="content"] h1, div[data-role="content"] p {
     display: none;
 }
 
+#inviteGoogle {
+  display: none;
+}
+
 #friendSearch {
 
 }

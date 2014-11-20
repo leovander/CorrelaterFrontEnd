@@ -310,11 +310,10 @@ angular.module('ionicApp', ['ionic'])
     }
   }
 
-//TODO: change from gygngai to correlater
   function setTimeAvailability(statusVar, interval){
     jQuery.ajax({
       type: "POST",
-      url: "http://e-wit.co.uk/gyngai/user/setTimeAvailability",
+      url: "http://e-wit.co.uk/correlater/user/setTimeAvailability",
       dataType: 'json',
       data: {
         status: parseInt(statusVar, 10),

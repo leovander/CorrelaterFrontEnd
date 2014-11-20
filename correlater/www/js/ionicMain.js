@@ -93,8 +93,8 @@ angular.module('ionicApp', ['ionic'])
     {
       if($scope.nudgesList.length != data.nudges.length)
       {
-        window.plugin.notification.local.promptForPermission();
-        window.plugin.notification.local.add({ message: 'You have a new Nudge!'});
+        //window.plugin.notification.local.promptForPermission();
+        //window.plugin.notification.local.add({ message: 'You have a new Nudge!'});
       }
       $scope.nudgesList=data.nudges;
       $scope.$broadcast('scroll.refreshComplete');

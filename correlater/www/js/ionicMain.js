@@ -1,7 +1,5 @@
 angular.module('ionicApp', ['ionic'])
 
-//$(document).on('deviceready', 'getNudges');
-
 .config(function($stateProvider, $urlRouterProvider) {
 
   $stateProvider
@@ -93,8 +91,11 @@ angular.module('ionicApp', ['ionic'])
       dataType: 'json'}
     ).done(function(data)
     {
-      window.plugin.notification.local.promptForPermission();
-      window.plugin.notification.local.add({ message: 'You have a new Nudge!'})
+      if($scope.nudgesList.length != data.nudges.length)
+      {
+        window.plugin.notification.local.promptForPermission();
+        window.plugin.notification.local.add({ message: 'You have a new Nudge!'});
+      }
       $scope.nudgesList=data.nudges;
       $scope.$broadcast('scroll.refreshComplete');
     });

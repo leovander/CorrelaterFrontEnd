@@ -91,10 +91,17 @@ angular.module('ionicApp', ['ionic'])
       dataType: 'json'}
     ).done(function(data)
     {
-      if($scope.nudgesList.length != data.nudges.length)
+      if($scope.nudgesList.length < data.count)
       {
-        //window.plugin.notification.local.promptForPermission();
-        //window.plugin.notification.local.add({ message: 'You have a new Nudge!'});
+        	if(window.hasOwnProperty('plugin')) {
+        		var newNudges = (data.count - $scope.nudgesList.length);
+        		var newNudgeMessage = 'You have ' + newNudges + ' new Nudge!';
+        		if(newNudges > 1) {
+	        		newNudgeMessage = 'You have ' + newNudges + ' new Nudges!';
+        		}
+        		
+				window.plugin.notification.local.add({ message: newNudgeMessage});
+			}
       }
       $scope.nudgesList=data.nudges;
       $scope.$broadcast('scroll.refreshComplete');

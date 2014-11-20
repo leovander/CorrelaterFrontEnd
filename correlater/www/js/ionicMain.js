@@ -1,5 +1,7 @@
 angular.module('ionicApp', ['ionic'])
 
+//$(document).on('deviceready', 'getNudges');
+
 .config(function($stateProvider, $urlRouterProvider) {
 
   $stateProvider
@@ -89,7 +91,10 @@ angular.module('ionicApp', ['ionic'])
       type: "GET",
       url: "http://e-wit.co.uk/correlater/user/getNudges",
       dataType: 'json'}
-    ).done(function(data){
+    ).done(function(data)
+    {
+      window.plugin.notification.local.promptForPermission();
+      window.plugin.notification.local.add({ message: 'You have a new Nudge!'})
       $scope.nudgesList=data.nudges;
       $scope.$broadcast('scroll.refreshComplete');
     });

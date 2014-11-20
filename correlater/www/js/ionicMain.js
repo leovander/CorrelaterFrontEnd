@@ -99,9 +99,8 @@ angular.module('ionicApp', ['ionic'])
         		if(newNudges > 1) {
 	        		newNudgeMessage = 'You have ' + newNudges + ' new Nudges!';
         		}
-        		
-				window.plugin.notification.local.add({ message: newNudgeMessage});
-			}
+        		window.plugin.notification.local.add({ message: newNudgeMessage});
+    			}
       }
       $scope.nudgesList=data.nudges;
       $scope.$broadcast('scroll.refreshComplete');
@@ -237,7 +236,7 @@ angular.module('ionicApp', ['ionic'])
     if (oldStatus!=status){
       if (status=="2"){
         var myPopup = $ionicPopup.show({
-          template: '<div class="range"><input id="timeRange" type="range" name="volume" min="0" max="180" step="15" ng-model="data.interval"></div><p ng-if="data.interval">Hours: {{Math.floor(data.interval/60)}} Minutes: {{data.interval%60}}</p><p ng-if="!data.interval">Hours: '+Math.floor(maxIntervalTime/2/60)+' Minutes: '+maxIntervalTime/2%60+'</p><p class="thered" ng-if="data.interval==0">Forever</p>',
+          template: '<div class="range"><input id="timeRange" type="range" name="volume" min="0" max="180" step="15" ng-model="data.interval"></div><p ng-if="data.interval">{{Math.floor(data.interval/60)}} Hours and {{data.interval%60}} Minutes</p><p ng-if="!data.interval">Hours: '+Math.floor(maxIntervalTime/2/60)+' Minutes: '+maxIntervalTime/2%60+'</p><p class="thered" ng-if="data.interval==0">Forever</p>',
           title: 'Set free mode time',
           scope: $scope,
           buttons: [
@@ -279,7 +278,7 @@ angular.module('ionicApp', ['ionic'])
       }
       else if (status=="0"){
         var myPopup = $ionicPopup.show({
-          template: '<div class="range"><input id="timeRange" type="range" name="volume" min="0" max="180" step="15" ng-model="data.interval"></div><p ng-if="data.interval">Hours: {{Math.floor(data.interval/60)}} Minutes: {{data.interval%60}}</p><p ng-if="!data.interval">Hours: '+Math.floor(maxIntervalTime/2/60)+' Minutes: '+maxIntervalTime/2%60+'</p><p class="thered" ng-if="data.interval==0">Forever</p>',
+          template: '<div class="range"><input id="timeRange" type="range" name="volume" min="0" max="180" step="15" ng-model="data.interval"></div><p ng-if="data.interval">{{Math.floor(data.interval/60)}} Hours and {{data.interval%60}} Minutes</p><p ng-if="!data.interval">Hours: '+Math.floor(maxIntervalTime/2/60)+' Minutes: '+maxIntervalTime/2%60+'</p><p class="thered" ng-if="data.interval==0">Forever</p>',
           title: 'Set invisible mode time',
           scope: $scope,
           buttons: [
@@ -315,6 +314,28 @@ angular.module('ionicApp', ['ionic'])
         });
       }
     }
+    else 
+      if (status=="2"||status=="0") displayTimeLeft();
+  }
+
+  function displayTimeLeft(){
+    jQuery.ajax({
+      type: "GET",
+      url: "http://e-wit.co.uk/correlater/user/checkAvailability",
+      dataType: 'json'
+    }).done(function(data){
+      var stat = data.status;
+      var time = data.remaining_time;
+      var modeType;
+      if (stat=="2")
+        modeType="Free";
+      else if (stat=="0")
+        modeType="Invisible";
+      if (time==-1)
+        $ionicLoading.show({ template: modeType+' Mode', noBackdrop: false, duration: 1000 });
+      else
+        $ionicLoading.show({ template: time+' minutes left in '+modeType+' Mode', noBackdrop: false, duration: 1000 });
+    });
   }
 
   function setTimeAvailability(statusVar, interval){

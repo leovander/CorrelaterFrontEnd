@@ -111,25 +111,21 @@
                 refreshing-icon="ion-loading-c"
                 on-refresh="refreshNudgesList()">
               </ion-refresher>
-              <ion-list can-swipe="true">
+              <ion-list>
                 <div id="emptyNListItem" class="noNudgesBG"ng-if="nudgesList.length==0">
                 <div class="emptyItemContainer">
                   <p class="trench">No Nudges</p>
                 </div>
                 </div>
                 <ion-item class="nudgeTile Trench" ng-repeat="nudges in nudgesList" item="nudges">
-                  <span class="item-note Trench">
-                    <i class="timeLeft icon ion-ios7-clock-outline"></i>
-                    hh:mm
+                  <span class="item-note">
+                    <button class="floatBlock button icon ion-eye" ng-click="removeNudge(nudges);">
+                    </button>
                   </span>
                   <h2>From: {{nudges.first_name}} {{nudges.last_name}}</h2>
                   <p class="Trench">
                     {{nudges.message}}
                   </p>
-                  <ion-option-button ng-click="removeNudge(nudges);">
-                    Mark<br>
-                    Seen
-                  </ion-option-button>
                 </ion-item>
               </ion-list>
             </div>

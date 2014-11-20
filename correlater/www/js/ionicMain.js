@@ -236,7 +236,7 @@ angular.module('ionicApp', ['ionic'])
     if (oldStatus!=status){
       if (status=="2"){
         var myPopup = $ionicPopup.show({
-          template: '<div class="range"><input id="timeRange" type="range" name="volume" min="0" max="180" step="15" ng-model="data.interval"></div><p ng-if="data.interval">{{Math.floor(data.interval/60)}} Hours and {{data.interval%60}} Minutes</p><p ng-if="!data.interval">Hours: '+Math.floor(maxIntervalTime/2/60)+' Minutes: '+maxIntervalTime/2%60+'</p><p class="thered" ng-if="data.interval==0">Forever</p>',
+          template: '<div class="range"><input id="timeRange" type="range" name="volume" min="0" max="180" step="15" ng-model="data.interval"></div><p ng-if="data.interval">{{Math.floor(data.interval/60)}} Hours and {{data.interval%60}} Minutes</p><p ng-if="!data.interval">'+Math.floor(maxIntervalTime/2/60)+' Hours and '+maxIntervalTime/2%60+' Minutes</p><p class="thered" ng-if="data.interval==0">Forever</p>',
           title: 'Set free mode time',
           scope: $scope,
           buttons: [
@@ -257,17 +257,8 @@ angular.module('ionicApp', ['ionic'])
         });
         myPopup.then(function(res) {
           if (res){
-            if (interval>0){
-              if (interval>=60)
-                $ionicLoading.show({ template: Math.floor(interval/60)+' hours and '+interval%60+' minutes in Free Mode', noBackdrop: true, duration: 1000 });
-              else
-                $ionicLoading.show({ template: interval%60+' minutes in Free Mode', noBackdrop: true, duration: 1000 });
-              setTimeAvailability(status,interval);
-            }
-            else {
-              $ionicLoading.show({ template: 'Free Mode', noBackdrop: true, duration: 1000 }); 
-              setTimeAvailability(status,interval);
-            }
+            $ionicLoading.show({ template: 'Free Mode', noBackdrop: true, duration: 1000 }); 
+            setTimeAvailability(status,interval);
           }      
         });
       }
@@ -278,7 +269,7 @@ angular.module('ionicApp', ['ionic'])
       }
       else if (status=="0"){
         var myPopup = $ionicPopup.show({
-          template: '<div class="range"><input id="timeRange" type="range" name="volume" min="0" max="180" step="15" ng-model="data.interval"></div><p ng-if="data.interval">{{Math.floor(data.interval/60)}} Hours and {{data.interval%60}} Minutes</p><p ng-if="!data.interval">Hours: '+Math.floor(maxIntervalTime/2/60)+' Minutes: '+maxIntervalTime/2%60+'</p><p class="thered" ng-if="data.interval==0">Forever</p>',
+          template: '<div class="range"><input id="timeRange" type="range" name="volume" min="0" max="180" step="15" ng-model="data.interval"></div><p ng-if="data.interval">{{Math.floor(data.interval/60)}} Hours and {{data.interval%60}} Minutes</p><p ng-if="!data.interval">'+Math.floor(maxIntervalTime/2/60)+' Hours and '+maxIntervalTime/2%60+' Minutes</p><p class="thered" ng-if="data.interval==0">Forever</p>',
           title: 'Set invisible mode time',
           scope: $scope,
           buttons: [
@@ -299,17 +290,8 @@ angular.module('ionicApp', ['ionic'])
         });
         myPopup.then(function(res) {
           if (res){
-            if (interval>0){
-              if (interval>=60)
-                $ionicLoading.show({ template: Math.floor(interval/60)+' hours and '+interval%60+' minutes in Invisible Mode', noBackdrop: true, duration: 1000 });
-              else
-                $ionicLoading.show({ template: interval%60+' minutes in Invisible Mode', noBackdrop: true, duration: 1000 });
-              setTimeAvailability(status,interval);
-            }
-            else {
-              $ionicLoading.show({ template: 'Invisible Mode', noBackdrop: true, duration: 1000 }); 
-              setTimeAvailability(status,interval);
-            }
+            $ionicLoading.show({ template: 'Invisible Mode', noBackdrop: true, duration: 1000 }); 
+            setTimeAvailability(status,interval);
           }      
         });
       }
@@ -334,7 +316,7 @@ angular.module('ionicApp', ['ionic'])
       if (time==-1)
         $ionicLoading.show({ template: modeType+' Mode', noBackdrop: false, duration: 1000 });
       else
-        $ionicLoading.show({ template: time+' minutes left in '+modeType+' Mode', noBackdrop: false, duration: 1000 });
+        $ionicLoading.show({ template: time+' minutes in '+modeType+' Mode', noBackdrop: false, duration: 1000 });
     });
   }
 

@@ -92,7 +92,7 @@
                     <p class="trench">No Requests</p>
                   </div>
                 </div>
-                <ion-item class="requestTile Trench" ng-repeat="friend in requestsList" item="friend">
+                <ion-item class="requestTile " ng-repeat="friend in requestsList" item="friend">
                   {{friend.first_name}} {{friend.last_name}}
                   <span class="item-note">
                     <button class="floatBlock button button-small icon ion-checkmark-round balanced" ng-click="acceptRequest(friend);">
@@ -117,13 +117,13 @@
                   <p class="trench">No Nudges</p>
                 </div>
                 </div>
-                <ion-item class="nudgeTile Trench" ng-repeat="nudges in nudgesList" item="nudges">
+                <ion-item class="nudgeTile " ng-repeat="nudges in nudgesList" item="nudges">
                   <span class="item-note">
                     <button class="floatBlock button icon ion-eye" ng-click="removeNudge(nudges);">
                     </button>
                   </span>
                   <h2>From: {{nudges.first_name}} {{nudges.last_name}}</h2>
-                  <p class="Trench">
+                  <p class="">
                     {{nudges.message}}
                   </p>
                 </ion-item>
@@ -142,7 +142,7 @@
                   <p class="trench">No Friends</p>
                 </div>
                 </div>
-                <ion-item class="friendTile Trench" 
+                <ion-item class="friendTile " 
                   ng-if="friend.first_name.toLowerCase().indexOf(getSearchFriend().toLowerCase())>=0 || friend.last_name.toLowerCase().indexOf(getSearchFriend().toLowerCase())>=0" 
                   ng-class="{true: 'assertive', false: ''}[friend.favorite==1]" ng-repeat="friend in friendsList" item="friend">
                   {{friend.first_name}} {{friend.last_name}}
@@ -174,8 +174,8 @@
                 <p class="trench">No Friends Available Now</p>
               </div>
             </div>
-            <ion-item id="{{'friend'+nowFriend.id}}" ng-class="{true: 'assertive', false: ''}[nowFriend.favorite==1]" class="nowTile Trench" ng-click="clickFriendNow('friend'+nowFriend.id); listResize();" ng-repeat="nowFriend in friendsNow"  item="nowFriend">
-              <span class="item-note Trench" ng-if="!isActiveNow('friend'+nowFriend.id)">
+            <ion-item id="{{'friend'+nowFriend.id}}" ng-class="{true: 'assertive', false: ''}[nowFriend.favorite==1]" class="nowTile " ng-click="clickFriendNow('friend'+nowFriend.id); listResize();" ng-repeat="nowFriend in friendsNow"  item="nowFriend">
+              <span class="item-note " ng-if="!isActiveNow('friend'+nowFriend.id)">
                 <i class="timeLeft icon ion-ios7-clock-outline"></i>
                 hh:mm
               </span>
@@ -183,7 +183,7 @@
                 <button class="button icon ion-chatbubble button-clear button-outline button-balanced" ng-click="nudgeFriend(nowFriend)"></button>
               </span>
               {{nowFriend.first_name}} {{nowFriend.last_name}}
-              <p class="Trench" ng-if="isActiveNow('friend'+nowFriend.id)">
+              <p class="" ng-if="isActiveNow('friend'+nowFriend.id)">
                 {{nowFriend.mood}}
               </p>
             </ion-item>

@@ -367,6 +367,7 @@ angular.module('ionicApp', ['ionic'])
         message: mess
       }
     }).done(function(){
+      $ionicLoading.show({ template: 'Nudge Sent', noBackdrop: true, duration: 1000 });
       getNudges();
     });
   }

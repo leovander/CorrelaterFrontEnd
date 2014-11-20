@@ -313,11 +313,11 @@ angular.module('ionicApp', ['ionic'])
   function setTimeAvailability(statusVar, interval){
     jQuery.ajax({
       type: "POST",
-      url: "http://e-wit.co.uk/correlater/user/setTimeAvailability",
+      url: "http://e-wit.co.uk/gyngai/user/setTimeAvailability",
       dataType: 'json',
       data: {
-        status: statusVar,
-        time: interval
+        status: parseInt(statusVar, 10),
+        time: parseInt(interval, 10)
       }
     }).done(function(){
       getMyInfo();

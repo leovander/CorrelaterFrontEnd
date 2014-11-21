@@ -215,7 +215,10 @@ button.sizedButton {
 	background-image: -webkit-gradient(radial, center top, 0, center top, 567, color-stop(0, #FDFDFD), color-stop(0.8, #F0F0F0));
 	background-image: -webkit-radial-gradient(center top, ellipse farthest-corner, #FDFDFD 0%, #F0F0F0 80%);
 	background-image: radial-gradient(center top, ellipse farthest-corner, #FDFDFD 0%, #F0F0F0 80%);
+}
 
+.mainContainer{
+	bottom: 83px;
 }
 
 .content.slideMenu {

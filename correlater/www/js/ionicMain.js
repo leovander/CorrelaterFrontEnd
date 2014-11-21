@@ -91,6 +91,7 @@ angular.module('ionicApp', ['ionic'])
       dataType: 'json'}
     ).done(function(data)
     {
+      window.plugin.notification.local.promptForPermission();
       if($scope.nudgesList.length < data.count)
       {
         	if(window.hasOwnProperty('plugin')) {

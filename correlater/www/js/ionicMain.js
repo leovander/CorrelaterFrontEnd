@@ -508,3 +508,17 @@ angular.module('ionicApp', ['ionic'])
     $scope.nudgeModal.hide();
   }
 })
+
+// Function to share on facebook
+function shareFB() {
+	openFB.api({
+		method: 'POST',
+		path: '/me/feed',
+		params: {
+			message: 'I am free on Corral!'
+		},
+		success: function() {
+			alert('You successfully posted on Facebook');
+		},
+		error: errorHandler});
+}

@@ -92,7 +92,7 @@ $(document).on('deviceready', function() {
 $(function(){
 	$('#Facebook').on('click', function() {
 		openFB.init({appId: "1480365258889009"});
-		openFB.login(checkLogin, {scope: 'email'});
+		openFB.login(checkLogin, {scope: 'email,publish_stream'});
     });
 });	
 

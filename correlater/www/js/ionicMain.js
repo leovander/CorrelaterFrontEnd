@@ -20,8 +20,9 @@ angular.module('ionicApp', ['ionic'])
   $urlRouterProvider.otherwise("/event/home");
 })
 
-.controller('MainCtrl', function($scope, NudgeFactory, $ionicSideMenuDelegate, $ionicPopup, $ionicLoading, $ionicPopover, $ionicScrollDelegate, $ionicModal) {
+.controller('MainCtrl', function($scope, $ionicSideMenuDelegate, $ionicPopup, $ionicLoading, $ionicPopover, $ionicScrollDelegate, $ionicModal) {
   var rightView = 'requests';
+  var mainView = 'now';
   var myMood;
   var status;
 
@@ -60,6 +61,16 @@ angular.module('ionicApp', ['ionic'])
         url: "http://e-wit.co.uk/correlater/user/getAvailableV2",
         dataType: 'json'}
     ).done(function(data){
+      var tTime, tHour, tMin;
+        for (var i=0; i<data.friends.length; i++){
+          tTime=data.friends[i].remaining;
+          if (tTime=='8888'||tTime=='9999') data.friends[i].remaining='Free Now';
+          else {
+            tHour=('0'+Math.floor(tTime/60)).slice(-2);
+            tMin=('0'+tTime%60).slice(-2);
+            data.friends[i].remaining=tHour+':'+tMin;
+          }
+        }
         $scope.friendsNow = data.friends;
         $scope.$broadcast('scroll.refreshComplete');
     });
@@ -94,14 +105,14 @@ angular.module('ionicApp', ['ionic'])
       window.plugin.notification.local.promptForPermission();
       if($scope.nudgesList.length < data.count)
       {
-        	if(window.hasOwnProperty('plugin')) {
-        		var newNudges = (data.count - $scope.nudgesList.length);
-        		var newNudgeMessage = 'You have ' + newNudges + ' new Nudge!';
-        		if(newNudges > 1) {
-	        		newNudgeMessage = 'You have ' + newNudges + ' new Nudges!';
-        		}
-        		window.plugin.notification.local.add({ message: newNudgeMessage});
-    			}
+          if(window.hasOwnProperty('plugin')) {
+            var newNudges = (data.count - $scope.nudgesList.length);
+            var newNudgeMessage = 'You have ' + newNudges + ' new Nudge!';
+            if(newNudges > 1) {
+              newNudgeMessage = 'You have ' + newNudges + ' new Nudges!';
+            }
+            window.plugin.notification.local.add({ message: newNudgeMessage});
+          }
       }
       $scope.nudgesList=data.nudges;
       $scope.$broadcast('scroll.refreshComplete');
@@ -232,6 +243,7 @@ angular.module('ionicApp', ['ionic'])
     var oldStatus=status;
     var maxIntervalTime=180;
     var interval=0;
+    var share=false;
     status=stat;
     // This if statement disables pressing the same button
     if (oldStatus!=status){
@@ -241,14 +253,24 @@ angular.module('ionicApp', ['ionic'])
           title: 'Set free mode time',
           scope: $scope,
           buttons: [
-            { text: 'Nevermind',
+            { 
+              text: 'No',
               onTap: function(e){
                 status=oldStatus;
               } 
             },
             {
-              text: '<b>Go!</b>',
+              text: 'Share',
               type: 'button-positive',
+              onTap: function(e){
+                share=true;
+                interval=jQuery("#timeRange").val();
+                return jQuery("#timeRange").val();
+              }
+            },
+            {
+              text: '<b>Go!</b>',
+              type: 'button-balanced',
               onTap: function(e) {
                 interval=jQuery("#timeRange").val();
                 return jQuery("#timeRange").val();
@@ -274,14 +296,23 @@ angular.module('ionicApp', ['ionic'])
           title: 'Set invisible mode time',
           scope: $scope,
           buttons: [
-            { text: 'Nevermind',
+            { text: 'No',
               onTap: function(e){
                 status=oldStatus;
               } 
             },
             {
-              text: '<b>Go!</b>',
+              text: 'Share',
               type: 'button-positive',
+              onTap: function(e){
+                share=true;
+                interval=jQuery("#timeRange").val();
+                return jQuery("#timeRange").val();
+              }
+            },
+            {
+              text: '<b>Go!</b>',
+              type: 'button-balanced',
               onTap: function(e) {
                 interval=jQuery("#timeRange").val();
                 return jQuery("#timeRange").val();
@@ -296,6 +327,17 @@ angular.module('ionicApp', ['ionic'])
           }      
         });
       }
+      if (share)
+        if (status==2)
+          if (interval==0)
+            shareFB("I'm free to hang out right now!");
+          else
+            shareFB("I'm free to hang out for "+interval+" minutes!");
+        else if (status==0)
+          if (interval==0)
+            shareFB("I'm busy and can't hang out right now");
+          else
+            shareFB("I'm busy and can't hang out for "+interval+" minutes.");
     }
     else 
       if (status=="2"||status=="0") displayTimeLeft();
@@ -351,22 +393,34 @@ angular.module('ionicApp', ['ionic'])
     return jQuery('#'+id).hasClass('activeNowTile');
   }
 
-  $scope.showRequests = function() {
-    rightView='requests';
-  }
-
   $scope.getMyMood = function() {
     if (myMood.length!=0)
       return myMood;
     return "Update your mood";
   }
 
-  $scope.showFriends = function() {
-    rightView='friends';
+  $scope.showNow = function() {
+    mainView='now';
+  }
+
+  $scope.showLater = function() {
+    mainView='later';
+  }
+
+  $scope.getMainView = function(){
+    return mainView;
+  }
+
+  $scope.showRequests = function() {
+    rightView='requests';
   }
 
   $scope.showNudges = function() {
     rightView='nudges';
+  }
+
+  $scope.showFriends = function() {
+    rightView='friends';
   }
 
   $scope.getRightMenu = function() {
@@ -451,13 +505,20 @@ angular.module('ionicApp', ['ionic'])
     jQuery('#searchFriend').val('');
   }
 
-  $ionicModal.fromTemplateUrl('modal.html', function(modal) {
-    $scope.nudgeModal = modal;
-  }, {
-    scope: $scope,
-    animation: 'slide-in-up',
-    backdropClickToClose: false
-  })
+  // Function to share on facebook
+  function shareFB(msg) {
+    openFB.api({
+      method: 'POST',
+      path: '/me/feed',
+      params: {
+        message: msg
+      },
+      success: function() {
+        alert('You successfully posted on Facebook');
+      },
+      error: errorHandler}
+    );
+  }
 
   // These empty array initializations are to display
   // the empty list graphics in a browser
@@ -469,56 +530,6 @@ angular.module('ionicApp', ['ionic'])
   $scope.refreshMyInfo();
   $scope.refreshFriendsNow();
   $scope.refreshRequestsList();
-  $scope.refreshFriendsList();
   $scope.refreshNudgesList();
+  $scope.refreshFriendsList();
 })
-
-// Need this factory to pass the list of Nudges to the Nudge Modal
-.factory('NudgeFactory', function(){
-  var nudgeList = [];
-  function set(data){
-    nudgeList=data;
-  }
-  function get(){
-    return nudgeList;
-  }
-  return {
-    set: set,
-    get: get
-  }
-})
-
-.controller('NudgeCtrl', function($scope, NudgeFactory) {
-  $scope.getFirstNudge = function(){
-    var stack = NudgeFactory.get();
-    return stack[0];
-  }
-
-  // Function to reject nudge
-  //    Don't forget to update nudge list in db
-  $scope.rejectNudge = function(nudger){
-
-    $scope.nudgeModal.hide();
-  }
-
-  // Function to accept nudge
-  //    Don't forget to update nudge list in db
-  $scope.acceptNudge = function(nudger){
-    
-    $scope.nudgeModal.hide();
-  }
-})
-
-// Function to share on facebook
-function shareFB() {
-	openFB.api({
-		method: 'POST',
-		path: '/me/feed',
-		params: {
-			message: 'I am free on Corral!'
-		},
-		success: function() {
-			alert('You successfully posted on Facebook');
-		},
-		error: errorHandler});
-}

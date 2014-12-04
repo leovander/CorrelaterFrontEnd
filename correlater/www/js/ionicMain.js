@@ -26,6 +26,7 @@ angular.module('ionicApp', ['ionic'])
   var myMood;
   var status;
   var isFB = false;
+  var isGoogle = false;
 
   $scope.toggleLeft = function() {
     $ionicSideMenuDelegate.toggleLeft();
@@ -45,6 +46,8 @@ angular.module('ionicApp', ['ionic'])
           status = data.status;
           if (data.facebook=="Facebook User")
             isFB=true;
+          if(data.hasOwnProperty('google')) 
+            isGoogle=true;
         }
         $scope.$broadcast('scroll.refreshComplete');
     })
@@ -82,6 +85,38 @@ angular.module('ionicApp', ['ionic'])
   $scope.refreshFriendsNow = function() {
     getAvailable();
   };
+
+  function getAvailableLater(){
+    var laterDate = jQuery('#laterDate').val();
+    var laterTime = jQuery('#laterTime').val();
+    jQuery.ajax({
+        type: "GET",
+        url: "http://e-wit.co.uk/correlater/user/getAvailableFuture",
+        dataType: 'json',
+        data: {
+          date: laterDate,
+          time: laterTime
+        }
+      }
+    ).done(function(data){
+      var tTime, tHour, tMin;
+        for (var i=0; i<data.friends.length; i++){
+          tTime=data.friends[i].remaining;
+          if (tTime=='8888'||tTime=='9999') data.friends[i].remaining='Free Now';
+          else {
+            tHour=('0'+Math.floor(tTime/60)).slice(-2);
+            tMin=('0'+tTime%60).slice(-2);
+            data.friends[i].remaining=tHour+':'+tMin;
+          }
+        }
+        $scope.friendsLater = data.friends;
+        $scope.$broadcast('scroll.refreshComplete');
+    });
+  }
+
+  $scope.refreshFriendsLater = function(){
+    getAvailableLater();
+  }
 
   function getRequests(){
     jQuery.ajax({
@@ -253,47 +288,73 @@ angular.module('ionicApp', ['ionic'])
     var rangeTemplate = '<div class="range"><input id="timeRange" type="range" name="volume" min="0" max="180" step="15" ng-model="data.interval"></div><p ng-if="data.interval">{{Math.floor(data.interval/60)}} Hours and {{data.interval%60}} Minutes</p><p ng-if="!data.interval">'+Math.floor(maxIntervalTime/2/60)+' Hours and '+maxIntervalTime/2%60+' Minutes</p><p class="thered" ng-if="data.interval==0">Forever</p>';
     if (isFB)
       buttonsTemplate=[
-            { 
-              text: 'No',
-              onTap: function(e){
-                status=oldStatus;
-              } 
-            },
-            {
-              text: 'Share',
-              type: 'button-positive',
-              onTap: function(e){
-                share=true;
-                interval=jQuery("#timeRange").val();
-                return jQuery("#timeRange").val();
-              }
-            },
-            {
-              text: '<b>Go!</b>',
-              type: 'button-balanced',
-              onTap: function(e) {
-                interval=jQuery("#timeRange").val();
-                return jQuery("#timeRange").val();
-              }
-            },
-          ];
+        { 
+          text: 'No',
+          onTap: function(e){
+            status=oldStatus;
+          } 
+        },
+        {
+          text: 'Share',
+          type: 'button-positive',
+          onTap: function(e){
+            share=true;
+            interval=jQuery("#timeRange").val();
+            return jQuery("#timeRange").val();
+          }
+        },
+        {
+          text: '<b>Go!</b>',
+          type: 'button-balanced',
+          onTap: function(e) {
+            interval=jQuery("#timeRange").val();
+            return jQuery("#timeRange").val();
+          }
+        },
+      ];
+    else if (isGoogle)
+      buttonsTemplate=[
+        { 
+          text: 'No',
+          onTap: function(e){
+            status=oldStatus;
+          } 
+        },
+        {
+          text: 'Share',
+          type: 'button-assertive',
+          onTap: function(e){
+            share=true;
+            interval=jQuery("#timeRange").val();
+            return jQuery("#timeRange").val();
+          }
+        },
+        {
+          text: '<b>Go!</b>',
+          type: 'button-balanced',
+          onTap: function(e) {
+            interval=jQuery("#timeRange").val();
+            return jQuery("#timeRange").val();
+          }
+        },
+      ];
     else
       buttonsTemplate=[
-            { 
-              text: 'No',
-              onTap: function(e){
-                status=oldStatus;
-              } 
-            },
-            {
-              text: '<b>Go!</b>',
-              type: 'button-balanced',
-              onTap: function(e) {
-                interval=jQuery("#timeRange").val();
-                return jQuery("#timeRange").val();
-              }
-            },
-          ]
+        { 
+          text: 'No',
+          onTap: function(e){
+            status=oldStatus;
+          } 
+        },
+        {
+          text: '<b>Go!</b>',
+          type: 'button-balanced',
+          onTap: function(e) {
+            interval=jQuery("#timeRange").val();
+            return jQuery("#timeRange").val();
+          }
+        },
+      ];
     
     // This if statement disables pressing the same button
     if (oldStatus!=status){
@@ -306,11 +367,18 @@ angular.module('ionicApp', ['ionic'])
         });
         myPopup.then(function(res) {
           if (res){
-            if (share)
+            if (share&&isFB)
               if (interval==0)
                 shareFB("I'm free to hang out right now!");
               else
                 shareFB("I'm free to hang out for "+interval+" minutes!");
+            else if (share&&isGoogle)
+              if (interval==0)
+                // shareFB("I'm free to hang out right now!");
+                alert('Share Google Here');
+              else
+                // shareFB("I'm free to hang out for "+interval+" minutes!");
+                alert('Share Google Here');
             $ionicLoading.show({ template: 'Free Mode', noBackdrop: true, duration: 1000 }); 
             setTimeAvailability(status,interval);
           }      
@@ -330,11 +398,18 @@ angular.module('ionicApp', ['ionic'])
         });
         myPopup.then(function(res) {
           if (res){
-            if (share)
+            if (share&&isFB)
               if (interval==0)
                 shareFB("I'm busy and can't hang out right now");
               else
                 shareFB("I'm busy and can't hang out for "+interval+" minutes.");
+            else if (share&&isGoogle)
+              if (interval==0)
+                // shareFB("I'm busy and can't hang out right now");
+                alert('Share Google Here');
+              else
+                // shareFB("I'm busy and can't hang out for "+interval+" minutes.");
+                alert('Share Google Here');
             $ionicLoading.show({ template: 'Invisible Mode', noBackdrop: true, duration: 1000 }); 
             setTimeAvailability(status,interval);
           }      
@@ -524,6 +599,7 @@ angular.module('ionicApp', ['ionic'])
   $scope.requestsList = [];
   $scope.friendsList = [];
   $scope.friendsNow = [];
+  $scope.friendsLater = [];
 
   $scope.refreshMyInfo();
   $scope.refreshFriendsNow();

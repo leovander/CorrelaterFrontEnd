@@ -90,6 +90,18 @@
 	font-size: 18px;
 }
 
+
+.emptyLaterItemContainer{
+	width: 50%;
+	margin: 0px auto;
+}
+
+.emptyLaterItemContainer p{
+	position: absolute;
+	margin-top: 350px;
+	font-size: 18px;
+}
+
 .emptyItemContainer{
 	width: 30%;
 	margin: 0px auto;
@@ -108,13 +120,20 @@
 
 #emptyFListItem {
 	height: 500px;
-	margin-top: -20%;
+	margin-top: -10%;
 	text-align: center;
 }
 
 #emptyNowItem {
 	height: 500px;
 	margin-top: -10%;
+	text-align: center;
+}
+
+
+#emptyLaterItem {
+	height: 500px;
+	margin-top: -20%;
 	text-align: center;
 }
 
@@ -274,6 +293,14 @@ h2 {
 
 .noAvailBG {
   background-image: url(../img/NoAvailableBG.png);
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: 100% 40%;
+  opacity: 0.5;
+}
+
+.noAvailLaterBG {
+  background-image: url(../img/NoAvailableLaterBG.png);
   background-repeat: no-repeat;
   background-position: center;
   background-size: 100% 40%;

@@ -195,11 +195,11 @@
             <div class="laterPicker bar-subheader">
               <label class="item item-input">
                 <span class="input-label Trench">Date</span>
-                <input type="date">
+                <input id="laterDate" type="date">
               </label>
               <label class="item item-input">
                 <span class="input-label Trench">Time</span>
-                <input type="time">
+                <input id="laterTime" type="time">
               </label>
             </div>
             <ion-scroll id="laterScroller">
@@ -207,26 +207,20 @@
                 disable-pulling-rotation="true"
                 pulling-icon="ion-load-c"
                 refreshing-icon="ion-loading-c"
-                on-refresh="refreshMyInfo(); refreshFriendsNow();">
+                on-refresh="refreshMyInfo(); refreshFriendsLater();">
               </ion-refresher>
               <ion-list>
-                <div id="emptyNowItem" class="noAvailBG" ng-if="friendsNow==''">
-                  <div class="emptyNowItemContainer">
+                <div id="emptyLaterItem" class="noAvailLaterBG" ng-if="friendsLater==''">
+                  <div class="emptyLaterItemContainer">
                     <p class="trench">No Friends Available Later</p>
                   </div>
                 </div>
-                <ion-item id="{{'friend'+nowFriend.id}}" ng-class="{true: 'assertive', false: ''}[nowFriend.favorite==1]" class="nowTile " ng-click="clickFriendNow('friend'+nowFriend.id); listResize();" ng-repeat="nowFriend in friendsNow"  item="nowFriend">
-                  <span class="item-note " ng-if="!isActiveNow('friend'+nowFriend.id)">
+                <ion-item id="{{'friend'+laterFriend.id}}" ng-class="{true: 'assertive', false: ''}[laterFriend.favorite==1]" class="laterTile" ng-repeat="laterFriend in friendsLater"  item="laterFriend">
+                  <span class="item-note " ng-if="!isActiveNow('friend'+laterFriend.id)">
                     <i class="timeLeft icon ion-ios7-clock-outline"></i>
-                    {{nowFriend.remaining}}
+                    {{laterFriend.remaining}}
                   </span>
-                  <span class="item-note" ng-if="isActiveNow('friend'+nowFriend.id)">
-                    <button class="button icon ion-chatbubble button-clear button-outline button-balanced" ng-click="nudgeFriend(nowFriend)"></button>
-                  </span>
-                  {{nowFriend.first_name}} {{nowFriend.last_name}}
-                  <p class="" ng-if="isActiveNow('friend'+nowFriend.id)">
-                    {{nowFriend.mood}}
-                  </p>
+                  {{laterFriend.first_name}} {{laterFriend.last_name}}
                 </ion-item>
               </ion-list>
             </ion-scroll>

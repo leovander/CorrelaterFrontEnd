@@ -508,27 +508,10 @@ angular.module('ionicApp', ['ionic'])
 
   // Function to share on facebook
   function shareFB(msg) {
-    openFB.api({
-      method: 'POST',
-      path: '/me/feed',
-      params: {
-        message: msg
-      },
-      success: function() {
-        alert('You successfully posted on Facebook');
-      },
-      error: errorHandler}
-    );
-  }
-
-  // Function to share on facebook
-  $scope.fbshare = function(){
-
     jQuery.post(
 		"https://graph.facebook.com/v2.2/"+localStorage.getItem("fbid")+"/feed",
 		{
-			//Alex change this to user input
-			//message: "I'm free!",
+			message: msg,
 			name: "Corral",
 			link: "http://e-wit.co.uk/correlate/",
 			picture: "http://e-wit.co.uk/correlate/img/logo.png",
@@ -537,8 +520,7 @@ angular.module('ionicApp', ['ionic'])
 			access_token: localStorage.getItem("fbtoken")
 		}).done(function(data) {
 			alert(data);
-		});
-    //$.post( "test.php", { name: "John", time: "2pm" } );
+	});
   }
 
   // These empty array initializations are to display

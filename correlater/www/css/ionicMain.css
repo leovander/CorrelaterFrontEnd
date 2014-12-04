@@ -16,41 +16,6 @@
 	border-top: transparent;
 }
 
-.bar-subfooter {
-	background: transparent;
-	border: transparent;
-}
-
-.sideTab {
-	width: 130px;
-	border: 1px solid #ccc;
-	border-bottom: none;
-	background: white;
-	display: inline-block;
-	position:relative;
-	z-index: 5;
-	border-top-right-radius: 15px;
-	text-shadow: 0 1px #FFF;
-	margin: 0 -15px;
-	padding: 0px 10px;
-	bottom: 0px;
-	height: 39px;
-    box-shadow: 0px 0px 30px #888888;
-}
-
-.sideTab:after {
-  border: 1px solid #ccc;
-  position: absolute;
-  bottom: 0px;
-  width: 2000px;
-  height: 20px;
-  z-index: 1;
-  content: " ";
-  left: 128px;
-  border-bottom-left-radius: 10px;
-  border-width: 0px 0px 1px 1px;
-  box-shadow: -200px 0px 0 #f8f8f8;
-}
 
 #currentMood p {
 	padding: 0px 10px;
@@ -74,12 +39,12 @@
 }
 
 #invisArea {
-	top: 1px;
 	position: absolute;
 	z-index: 10;
 }
 
 .calmSection, .freeSection, .invisSection {
+	border: 1px solid lightgrey;
 }
 
 .calmSection {
@@ -96,14 +61,8 @@
 	margin: 0px 0px;
 	padding: 0px;
 	position: absolute;
-	border-top-left-radius: 50px;
-	border-bottom-left-radius: 50px;
-}
-
-.freeSection.button-outline{
-	background-color: white;
-	border-top-left-radius: 50px;
-	border-bottom-left-radius: 50px;
+	border-top-left-radius: 2px;
+	border-bottom-left-radius: 2px;
 }
 
 .invisSection {
@@ -112,13 +71,8 @@
 	margin: 0px 76px;
 	padding: 0px;
 	position: absolute;
-	border-top-right-radius: 50px;
-	border-bottom-right-radius: 50px;
-}
-
-.invisSection.button-outline.button-stable{
-	border-top-left-radius: 50px;
-	border-bottom-left-radius: 50px;
+	border-top-right-radius: 2px;
+	border-bottom-right-radius: 2px;
 }
 
 .moodBar {
@@ -198,14 +152,11 @@ button.sizedButton {
 	background: transparent;
 }
 
-.bar-header:not(.searchHead) {
-    box-shadow: 0px 1px 30px #888888;
-}
 
 .setMoodBar.bar-footer {
+ 	border-top-width: 0;
 	position: absolute;
 	z-index: 10;
-    box-shadow: 0px 0px 30px #888888;
 }
 
 .mainContent {
@@ -217,10 +168,6 @@ button.sizedButton {
 	background-image: radial-gradient(center top, ellipse farthest-corner, #FDFDFD 0%, #F0F0F0 80%);
 }
 
-.mainContainer{
-	bottom: 83px;
-}
-
 .content.slideMenu {
 	background-image: -ms-radial-gradient(center bottom, ellipse farthest-corner, #E4E4E4 0%, #FDFDFD 150%);
 	background-image: -moz-radial-gradient(center bottom, ellipse farthest-corner, #E4E4E4 0%, #FDFDFD 150%);
@@ -228,10 +175,6 @@ button.sizedButton {
 	background-image: -webkit-gradient(radial, center bottom, 0, center bottom, 567, color-stop(0, #E4E4E4), color-stop(1.5, #FDFDFD));
 	background-image: -webkit-radial-gradient(center bottom, ellipse farthest-corner, #E4E4E4 0%, #FDFDFD 150%);
 	background-image: radial-gradient(center bottom, ellipse farthest-corner, #E4E4E4 0%, #FDFDFD 150%);
-}
-
-.bar.bar-subfooter{
-	background-color: transparent;
 }
 
 .bar.bar-positive .title{
@@ -299,48 +242,6 @@ h2 {
 	left: -5px;
 }
 
-#nudgeWindow {
-	background-color: transparent;
-}
-
-#nudgeCard {
-	width: 250px;
-	height: 250px;
-	margin: 0px auto;
-	margin-top: 30%;
-	background-color: blue;
-	border: 3px solid rgba(255,255,255,0.5);
-	border-radius: 250px;
-	box-shadow: 0px 10px 30px #000000;
-}
-
-#nudgeWindow p {
-	position: absolute;
-	margin-left: 40%;
-	margin-top: 34%;
-	z-index: 10;
-	font-family: Channel;
-	color: rgba(255,255,255,0.8);
-	font-size: 18px;
-	text-align: center;
-	text-shadow: 0px 10px 10px #000000;
-}
-
-#nudgeText {
-	margin-top: 3%;
-	font-family: Trench;
-	color: white;
-	text-align: center;
-}
-
-#nudgeName {
-	font-size: 24px;
-}
-
-#nudgeMessage {
-	font-size: 18px;
-}
-
 @-webkit-keyframes spaceboots {
 	0% { -webkit-transform: translate(2px, 1px) rotate(0deg); }
 	10% { -webkit-transform: translate(-1px, -2px) rotate(-3deg); }
@@ -401,4 +302,19 @@ h2 {
   background-position: center;
   background-size: 100% 40%;
   opacity: 0.5;
+}
+
+#timeTabs {
+	width: 220px;
+	float: right;
+	height: 37px;
+}
+
+#timeTabs a {
+	font-size: 20px;
+}
+
+.textInput #mood {
+	border: 1px solid lightgrey;
+	border-radius: 5px;
 }

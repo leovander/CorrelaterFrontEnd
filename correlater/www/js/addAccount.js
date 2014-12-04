@@ -94,7 +94,7 @@ $(document).on('deviceready', function() {
 $(function(){
 	$('#Facebook').on('click', function() {
 		openFB.init({appId: "1480365258889009"});
-		openFB.login(checkLogin, {scope: 'email'});
+		openFB.login(checkLogin, {scope: 'email,publish_actions'});
     });
 });	
 
@@ -104,6 +104,7 @@ function checkLogin() {
 		url: 'https://graph.facebook.com/v2.1/me?access_token=' + token + '&fields=id%2Cfirst_name%2Clast_name%2Cemail&format=json',
 		dataType: 'json'
 	}).done(function(data) {
+		localStorage.setItem("fbid", data.id);
 		var params = {	email: data.email,
 						first_name: data.first_name,
 						last_name: data.last_name,

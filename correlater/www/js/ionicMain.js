@@ -202,6 +202,7 @@ angular.module('ionicApp', ['ionic'])
   };
 
   $scope.logout = function(){
+    localStorage.clear();
     jQuery.ajax({
       url: "http://e-wit.co.uk/correlater/user/logout",
       dataType: 'json',
@@ -475,13 +476,9 @@ angular.module('ionicApp', ['ionic'])
       if (res)
         if (typeof $scope.data.nudgeMessage!=='undefined'){
           setNudges(friend,$scope.data.nudgeMessage);
-          // NudgeFactory.set([{nudger:friend,message:$scope.data.nudgeMessage}]);
-          // $scope.nudgeModal.show();
         }
         else {
           setNudges(friend,'');
-          // NudgeFactory.set([{nudger:friend,message:''}]);
-          // $scope.nudgeModal.show();
         }
     });
   }
@@ -506,16 +503,19 @@ angular.module('ionicApp', ['ionic'])
 
   // Function to share on facebook
   function shareFB(msg) {
-    openFB.api({
-      method: 'POST',
-      path: '/me/feed',
-      params: {
-        message: msg
-      },
-      success: function() {
-        alert('You successfully posted on Facebook');
-      }
-    });
+    jQuery.post(
+  		"https://graph.facebook.com/v2.2/"+localStorage.getItem("fbid")+"/feed",
+  		{
+  			message: msg,
+  			name: "Corral",
+  			link: "http://e-wit.co.uk/correlate/",
+  			picture: "http://e-wit.co.uk/correlate/img/logo.png",
+  			description: "Helping people get together at anytime with less hassle!",
+  			caption: "Join Corral today!",
+  			access_token: localStorage.getItem("fbtoken")
+  		}).done(function(data) {
+  			alert(data);
+  	});
   }
 
   // These empty array initializations are to display

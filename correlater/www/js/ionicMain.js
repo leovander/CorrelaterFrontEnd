@@ -25,6 +25,7 @@ angular.module('ionicApp', ['ionic'])
   var mainView = 'now';
   var myMood;
   var status;
+  var isFB = false;
 
   $scope.toggleLeft = function() {
     $ionicSideMenuDelegate.toggleLeft();
@@ -42,6 +43,8 @@ angular.module('ionicApp', ['ionic'])
         if(data.message == "Logged In"){
           myMood = data.user.mood;
           status = data.status;
+          if (data.facebook=="Facebook User")
+            isFB=true;
         }
         $scope.$broadcast('scroll.refreshComplete');
     })
@@ -246,14 +249,10 @@ angular.module('ionicApp', ['ionic'])
     var interval=0;
     var share=false;
     status=stat;
-    // This if statement disables pressing the same button
-    if (oldStatus!=status){
-      if (status=="2"){
-        var myPopup = $ionicPopup.show({
-          template: '<div class="range"><input id="timeRange" type="range" name="volume" min="0" max="180" step="15" ng-model="data.interval"></div><p ng-if="data.interval">{{Math.floor(data.interval/60)}} Hours and {{data.interval%60}} Minutes</p><p ng-if="!data.interval">'+Math.floor(maxIntervalTime/2/60)+' Hours and '+maxIntervalTime/2%60+' Minutes</p><p class="thered" ng-if="data.interval==0">Forever</p>',
-          title: 'Set free mode time',
-          scope: $scope,
-          buttons: [
+    var buttonsTemplate;
+    var rangeTemplate = '<div class="range"><input id="timeRange" type="range" name="volume" min="0" max="180" step="15" ng-model="data.interval"></div><p ng-if="data.interval">{{Math.floor(data.interval/60)}} Hours and {{data.interval%60}} Minutes</p><p ng-if="!data.interval">'+Math.floor(maxIntervalTime/2/60)+' Hours and '+maxIntervalTime/2%60+' Minutes</p><p class="thered" ng-if="data.interval==0">Forever</p>';
+    if (isFB)
+      buttonsTemplate=[
             { 
               text: 'No',
               onTap: function(e){
@@ -277,7 +276,33 @@ angular.module('ionicApp', ['ionic'])
                 return jQuery("#timeRange").val();
               }
             },
+          ];
+    else
+      buttonsTemplate=[
+            { 
+              text: 'No',
+              onTap: function(e){
+                status=oldStatus;
+              } 
+            },
+            {
+              text: '<b>Go!</b>',
+              type: 'button-balanced',
+              onTap: function(e) {
+                interval=jQuery("#timeRange").val();
+                return jQuery("#timeRange").val();
+              }
+            },
           ]
+    
+    // This if statement disables pressing the same button
+    if (oldStatus!=status){
+      if (status=="2"){
+        var myPopup = $ionicPopup.show({
+          template: rangeTemplate,
+          title: 'Set free mode time',
+          scope: $scope,
+          buttons: buttonsTemplate
         });
         myPopup.then(function(res) {
           if (res){
@@ -298,33 +323,10 @@ angular.module('ionicApp', ['ionic'])
       }
       else if (status=="0"){
         var myPopup = $ionicPopup.show({
-          template: '<div class="range"><input id="timeRange" type="range" name="volume" min="0" max="180" step="15" ng-model="data.interval"></div><p ng-if="data.interval">{{Math.floor(data.interval/60)}} Hours and {{data.interval%60}} Minutes</p><p ng-if="!data.interval">'+Math.floor(maxIntervalTime/2/60)+' Hours and '+maxIntervalTime/2%60+' Minutes</p><p class="thered" ng-if="data.interval==0">Forever</p>',
+          template: rangeTemplate,
           title: 'Set invisible mode time',
           scope: $scope,
-          buttons: [
-            { text: 'No',
-              onTap: function(e){
-                status=oldStatus;
-              } 
-            },
-            {
-              text: 'Share',
-              type: 'button-positive',
-              onTap: function(e){
-                share=true;
-                interval=jQuery("#timeRange").val();
-                return jQuery("#timeRange").val();
-              }
-            },
-            {
-              text: '<b>Go!</b>',
-              type: 'button-balanced',
-              onTap: function(e) {
-                interval=jQuery("#timeRange").val();
-                return jQuery("#timeRange").val();
-              }
-            },
-          ]
+          buttons: buttonsTemplate
         });
         myPopup.then(function(res) {
           if (res){
@@ -513,9 +515,7 @@ angular.module('ionicApp', ['ionic'])
   			description: "Helping people get together at anytime with less hassle!",
   			caption: "Join Corral today!",
   			access_token: localStorage.getItem("fbtoken")
-  		}).done(function(data) {
-  			alert(data);
-  	});
+  		});
   }
 
   // These empty array initializations are to display

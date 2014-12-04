@@ -280,6 +280,11 @@ angular.module('ionicApp', ['ionic'])
         });
         myPopup.then(function(res) {
           if (res){
+            if (share)
+              if (interval==0)
+                shareFB("I'm free to hang out right now!");
+              else
+                shareFB("I'm free to hang out for "+interval+" minutes!");
             $ionicLoading.show({ template: 'Free Mode', noBackdrop: true, duration: 1000 }); 
             setTimeAvailability(status,interval);
           }      
@@ -322,22 +327,16 @@ angular.module('ionicApp', ['ionic'])
         });
         myPopup.then(function(res) {
           if (res){
+            if (share)
+              if (interval==0)
+                shareFB("I'm busy and can't hang out right now");
+              else
+                shareFB("I'm busy and can't hang out for "+interval+" minutes.");
             $ionicLoading.show({ template: 'Invisible Mode', noBackdrop: true, duration: 1000 }); 
             setTimeAvailability(status,interval);
           }      
         });
       }
-      if (share)
-        if (status==2)
-          if (interval==0)
-            shareFB("I'm free to hang out right now!");
-          else
-            shareFB("I'm free to hang out for "+interval+" minutes!");
-        else if (status==0)
-          if (interval==0)
-            shareFB("I'm busy and can't hang out right now");
-          else
-            shareFB("I'm busy and can't hang out for "+interval+" minutes.");
     }
     else 
       if (status=="2"||status=="0") displayTimeLeft();
@@ -515,9 +514,8 @@ angular.module('ionicApp', ['ionic'])
       },
       success: function() {
         alert('You successfully posted on Facebook');
-      },
-      error: errorHandler}
-    );
+      }
+    });
   }
 
   // These empty array initializations are to display

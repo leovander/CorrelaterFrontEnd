@@ -318,3 +318,26 @@ h2 {
 	border: 1px solid lightgrey;
 	border-radius: 5px;
 }
+
+.laterPicker {
+	width: 100%;
+}
+
+.laterPicker * {
+	width: 50%;
+}
+
+.laterPicker label {
+	float: left;
+	padding: 3px 5px;
+	margin: 0px;
+}
+
+.laterPicker label span {
+	font-size: 20px;
+}
+
+#nowScroller, #laterScroller {
+	height: 100%;
+	width: 100%;
+}

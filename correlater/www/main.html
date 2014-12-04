@@ -195,11 +195,11 @@
             <div class="laterPicker bar-subheader">
               <label class="item item-input">
                 <span class="input-label Trench">Date</span>
-                <input id="laterDate" type="date">
+                <input id="laterDate" type="date" ng-model="ilaterDate" value="{{getInputDate();}}">
               </label>
               <label class="item item-input">
                 <span class="input-label Trench">Time</span>
-                <input id="laterTime" type="time">
+                <input id="laterTime" type="time" ng-model="ilaterTime" value="{{ilaterTime}}">
               </label>
             </div>
             <ion-scroll id="laterScroller">
@@ -216,10 +216,6 @@
                   </div>
                 </div>
                 <ion-item id="{{'friend'+laterFriend.id}}" ng-class="{true: 'assertive', false: ''}[laterFriend.favorite==1]" class="laterTile" ng-repeat="laterFriend in friendsLater"  item="laterFriend">
-                  <span class="item-note " ng-if="!isActiveNow('friend'+laterFriend.id)">
-                    <i class="timeLeft icon ion-ios7-clock-outline"></i>
-                    {{laterFriend.remaining}}
-                  </span>
                   {{laterFriend.first_name}} {{laterFriend.last_name}}
                 </ion-item>
               </ion-list>
@@ -242,8 +238,8 @@
               </div>
             </div>
             <div id="timeTabs" class="button-bar">
-              <a class="button Trench" ng-class="{true: 'button-stable', false: 'button-light'}[getMainView()=='now']" ng-click="refreshFriendsNow(); showNow();">Now</a>
-              <a class="button Trench" ng-class="{true: 'button-stable', false: 'button-light'}[getMainView()=='later']" ng-click="refreshFriendsLater(); showLater();">Later</a>
+              <a class="button Trench" ng-class="{true: 'button-stable', false: 'button-light'}[getMainView()=='now']" ng-click="saveLaterSelection(); showNow(); refreshFriendsNow();">Now</a>
+              <a class="button Trench" ng-class="{true: 'button-stable', false: 'button-light'}[getMainView()=='later']" ng-click="initializeLaterSelection(); showLater(); refreshFriendsLater();">Later</a>
             </div>
         </ion-footer-bar>
         <ion-footer-bar class="setMoodBar bar bar-stable">

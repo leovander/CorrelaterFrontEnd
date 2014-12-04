@@ -21,6 +21,7 @@ angular.module('ionicApp', ['ionic'])
 })
 
 .controller('MainCtrl', function($scope, $ionicSideMenuDelegate, $ionicPopup, $ionicLoading, $ionicPopover, $ionicScrollDelegate, $ionicModal) {
+  var inputLaterDate=0, inputLaterTime=0;
   var rightView = 'requests';
   var mainView = 'now';
   var myMood;
@@ -87,28 +88,16 @@ angular.module('ionicApp', ['ionic'])
   };
 
   function getAvailableLater(){
-    var laterDate = jQuery('#laterDate').val();
-    var laterTime = jQuery('#laterTime').val();
     jQuery.ajax({
-        type: "GET",
+        type: "POST",
         url: "http://e-wit.co.uk/correlater/user/getAvailableFuture",
         dataType: 'json',
         data: {
-          date: laterDate,
-          time: laterTime
+          date: inputLaterDate,
+          time: inputLaterTime
         }
       }
     ).done(function(data){
-      var tTime, tHour, tMin;
-        for (var i=0; i<data.friends.length; i++){
-          tTime=data.friends[i].remaining;
-          if (tTime=='8888'||tTime=='9999') data.friends[i].remaining='Free Now';
-          else {
-            tHour=('0'+Math.floor(tTime/60)).slice(-2);
-            tMin=('0'+tTime%60).slice(-2);
-            data.friends[i].remaining=tHour+':'+tMin;
-          }
-        }
         $scope.friendsLater = data.friends;
         $scope.$broadcast('scroll.refreshComplete');
     });
@@ -371,7 +360,7 @@ angular.module('ionicApp', ['ionic'])
               if (interval==0)
                 shareFB("I'm free to hang out right now!");
               else
-                shareFB("I'm free to hang out for "+interval+" minutes!");
+                shareFB("I'm free to hang out until "+new Date((new Date()).getTime()+interval*60000).toLocaleTimeString()+"!");
             else if (share&&isGoogle)
               if (interval==0)
                 // shareFB("I'm free to hang out right now!");
@@ -593,6 +582,34 @@ angular.module('ionicApp', ['ionic'])
   		});
   }
 
+  $scope.initializeLaterSelection = function() {
+    if (inputLaterDate==0&&inputLaterTime==0){
+      var currentDate = new Date();
+      var tDate=currentDate.toISOString().substr(0,10);
+      var tTime=currentDate.toTimeString().substr(0,8);
+      $scope.ilaterDate=tDate;
+      $scope.ilaterTime=tTime;
+    }
+    else {
+      $scope.ilaterDate=inputLaterDate;
+      $scope.ilaterTime=inputLaterTime;
+    }
+    $scope.$broadcast('scroll.refreshComplete'); 
+  }
+
+  $scope.saveLaterSelection = function() {
+    inputLaterDate=jQuery('#laterDate').val().toString();
+    inputLaterTime=jQuery('#laterTime').val().toString();
+  }
+
+  $scope.getInputDate = function() {
+    return inputLaterDate;
+  }
+
+  $scope.getInputTime = function() {
+    return inputLaterTime;
+  }
+
   // These empty array initializations are to display
   // the empty list graphics in a browser
   $scope.nudgesList = [];
@@ -601,9 +618,12 @@ angular.module('ionicApp', ['ionic'])
   $scope.friendsNow = [];
   $scope.friendsLater = [];
 
+  $scope.initializeLaterSelection();
   $scope.refreshMyInfo();
   $scope.refreshFriendsNow();
+  $scope.refreshFriendsLater();
   $scope.refreshRequestsList();
   $scope.refreshNudgesList();
   $scope.refreshFriendsList();
+
 })

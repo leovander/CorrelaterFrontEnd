@@ -598,8 +598,10 @@ angular.module('ionicApp', ['ionic'])
   }
 
   $scope.saveLaterSelection = function() {
-    inputLaterDate=jQuery('#laterDate').val().toString();
-    inputLaterTime=jQuery('#laterTime').val().toString();
+    if (typeof jQuery('#laterDate').val()!='undefined'||typeof jQuery('#laterTime').val()!='undefined'){
+      inputLaterDate=jQuery('#laterDate').val().toString();
+      inputLaterTime=jQuery('#laterTime').val().toString();
+    }
   }
 
   $scope.getInputDate = function() {

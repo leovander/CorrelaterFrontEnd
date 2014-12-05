@@ -490,14 +490,17 @@ angular.module('ionicApp', ['ionic'])
 
   $scope.showRequests = function() {
     rightView='requests';
+    getRequests();
   }
 
   $scope.showNudges = function() {
     rightView='nudges';
+    getNudges();
   }
 
   $scope.showFriends = function() {
     rightView='friends';
+    getFriends();
   }
 
   $scope.getRightMenu = function() {

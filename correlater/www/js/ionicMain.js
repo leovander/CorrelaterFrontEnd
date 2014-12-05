@@ -28,6 +28,8 @@ angular.module('ionicApp', ['ionic'])
   var status;
   var isFB = false;
   var isGoogle = false;
+  var g_id;
+  var g_token;
 
   $scope.toggleLeft = function() {
     $ionicSideMenuDelegate.toggleLeft();
@@ -45,10 +47,12 @@ angular.module('ionicApp', ['ionic'])
         if(data.message == "Logged In"){
           myMood = data.user.mood;
           status = data.status;
-          if (data.facebook=="Facebook User")
+          if(data.facebook=="Facebook User")
             isFB=true;
           if(data.hasOwnProperty('google')) 
             isGoogle=true;
+            g_id = data.google_id;
+            g_token = data.google_access_token;
         }
         $scope.$broadcast('scroll.refreshComplete');
     })
@@ -374,10 +378,9 @@ angular.module('ionicApp', ['ionic'])
             else if (share&&isGoogle)
               if (interval==0)
                 // shareFB("I'm free to hang out right now!");
-                alert('Share Google Here');
+                shareGoogle("I'm free to hang out right now!", g_id, g_token);
               else
-                // shareFB("I'm free to hang out for "+interval+" minutes!");
-                alert('Share Google Here');
+                shareGoogle("I'm free to hang out for "+interval+" minutes!", g_id, g_token);
             $ionicLoading.show({ template: 'Free Mode', noBackdrop: true, duration: 1000 }); 
             setTimeAvailability(status,interval);
           }      
@@ -404,11 +407,9 @@ angular.module('ionicApp', ['ionic'])
                 shareFB("I'm busy and can't hang out for "+interval+" minutes.");
             else if (share&&isGoogle)
               if (interval==0)
-                // shareFB("I'm busy and can't hang out right now");
-                alert('Share Google Here');
+                shareGoogle("I'm busy and can't hang out right now", g_id, g_token);
               else
-                // shareFB("I'm busy and can't hang out for "+interval+" minutes.");
-                alert('Share Google Here');
+                shareGoogle("I'm busy and can't hang out for "+interval+" minutes.", g_id, g_token);
             $ionicLoading.show({ template: 'Invisible Mode', noBackdrop: true, duration: 1000 }); 
             setTimeAvailability(status,interval);
           }      
@@ -589,6 +590,20 @@ angular.module('ionicApp', ['ionic'])
   			description: "Helping people get together at anytime with less hassle!",
   			caption: "Join Corral today!",
   			access_token: localStorage.getItem("fbtoken")
+  		});
+  }
+  
+  function shareGoogle(msg, id, token) {
+	jQuery.post(
+  		"https://www.googleapis.com/plus/v1/people/me/moments/vault",
+  		{
+  			access_token: token,
+  			key: "514788609244-129u3h2nrdqrr900r30a2rg1sqlshi4t.apps.googleusercontent.com",
+  			type: "http://schema.org/CreateAction",
+  			object: {
+	  			name: "Corral",
+	  			description: "Helping people get together at anytime with less hassle!"
+  			}
   		});
   }
 

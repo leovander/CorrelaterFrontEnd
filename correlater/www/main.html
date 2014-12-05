@@ -54,19 +54,23 @@
 
         <ion-side-menu side="right" width="325">
           <ion-header-bar class="rightHeader bar-positive">
-            <div class="buttons">
-              <div class="badge badge-assertive requestBadge" ng-if="requestsList.length!=0">{{requestsList.length}}</div>
-              <button class="navButton button-icon icon ion-android-inbox" ng-class="{true: 'energized', false: 'stable'}[getRightMenu()=='requests']" ng-click="refreshRequestsList(); showRequests();">&nbsp;Requests
-              </button>
-            </div>
-            <div class="buttons">
-              <div class="badge badge-assertive nudgeBadge" ng-if="nudgesList.length!=0">{{nudgesList.length}}</div>
-              <button class="navButton button-icon icon ion-chatbubbles" ng-class="{true: 'energized', false: 'stable'}[getRightMenu()=='nudges']" ng-click="refreshNudgesList(); showNudges();">&nbsp;Nudges
-              </button>
-            </div>
-            <div class="buttons">
-              <button class="navButton button-icon icon ion-ios7-people" ng-class="{true: 'energized', false: 'stable'}[getRightMenu()=='friends']" ng-click="refreshFriendsList(); showFriends();">&nbsp;Friends
-              </button>
+            <div class="tabs-striped tabs-top tabs-background-positive tabs-light">
+              <div class="tabs">
+                <div class="badge badge-assertive requestBadge" ng-if="requestsList.length!=0">{{requestsList.length}}</div>
+                <a class="tab-item" href="#" ng-class="{true: 'active', false: ''}[getRightMenu()=='requests']" ng-click="showRequests();">
+                  <i class="icon ion-android-inbox"></i>
+                  Test
+                </a>
+                <div class="badge badge-assertive nudgeBadge" ng-if="nudgesList.length!=0">{{nudgesList.length}}</div>
+                <a class="tab-item" href="#" ng-class="{true: 'active', false: ''}[getRightMenu()=='nudges']" ng-click="showNudges();">
+                  <i class="icon ion-chatbubbles"></i>
+                  Favorites
+                </a>
+                <a class="tab-item" href="#" ng-class="{true: 'active', false: ''}[getRightMenu()=='friends']" ng-click="showFriends();">
+                  <i class="icon ion-ios7-people"></i>
+                  Settings
+                </a>
+              </div>
             </div>
           </ion-header-bar>
           <ion-header-bar class="searchHead bar" ng-if="getRightMenu()=='friends'">

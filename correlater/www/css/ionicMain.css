@@ -221,7 +221,16 @@ button.sizedButton {
 }
 
 .rightHeader.bar-positive {
-	padding-left: 20px;
+	margin-top: -47px;
+	margin-left: -5px;
+}
+
+.rightHeader .tab-item {
+	margin-top: 10px;
+}
+
+.rightHeader .tab-item.active{
+	padding-top:10px;
 }
 
 h2 {
@@ -234,16 +243,18 @@ h2 {
 	padding-top: 2px;
 	height: 20px;
 	position: absolute;
-	left: 160px;
+	top: 5px;
+	left: 175px;
 }
 
 .badge.requestBadge {
 	vertical-align: top;
 	padding: 3px 5px;
 	padding-top: 2px;
+	top: 5px;
 	height: 20px;
 	position: absolute;
-	left: 60px;
+	left: 75px;
 }
 
 .badge.toggleBadge {

@@ -80,6 +80,9 @@ angular.module('ionicApp', ['ionic'])
         }
         $scope.friendsNow = data.friends;
         $scope.$broadcast('scroll.refreshComplete');
+    })
+    .fail(function(data){
+      $ionicLoading.show({ template: 'List refresh failed', noBackdrop: false, duration: 1000 });
     });
   }
 
@@ -88,6 +91,10 @@ angular.module('ionicApp', ['ionic'])
   };
 
   function getAvailableLater(){
+    if (typeof jQuery('#laterDate').val()!='undefined'||typeof jQuery('#laterTime').val()!='undefined'){
+      inputLaterDate=jQuery('#laterDate').val().toString();
+      inputLaterTime=jQuery('#laterTime').val().toString();
+    }
     jQuery.ajax({
         type: "POST",
         url: "http://e-wit.co.uk/correlater/user/getAvailableFuture",
@@ -100,6 +107,9 @@ angular.module('ionicApp', ['ionic'])
     ).done(function(data){
         $scope.friendsLater = data.friends;
         $scope.$broadcast('scroll.refreshComplete');
+    })
+    .fail(function(data){
+      $ionicLoading.show({ template: 'List refresh failed', noBackdrop: false, duration: 1000 });
     });
   }
 
@@ -589,6 +599,8 @@ angular.module('ionicApp', ['ionic'])
       var tTime=currentDate.toTimeString().substr(0,8);
       $scope.ilaterDate=tDate;
       $scope.ilaterTime=tTime;
+      inputLaterDate=tDate;
+      inputLaterTime=tTime;
     }
     else {
       $scope.ilaterDate=inputLaterDate;

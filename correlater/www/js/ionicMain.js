@@ -1,3 +1,12 @@
+document.addEventListener('deviceready', function () {
+    // Enable background mode
+    cordova.plugins.backgroundMode.configure({ text:'Nudge Retrieval Service.'});
+    cordova.plugins.backgroundMode.enable();
+    // Android customization
+    window.plugin.notification.local.promptForPermission();
+
+}, false);
+
 angular.module('ionicApp', ['ionic'])
 
 .config(function($stateProvider, $urlRouterProvider) {
@@ -30,6 +39,8 @@ angular.module('ionicApp', ['ionic'])
   var isGoogle = false;
   var g_id;
   var g_token;
+
+  window.setInterval(function() {getNudges()}, 10000);
 
   $scope.toggleLeft = function() {
     $ionicSideMenuDelegate.toggleLeft();
@@ -143,7 +154,7 @@ angular.module('ionicApp', ['ionic'])
       dataType: 'json'}
     ).done(function(data)
     {
-      window.plugin.notification.local.promptForPermission();
+      //window.plugin.notification.local.promptForPermission();
       if($scope.nudgesList.length < data.count)
       {
           if(window.hasOwnProperty('plugin')) {

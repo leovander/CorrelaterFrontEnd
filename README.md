@@ -1,24 +1,10 @@
-#Correlater
+#Corral - Team 5
+
 CECS 491A: Senior Project
 
 California State University, Long Beach
 
 Professor Mike Boctor
-
-##Tools
-- [Cordova](http://cordova.apache.org/) builds native mobile applications using HTML, CSS and Javascript
-  - Plugins Used:
-    - [Cordova Device Plugin](http://plugins.cordova.io/#/package/org.apache.cordova.device)
-    - [Cordova Network Information Plugin](http://plugins.cordova.io/#/package/org.apache.cordova.network-information)
-    - [Cordova Contacts Plugin](http://plugins.cordova.io/#/package/org.apache.cordova.contacts)
-    - [Cordova Notification Plugin](http://plugins.cordova.io/#/package/org.apache.cordova.dialogs)
-    - [Cordova Splashscreen Plugin](http://plugins.cordova.io/#/package/org.apache.cordova.splashscreen)
-    - [Cordova Vibration Plugin](http://plugins.cordova.io/#/package/org.apache.cordova.vibration)
-    - [Cordova Battery Plugin](http://plugins.cordova.io/#/package/org.apache.cordova.battery-status)
-    - [Push Notification Plugin](https://github.com/phonegap-build/PushPlugin) 
-- [Laravel](http://laravel.com/) for the backend API layer
-- [JQuery](http://jquery.com/) for easier DOM manipulation
-  - As well as [JQuery Mobile](http://jquerymobile.com/) for targeting mobile devices
 
 ##Team Members
 - Alex Bu [Email](mailto:atb91590@yahoo.com)

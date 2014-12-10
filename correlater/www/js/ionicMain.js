@@ -136,9 +136,9 @@ angular.module('ionicApp', ['ionic'])
       {
           if(window.hasOwnProperty('plugin')) {
             var newRequests = (data.count - $scope.requestsList.length);
-            var newNudgeMessage = 'You have ' + newRequests + ' new Nudge!';
+            var newNudgeMessage = 'You have ' + newRequests + ' new Request!';
             if(newRequests > 1) {
-              newNudgeMessage = 'You have ' + newRequests + ' new Nudges!';
+              newNudgeMessage = 'You have ' + newRequests + ' new Requests!';
             }
             window.plugin.notification.local.add({ message: newNudgeMessage});
           }

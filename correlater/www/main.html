@@ -59,16 +59,13 @@
                 <div class="badge badge-assertive requestBadge" ng-if="requestsList.length!=0">{{requestsList.length}}</div>
                 <a class="tab-item" href="#" ng-class="{true: 'active', false: ''}[getRightMenu()=='requests']" ng-click="showRequests();">
                   <i class="icon ion-android-inbox"></i>
-                  Test
                 </a>
                 <div class="badge badge-assertive nudgeBadge" ng-if="nudgesList.length!=0">{{nudgesList.length}}</div>
                 <a class="tab-item" href="#" ng-class="{true: 'active', false: ''}[getRightMenu()=='nudges']" ng-click="showNudges();">
                   <i class="icon ion-chatbubbles"></i>
-                  Favorites
                 </a>
                 <a class="tab-item" href="#" ng-class="{true: 'active', false: ''}[getRightMenu()=='friends']" ng-click="showFriends();">
                   <i class="icon ion-ios7-people"></i>
-                  Settings
                 </a>
               </div>
             </div>

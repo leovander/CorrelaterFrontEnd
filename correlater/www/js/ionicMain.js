@@ -38,7 +38,7 @@ angular.module('ionicApp', ['ionic'])
   var isFB = false;
   var isGoogle = false;
 
-  window.setInterval(function() {getNudges()}, 10000);
+  window.setInterval(function() {getMyInfo(); getRequests(); getNudges();}, 10000);
 
   $scope.toggleLeft = function() {
     $ionicSideMenuDelegate.toggleLeft();
@@ -62,7 +62,7 @@ angular.module('ionicApp', ['ionic'])
         $scope.$broadcast('scroll.refreshComplete');
     })
     .fail(function(data){
-      $ionicLoading.show({ template: 'Check network connection', noBackdrop: false, duration: 1000 });
+      // $ionicLoading.show({ template: 'Check network connection', noBackdrop: false, duration: 1000 });
     });
   }
 

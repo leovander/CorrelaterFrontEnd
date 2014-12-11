@@ -108,14 +108,8 @@
 	font-size: 18px;
 }
 
-#emptyRListItem, #emptyNListItem {
+#emptyRListItem, #emptyNListItem, #emptyFListItem {
 	height: 500px;
-	text-align: center;
-}
-
-#emptyFListItem {
-	height: 500px;
-	margin-top: -10%;
 	text-align: center;
 }
 

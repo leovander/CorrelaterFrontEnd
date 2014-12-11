@@ -70,7 +70,7 @@
               </div>
             </div>
           </ion-header-bar>
-          <ion-header-bar class="searchHead bar" ng-if="getRightMenu()=='friends'">
+          <ion-header-bar class="searchHead bar" ng-if="getRightMenu()=='friends'&&friendsList.length!=0">
             <label class="textInput item-input-wrapper">
               <i class="icon ion-search placeholder-icon" ng-class="{true: '',false: 'calm'}[!isSearchFriendEmpty()]"></i>
               <input id="searchFriend" ng-model="searchFriend" type="text" placeholder="Search through friends..." filter="search" value="">
@@ -78,7 +78,7 @@
             <button ng-if="isSearchFriendEmpty()" class="sizedButton button-icon ion-android-close calm" ng-click="clearSearchFriend();">
             </button>
           </ion-header-bar>
-          <ion-content class="content slideMenu" ng-class="{true:'has-subheader',false:''}[getRightMenu()=='friends']">
+          <ion-content class="content slideMenu" ng-class="{true:{true:'has-subheader',false:''}[friendsList.length!=0],false:''}[getRightMenu()=='friends']">
             <div ng-if="getRightMenu()=='requests'">
               <ion-refresher
                 disable-pulling-rotation="true"

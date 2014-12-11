@@ -8,6 +8,9 @@ California State University, Long Beach
 
 Professor Mike Boctor
 
+##Project Setup
+Follow [Cordova](http://cordova.apache.org/docs/en/4.0.0/guide_cli_index.md.html#The%20Command-Line%20Interface)'s command-line interface guide to install and setup the front-end to Corral.
+
 ##Team Members
 - Alex Bu [Email](mailto:atb91590@yahoo.com)
   - Android Developer

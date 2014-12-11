@@ -132,6 +132,18 @@ angular.module('ionicApp', ['ionic'])
         url: "http://e-wit.co.uk/correlater/user/getRequests",
         dataType: 'json'}
     ).done(function(data){
+	  if($scope.requestsList.length < data.count)
+      {
+          if(window.hasOwnProperty('plugin')) {
+            var newRequests = (data.count - $scope.requestsList.length);
+            var newNudgeMessage = 'You have ' + newRequests + ' new Request!';
+            if(newRequests > 1) {
+              newNudgeMessage = 'You have ' + newRequests + ' new Requests!';
+            }
+            window.plugin.notification.local.add({ message: newNudgeMessage});
+          }
+      }
+      
       $scope.requestsList = data.friends;
       $scope.$broadcast('scroll.refreshComplete');
     });
